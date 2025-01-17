@@ -6,6 +6,8 @@
 
 #include "yasf/object.hpp"
 
+#include "yasf/component.hpp"
+
 namespace yasf
 {
 
@@ -51,6 +53,25 @@ auto object::get_child(std::string_view name) -> object*
         m_children, [&](auto&& child) { return child->name() == name; });
 
     return found != m_children.end() ? found->get() : nullptr;
+}
+
+auto object::add_component(std::unique_ptr<component> component) -> bool
+{
+    if (!component) {
+        return false;
+    }
+
+    m_components.push_back(std::move(component));
+    return true;
+}
+
+auto object::get_component(std::string_view name) const -> component*
+{
+    const auto found = std::ranges::find_if(
+        m_components,
+        [&](auto&& component) { return component->name() == name; });
+
+    return found != m_components.end() ? found->get() : nullptr;
 }
 
 }  // namespace yasf

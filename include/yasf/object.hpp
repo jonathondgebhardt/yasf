@@ -5,6 +5,7 @@
 #include <string_view>
 #include <vector>
 
+#include "yasf/component.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
@@ -34,10 +35,15 @@ public:
 
     auto get_child(std::string_view name) -> object*;
 
+    auto add_component(std::unique_ptr<component> component) -> bool;
+
+    auto get_component(std::string_view name) const -> component*;
+
 private:
     YASF_SUPPRESS_C4251
     object* m_parent{nullptr};
     std::vector<std::unique_ptr<object>> m_children;
+    std::vector<std::unique_ptr<component>> m_components;
     std::string m_name;
 };
 

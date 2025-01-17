@@ -5,6 +5,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include "yasf/component.hpp"
+
 TEST_CASE("object: name", "[library]")
 {
     auto const obj = yasf::object{};
@@ -34,5 +36,24 @@ TEST_CASE("object: add_child", "[library]")
     SECTION("null child")
     {
         REQUIRE_FALSE(obj.add_child(nullptr));
+    }
+}
+
+TEST_CASE("object: add_component", "[library]")
+{
+    auto obj = yasf::object{};
+
+    SECTION("valid component")
+    {
+        // It's unfortunate that you lose access to the child once you add it to
+        // the parent. It's hard for me to test whether the child's parent got
+        // set.
+        auto component = std::make_unique<yasf::component>();
+        REQUIRE(obj.add_component(std::move(component)));
+    }
+
+    SECTION("null component")
+    {
+        REQUIRE_FALSE(obj.add_component(nullptr));
     }
 }
