@@ -9,8 +9,17 @@
 
 TEST_CASE("object: name", "[library]")
 {
-    auto const obj = yasf::object{};
-    REQUIRE(obj.name() == std::string("object"));
+    SECTION("default")
+    {
+        auto const obj = yasf::object{};
+        REQUIRE(obj.name() == std::string("object"));
+    }
+
+    SECTION("constructor")
+    {
+        auto const obj = yasf::object{"foo"};
+        REQUIRE(obj.name() == std::string("foo"));
+    }
 }
 
 TEST_CASE("object: set_name", "[library]")
@@ -55,5 +64,29 @@ TEST_CASE("object: add_component", "[library]")
     SECTION("null component")
     {
         REQUIRE_FALSE(obj.add_component(nullptr));
+    }
+}
+
+TEST_CASE("object: get_component", "[library]")
+{
+    auto obj = yasf::object{};
+
+    {
+        auto component = std::make_unique<yasf::component>();
+        component->set_name("some");
+        REQUIRE(obj.add_component(std::move(component)));
+    }
+
+    {
+        auto component = std::make_unique<yasf::component>();
+        component->set_name("other");
+        REQUIRE(obj.add_component(std::move(component)));
+    }
+
+    SECTION("valid component")
+    {
+        auto* comp = obj.get_component("some");
+        REQUIRE(comp);
+        REQUIRE(comp->name() == "some");
     }
 }

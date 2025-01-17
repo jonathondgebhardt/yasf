@@ -16,6 +16,11 @@ object::object()
 {
 }
 
+object::object(std::string name)
+    : m_name{std::move(name)}
+{
+}
+
 auto object::name() const -> std::string_view
 {
     return m_name;

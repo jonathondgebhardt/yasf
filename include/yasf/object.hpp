@@ -22,6 +22,8 @@ public:
      */
     object();
 
+    explicit object(std::string name);
+
     /**
      * @brief Returns a non-owning pointer to the string stored in this class
      */
