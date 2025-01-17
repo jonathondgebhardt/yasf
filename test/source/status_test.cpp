@@ -1,8 +1,11 @@
 #include <string>
+#include <utility>
 
 #include "yasf/status.hpp"
 
 #include <catch2/catch_test_macros.hpp>
+
+#include "yasf/object.hpp"
 
 TEST_CASE("status: name", "[library]")
 {
@@ -51,5 +54,18 @@ TEST_CASE("status: state", "[library]")
         auto status = yasf::status{};
         status.set_state(yasf::status::state::startup);
         REQUIRE(status.get_state() == yasf::status::state::startup);
+    }
+}
+
+TEST_CASE("status: object component", "[library]")
+{
+    auto obj = yasf::object{};
+    auto status = std::make_unique<yasf::status>();
+    REQUIRE(obj.add_component(std::move(status)));
+
+    SECTION("get_component")
+    {
+        auto* const child = obj.get_component("status");
+        REQUIRE(child != nullptr);
     }
 }
