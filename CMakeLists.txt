@@ -57,9 +57,6 @@ target_include_directories(
 
 target_compile_features(yasf_yasf PUBLIC cxx_std_23)
 
-find_package(fmt REQUIRED)
-target_link_libraries(yasf_yasf PRIVATE fmt::fmt)
-
 # ---- Install rules ----
 
 if(NOT CMAKE_SKIP_INSTALL_RULES)

@@ -1,11 +1,10 @@
 #include <string>
+#include <format>
 
 #include "yasf/yasf.hpp"
 
-#include <fmt/core.h>
-
 exported_class::exported_class()
-    : m_name {fmt::format("{}", "yasf")}
+    : m_name {std::format("{}", "yasf")}
 {
 }
 
