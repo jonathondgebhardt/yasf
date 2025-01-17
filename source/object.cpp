@@ -26,7 +26,7 @@ auto object::name() const -> std::string_view
     return m_name;
 }
 
-auto object::add_child(std::unique_ptr<object>&& child) -> bool
+auto object::add_child(std::unique_ptr<object> child) -> bool
 {
     if (!child) {
         return false;

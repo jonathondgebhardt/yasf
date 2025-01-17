@@ -27,7 +27,7 @@ public:
      */
     auto name() const -> std::string_view;
 
-    auto add_child(std::unique_ptr<object>&& child) -> bool;
+    auto add_child(std::unique_ptr<object> child) -> bool;
 
     auto parent() const -> object*;
 
