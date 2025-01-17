@@ -17,7 +17,7 @@ TEST_CASE("object: add_child", "[library]")
 {
     auto obj = yasf::object{};
 
-    SECTION("valid child")
+    SECTION("name")
     {
         REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
     }
@@ -26,13 +26,8 @@ TEST_CASE("object: add_child", "[library]")
     {
         REQUIRE_FALSE(obj.add_child(nullptr));
     }
-}
 
-TEST_CASE("object: add_child templated", "[library]")
-{
-    auto obj = yasf::object{};
-
-    SECTION("valid child")
+    SECTION("templated")
     {
         REQUIRE(obj.add_child<yasf::object>());
     }
@@ -43,20 +38,18 @@ TEST_CASE("object: get_child", "[library]")
     auto obj = yasf::object{};
     REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
 
-    SECTION("valid component")
+    SECTION("name")
     {
-        REQUIRE(obj.get_child("object") != nullptr);
+        auto* const child = obj.get_child("object");
+        REQUIRE(child != nullptr);
+        REQUIRE(child->parent() != nullptr);
     }
-}
 
-TEST_CASE("object: get_child templated", "[library]")
-{
-    auto obj = yasf::object{};
-    REQUIRE(obj.add_child<yasf::object>());
-
-    SECTION("valid component")
+    SECTION("templated")
     {
-        REQUIRE(obj.get_child<yasf::object>() != nullptr);
+        auto* const child = obj.get_child<yasf::object>();
+        REQUIRE(child != nullptr);
+        REQUIRE(child->parent() != nullptr);
     }
 }
 
