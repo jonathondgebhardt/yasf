@@ -18,6 +18,7 @@ include(cmake/variables.cmake)
 add_library(
     yasf_yasf
 	source/component.cpp
+	source/object_factory.cpp
 	source/status.cpp
 	source/uuid.cpp
     source/object.cpp
