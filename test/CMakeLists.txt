@@ -20,6 +20,7 @@ include(Catch)
 add_executable(
 	yasf_test
 	source/component_test.cpp
+	source/object_factory_test.cpp
 	source/object_test.cpp
 	source/status_test.cpp
 	source/uuid_test.cpp
