@@ -19,6 +19,7 @@ add_library(
     yasf_yasf
 	source/component.cpp
 	source/status.cpp
+	source/uuid.cpp
     source/object.cpp
 )
 add_library(yasf::yasf ALIAS yasf_yasf)
