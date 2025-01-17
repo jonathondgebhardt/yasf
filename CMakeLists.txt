@@ -18,7 +18,6 @@ include(cmake/variables.cmake)
 add_library(
     yasf_yasf
     source/object.cpp
-    source/yasf.cpp
 )
 add_library(yasf::yasf ALIAS yasf_yasf)
 
