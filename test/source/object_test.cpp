@@ -5,28 +5,34 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("Name is object", "[library]")
+TEST_CASE("object: name", "[library]")
 {
-    auto const exported = yasf::object{};
-    REQUIRE(exported.name() == std::string("object"));
+    auto const obj = yasf::object{};
+    REQUIRE(obj.name() == std::string("object"));
 }
 
-TEST_CASE("Set name is yasf", "[library]")
+TEST_CASE("object: set_name", "[library]")
 {
     auto obj = yasf::object{};
     obj.set_name("yasf");
     REQUIRE(obj.name() == std::string{"yasf"});
 }
 
-TEST_CASE("add_child valid child", "[library]")
+TEST_CASE("object: add_child", "[library]")
 {
-    const auto parent = std::make_unique<yasf::object>();
-    auto child = std::make_unique<yasf::object>();
-    REQUIRE(parent->add_child(std::move(child)));
-}
+    auto obj = yasf::object{};
 
-TEST_CASE("add_child null child", "[library]")
-{
-    const auto parent = std::make_unique<yasf::object>();
-    REQUIRE_FALSE(parent->add_child(nullptr));
+    SECTION("valid child")
+    {
+        // It's unfortunate that you lose access to the child once you add it to
+        // the parent. It's hard for me to test whether the child's parent got
+        // set.
+        auto child = std::make_unique<yasf::object>();
+        REQUIRE(obj.add_child(std::move(child)));
+    }
+
+    SECTION("null child")
+    {
+        REQUIRE_FALSE(obj.add_child(nullptr));
+    }
 }
