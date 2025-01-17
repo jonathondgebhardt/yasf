@@ -17,7 +17,11 @@ include(Catch)
 
 # ---- Tests ----
 
-add_executable(yasf_test source/yasf_test.cpp)
+add_executable(
+	yasf_test
+	source/object_test.cpp
+	source/yasf_test.cpp
+)
 target_link_libraries(
     yasf_test PRIVATE
     yasf::yasf
