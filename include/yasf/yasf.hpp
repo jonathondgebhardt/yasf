@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 
 #include "yasf/yasf_export.hpp"
 
@@ -62,7 +63,7 @@ public:
   /**
    * @brief Returns a non-owning pointer to the string stored in this class
    */
-  auto name() const -> char const*;
+  auto name() const -> std::string_view;
 
 private:
   YASF_SUPPRESS_C4251

@@ -1,5 +1,5 @@
-#include <string>
 #include <format>
+#include <string_view>
 
 #include "yasf/yasf.hpp"
 
@@ -8,7 +8,7 @@ exported_class::exported_class()
 {
 }
 
-auto exported_class::name() const -> char const*
+auto exported_class::name() const -> std::string_view
 {
-  return m_name.c_str();
+  return m_name;
 }
