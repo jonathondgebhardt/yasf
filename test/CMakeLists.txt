@@ -19,6 +19,7 @@ include(Catch)
 
 add_executable(
 	yasf_test
+	source/component_test.cpp
 	source/object_test.cpp
 )
 target_link_libraries(
