@@ -28,10 +28,6 @@ public:
      */
     status();
 
-    status(std::string name, state start_state);
-
-    explicit status(std::string name);
-
     explicit status(state start_state);
 
     auto get_state() const -> state;

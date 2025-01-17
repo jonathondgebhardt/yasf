@@ -17,7 +17,6 @@ auto object_factory::build() -> std::unique_ptr<object>
 
 auto object_factory::build_impl() -> std::unique_ptr<object>
 {
-    // TODO: add components/children
     auto obj = std::make_unique<object>();
     obj->add_component(std::make_unique<status>());
     obj->add_component(std::make_unique<uuid>());

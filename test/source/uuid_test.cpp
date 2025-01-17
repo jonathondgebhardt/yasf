@@ -1,6 +1,5 @@
 #include <memory>
 #include <string>
-#include <utility>
 
 #include "yasf/uuid.hpp"
 
@@ -23,8 +22,7 @@ TEST_CASE("uuid: uuid", "[library]")
 TEST_CASE("uuid: object component", "[library]")
 {
     auto obj = yasf::object{};
-    auto uuid = std::make_unique<yasf::uuid>();
-    REQUIRE(obj.add_component(std::move(uuid)));
+    REQUIRE(obj.add_component(std::make_unique<yasf::uuid>()));
 
     SECTION("get_component")
     {

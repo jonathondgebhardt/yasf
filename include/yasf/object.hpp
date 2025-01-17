@@ -22,14 +22,10 @@ public:
      */
     object();
 
-    explicit object(std::string name);
-
     /**
      * @brief Returns a non-owning pointer to the string stored in this class
      */
     auto name() const -> std::string_view;
-
-    auto set_name(std::string name) -> void;
 
     auto add_child(std::unique_ptr<object>&& child) -> bool;
 
@@ -40,6 +36,9 @@ public:
     auto add_component(std::unique_ptr<component> component) -> bool;
 
     auto get_component(std::string_view name) const -> component*;
+
+protected:
+    explicit object(std::string name);
 
 private:
     YASF_SUPPRESS_C4251

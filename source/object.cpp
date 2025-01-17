@@ -12,7 +12,7 @@ namespace yasf
 {
 
 object::object()
-    : m_name{"object"}
+    : object("object")
 {
 }
 
@@ -24,11 +24,6 @@ object::object(std::string name)
 auto object::name() const -> std::string_view
 {
     return m_name;
-}
-
-auto object::set_name(std::string name) -> void
-{
-    m_name = std::move(name);
 }
 
 auto object::add_child(std::unique_ptr<object>&& child) -> bool

@@ -19,14 +19,13 @@ public:
      */
     component();
 
-    explicit component(std::string name);
-
     /**
      * @brief Returns a non-owning pointer to the string stored in this class
      */
     auto name() const -> std::string_view;
 
-    auto set_name(std::string name) -> void;
+protected:
+    explicit component(std::string name);
 
 private:
     YASF_SUPPRESS_C4251
