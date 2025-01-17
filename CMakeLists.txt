@@ -59,6 +59,9 @@ target_include_directories(
 
 target_compile_features(yasf_yasf PUBLIC cxx_std_23)
 
+find_package(Boost REQUIRED COMPONENTS uuid)
+target_link_libraries(yasf_yasf PRIVATE Boost::uuid)
+
 # ---- Install rules ----
 
 if(NOT CMAKE_SKIP_INSTALL_RULES)

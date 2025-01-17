@@ -1,6 +1,11 @@
 {
   "name": "yasf",
   "version-semver": "0.1.0",
+  "dependencies": [
+	{
+		"name": "boost-uuid"
+	}
+  ],
   "default-features": [],
   "features": {
     "test": {
