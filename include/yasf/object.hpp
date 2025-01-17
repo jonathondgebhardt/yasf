@@ -21,6 +21,13 @@ public:
      * @brief Initializes the name field to the name of the project
      */
     object();
+    object(const object&) = default;
+    object(object&&) noexcept = default;
+
+    virtual ~object() = default;
+
+    auto operator=(const object&) -> object& = default;
+    auto operator=(object&&) noexcept -> object& = default;
 
     /**
      * @brief Returns a non-owning pointer to the string stored in this class

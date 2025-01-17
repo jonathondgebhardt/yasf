@@ -18,6 +18,13 @@ public:
      * @brief Initializes the name field to the name of the project
      */
     component();
+    component(const component&) = default;
+    component(component&&) noexcept = default;
+
+    virtual ~component() = default;
+
+    auto operator=(const component&) -> component& = default;
+    auto operator=(component&&) noexcept -> component& = default;
 
     /**
      * @brief Returns a non-owning pointer to the string stored in this class
