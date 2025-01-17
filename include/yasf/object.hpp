@@ -12,15 +12,16 @@ namespace yasf
 {
 
 /**
- * @brief Reports the name of the library
+ * @brief The base class of something in a simulation.
  */
 class YASF_EXPORT object
 {
 public:
     /**
-     * @brief Initializes the name field to the name of the project
+     * @brief Sets name.
      */
     object();
+
     object(const object&) = default;
     object(object&&) noexcept = default;
 
@@ -30,12 +31,24 @@ public:
     auto operator=(object&&) noexcept -> object& = default;
 
     /**
-     * @brief Returns a non-owning pointer to the string stored in this class
+     * @brief Returns the name of this object.
      */
     auto name() const -> std::string_view;
 
+    /**
+     * @brief Gets the parent of this object.
+     * @detail If this object is not a child of another object, parent will be
+     * null.
+     */
     auto parent() const -> object*;
 
+    /**
+     * @brief Adds the child to this object.
+     * @detail If child is null, this function returns false.
+     * @detail If the child already has a parent, this function returns null.
+     * @param child The child to add.
+     * @return Whether the child was added.
+     */
     auto add_child(std::unique_ptr<object> child) -> bool;
 
     template<typename T>
