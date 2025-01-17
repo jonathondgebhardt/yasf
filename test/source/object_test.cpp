@@ -31,6 +31,17 @@ TEST_CASE("object: add_child", "[library]")
     }
 }
 
+TEST_CASE("object: get_child", "[library]")
+{
+    auto obj = yasf::object{};
+    REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
+
+    SECTION("valid component")
+    {
+        REQUIRE(obj.get_child("object") != nullptr);
+    }
+}
+
 TEST_CASE("object: add_component", "[library]")
 {
     auto obj = yasf::object{};
