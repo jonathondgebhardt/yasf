@@ -49,6 +49,19 @@ public:
 
     auto get_child(std::string_view name) -> object*;
 
+    template<typename T>
+    auto get_child() -> T*
+        requires std::is_base_of_v<object, T>
+    {
+        const auto found = std::ranges::find_if(
+            m_children,
+            [](auto&& child)
+            { return dynamic_cast<T*>(child.get()) != nullptr; });
+
+        return found != m_children.end() ? dynamic_cast<T*>(found->get())
+                                         : nullptr;
+    }
+
     auto add_component(std::unique_ptr<component> component) -> bool;
 
     template<typename T>
@@ -61,6 +74,19 @@ public:
     }
 
     auto get_component(std::string_view name) const -> component*;
+
+    template<typename T>
+    auto get_component() -> T*
+        requires std::is_base_of_v<component, T>
+    {
+        const auto found = std::ranges::find_if(
+            m_components,
+            [](auto&& child)
+            { return dynamic_cast<T*>(child.get()) != nullptr; });
+
+        return found != m_components.end() ? dynamic_cast<T*>(found->get())
+                                           : nullptr;
+    }
 
 protected:
     explicit object(std::string name);

@@ -44,7 +44,7 @@ TEST_CASE("status: object component", "[library]")
 
     SECTION("get_component")
     {
-        auto* const child = obj.get_component("status");
+        auto* const child = obj.get_component<yasf::status>();
         REQUIRE(child != nullptr);
     }
 }

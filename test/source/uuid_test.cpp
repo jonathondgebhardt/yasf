@@ -25,7 +25,7 @@ TEST_CASE("uuid: object component", "[library]")
 
     SECTION("get_component")
     {
-        auto* const child = obj.get_component("uuid");
+        auto* const child = obj.get_component<yasf::uuid>();
         REQUIRE(child != nullptr);
     }
 }
