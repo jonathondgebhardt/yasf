@@ -19,15 +19,22 @@ TEST_CASE("object: add_child", "[library]")
 
     SECTION("valid child")
     {
-        // It's unfortunate that you lose access to the child once you add it to
-        // the parent. It's hard for me to test whether the child's parent got
-        // set.
         REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
     }
 
     SECTION("null child")
     {
         REQUIRE_FALSE(obj.add_child(nullptr));
+    }
+}
+
+TEST_CASE("object: add_child templated", "[library]")
+{
+    auto obj = yasf::object{};
+
+    SECTION("valid child")
+    {
+        REQUIRE(obj.add_child<yasf::object>());
     }
 }
 
@@ -57,6 +64,16 @@ TEST_CASE("object: add_component", "[library]")
     SECTION("null component")
     {
         REQUIRE_FALSE(obj.add_component(nullptr));
+    }
+}
+
+TEST_CASE("object: add_component templated", "[library]")
+{
+    auto obj = yasf::object{};
+
+    SECTION("valid component")
+    {
+        REQUIRE(obj.add_component<yasf::component>());
     }
 }
 

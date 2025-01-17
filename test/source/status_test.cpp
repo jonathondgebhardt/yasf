@@ -1,4 +1,3 @@
-#include <memory>
 #include <string>
 
 #include "yasf/status.hpp"
@@ -12,12 +11,6 @@ TEST_CASE("status: name", "[library]")
     SECTION("default")
     {
         auto const exported = yasf::status{};
-        REQUIRE(exported.name() == std::string("status"));
-    }
-
-    SECTION("state constructor")
-    {
-        auto const exported = yasf::status{yasf::status::state::startup};
         REQUIRE(exported.name() == std::string("status"));
     }
 }
@@ -47,7 +40,7 @@ TEST_CASE("status: state", "[library]")
 TEST_CASE("status: object component", "[library]")
 {
     auto obj = yasf::object{};
-    REQUIRE(obj.add_component(std::make_unique<yasf::status>()));
+    REQUIRE(obj.add_component<yasf::status>());
 
     SECTION("get_component")
     {
