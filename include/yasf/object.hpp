@@ -53,13 +53,28 @@ public:
     auto get_child() -> T*
         requires std::is_base_of_v<object, T>
     {
+        auto& container = m_children;
         const auto found = std::ranges::find_if(
-            m_children,
+            container,
             [](auto&& child)
             { return dynamic_cast<T*>(child.get()) != nullptr; });
 
-        return found != m_children.end() ? dynamic_cast<T*>(found->get())
-                                         : nullptr;
+        return found != container.end() ? dynamic_cast<T*>(found->get())
+                                        : nullptr;
+    }
+
+    auto remove_child(std::string_view name) -> bool;
+
+    template<typename T>
+    auto remove_child() -> bool
+        requires std::is_base_of_v<object, T>
+    {
+        auto& container = m_children;
+        const auto found =
+            std::erase_if(container,
+                          [](auto&& child)
+                          { return dynamic_cast<T*>(child.get()) != nullptr; });
+        return found != std::size_t{0};
     }
 
     auto add_component(std::unique_ptr<component> component) -> bool;
@@ -79,13 +94,28 @@ public:
     auto get_component() -> T*
         requires std::is_base_of_v<component, T>
     {
+        auto& container = m_components;
         const auto found = std::ranges::find_if(
-            m_components,
+            container,
             [](auto&& child)
             { return dynamic_cast<T*>(child.get()) != nullptr; });
 
-        return found != m_components.end() ? dynamic_cast<T*>(found->get())
-                                           : nullptr;
+        return found != container.end() ? dynamic_cast<T*>(found->get())
+                                        : nullptr;
+    }
+
+    auto remove_component(std::string_view name) -> bool;
+
+    template<typename T>
+    auto remove_component() -> bool
+        requires std::is_base_of_v<component, T>
+    {
+        auto& container = m_components;
+        const auto found =
+            std::erase_if(container,
+                          [](auto&& child)
+                          { return dynamic_cast<T*>(child.get()) != nullptr; });
+        return found != std::size_t{0};
     }
 
 protected:

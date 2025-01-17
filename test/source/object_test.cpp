@@ -60,11 +60,27 @@ TEST_CASE("object: get_child templated", "[library]")
     }
 }
 
+TEST_CASE("object: remove_child", "[library]")
+{
+    auto obj = yasf::object{};
+    REQUIRE(obj.add_child<yasf::object>());
+
+    SECTION("name")
+    {
+        REQUIRE(obj.remove_child("object"));
+    }
+
+    SECTION("templated")
+    {
+        REQUIRE(obj.remove_child<yasf::object>());
+    }
+}
+
 TEST_CASE("object: add_component", "[library]")
 {
     auto obj = yasf::object{};
 
-    SECTION("valid component")
+    SECTION("name")
     {
         REQUIRE(obj.add_component(std::make_unique<yasf::component>()));
     }
@@ -73,13 +89,8 @@ TEST_CASE("object: add_component", "[library]")
     {
         REQUIRE_FALSE(obj.add_component(nullptr));
     }
-}
 
-TEST_CASE("object: add_component templated", "[library]")
-{
-    auto obj = yasf::object{};
-
-    SECTION("valid component")
+    SECTION("templated")
     {
         REQUIRE(obj.add_component<yasf::component>());
     }
@@ -90,19 +101,29 @@ TEST_CASE("object: get_component", "[library]")
     auto obj = yasf::object{};
     REQUIRE(obj.add_component(std::make_unique<yasf::component>()));
 
-    SECTION("valid component")
+    SECTION("name")
     {
         REQUIRE(obj.get_component("component") != nullptr);
     }
-}
-
-TEST_CASE("object: get_component templated", "[library]")
-{
-    auto obj = yasf::object{};
-    REQUIRE(obj.add_component<yasf::component>());
 
     SECTION("valid component")
     {
         REQUIRE(obj.get_component<yasf::component>() != nullptr);
+    }
+}
+
+TEST_CASE("object: remove_component", "[library]")
+{
+    auto obj = yasf::object{};
+    REQUIRE(obj.add_component<yasf::component>());
+
+    SECTION("name")
+    {
+        REQUIRE(obj.remove_component("component"));
+    }
+
+    SECTION("templated")
+    {
+        REQUIRE(obj.remove_component<yasf::component>());
     }
 }

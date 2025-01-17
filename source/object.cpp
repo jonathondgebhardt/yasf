@@ -49,10 +49,19 @@ auto object::add_child(std::unique_ptr<object> child) -> bool
 
 auto object::get_child(std::string_view name) -> object*
 {
+    const auto& container = m_children;
     const auto found = std::ranges::find_if(
-        m_children, [&](auto&& child) { return child->name() == name; });
+        container, [&](auto&& child) { return child->name() == name; });
 
-    return found != m_children.end() ? found->get() : nullptr;
+    return found != container.end() ? found->get() : nullptr;
+}
+
+auto object::remove_child(std::string_view name) -> bool
+{
+    auto& container = m_children;
+    const auto found = std::erase_if(
+        container, [&](auto&& child) { return child->name() == name; });
+    return found != std::size_t{0};
 }
 
 auto object::add_component(std::unique_ptr<component> component) -> bool
@@ -67,11 +76,21 @@ auto object::add_component(std::unique_ptr<component> component) -> bool
 
 auto object::get_component(std::string_view name) const -> component*
 {
+    const auto& container = m_components;
     const auto found = std::ranges::find_if(
-        m_components,
-        [&](auto&& component) { return component->name() == name; });
+        container, [&](auto&& component) { return component->name() == name; });
 
-    return found != m_components.end() ? found->get() : nullptr;
+    return found != container.end() ? found->get() : nullptr;
+}
+
+auto object::remove_component(std::string_view name) -> bool
+{
+    auto& container = m_components;
+    const auto found = std::erase_if(
+        container, [&](auto&& child) { return child->name() == name; });
+    return found != std::size_t{0};
+
+    return false;
 }
 
 }  // namespace yasf
