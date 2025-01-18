@@ -187,7 +187,7 @@ public:
 
     constexpr auto zero() -> void { m_data = {}; }
 
-    constexpr auto is_zero() -> bool
+    constexpr auto is_zero() const -> bool
     {
         return yasf::math::double_eq(m_data[0], 0.0)
             && yasf::math::double_eq(m_data[1], 0.0)
