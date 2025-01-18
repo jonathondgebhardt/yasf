@@ -53,6 +53,27 @@ TEST_CASE("object: get_child", "[library]")
     }
 }
 
+TEST_CASE("object: parent", "[library]")
+{
+    auto obj = yasf::object{};
+
+    SECTION("take by value")
+    {
+        REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
+        auto const* child = obj.get_child("object");
+        REQUIRE(child != nullptr);
+        REQUIRE(child->parent() != nullptr);
+    }
+
+    SECTION("templated")
+    {
+        REQUIRE(obj.add_child<yasf::object>());
+        auto const* child = obj.get_child("object");
+        REQUIRE(child != nullptr);
+        REQUIRE(child->parent() != nullptr);
+    }
+}
+
 TEST_CASE("object: remove_child", "[library]")
 {
     auto obj = yasf::object{};
