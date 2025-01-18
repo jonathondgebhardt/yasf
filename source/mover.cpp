@@ -1,5 +1,3 @@
-#include <cstdint>
-
 #include "yasf/mover.hpp"
 
 #include "yasf/object.hpp"
@@ -30,9 +28,7 @@ auto mover::process() -> void
         return;
     }
 
-    // TODO: consider time. assume 1 second intervals for now.
-    // TODO: decide on time unit. assume seconds for now.
-    constexpr auto delta_time = std::uint64_t{1};
+    auto const delta_time = m_clock.delta();
 
     auto pos_vec = pos->get();
     auto const vel_vec = vel->get();

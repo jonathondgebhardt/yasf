@@ -1,5 +1,6 @@
 #pragma once
 
+#include "yasf/clock.hpp"
 #include "yasf/object.hpp"
 #include "yasf/yasf_export.hpp"
 
@@ -15,6 +16,7 @@ public:
 
 private:
     object* m_root{};
+    clock m_clock{1.0};
 };
 
 }  // namespace yasf
