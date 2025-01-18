@@ -1,10 +1,17 @@
 #include "yasf/clock.hpp"
 
+#include "yasf/object.hpp"
 #include "yasf/time_updater.hpp"
 #include "yasf/types.hpp"
 
 namespace yasf
 {
+
+clock::clock(time_sec delta)
+    : object("clock")
+    , m_delta{delta}
+{
+}
 
 auto clock::tick() -> void
 {

@@ -1,18 +1,16 @@
 #pragma once
 
+#include "yasf/object.hpp"
 #include "yasf/types.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
 {
 
-class YASF_EXPORT clock
+class YASF_EXPORT clock : public object
 {
 public:
-    explicit clock(time_sec delta)
-        : m_delta{delta}
-    {
-    }
+    explicit clock(time_sec delta);
 
     auto tick() -> void;
 
