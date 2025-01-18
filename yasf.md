@@ -50,3 +50,17 @@ Pseudo-code:
 
 ## Classes that require time
 I've implemented a basic `mover` that moves an `entity` given it's `position`, `velocity` and delta time. The time is currently hard-coded. I need to design a clock. Maybe for now, I'll just bake a clock into `mover` and extract it when the time comes.
+
+## Simulation tree
+I guess it's that time: design the layout of the tree.
+
+├──
+│
+└──
+
+`simulation`: `object`
+├── children
+│     └── root of `entity`s: `object`
+│     └── root of processors: `object`
+├── components
+│     └── `clock`
