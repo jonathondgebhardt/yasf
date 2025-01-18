@@ -22,6 +22,7 @@ add_library(
 	source/status.cpp
 	source/uuid.cpp
     source/entity.cpp
+    source/entity_factory.cpp
     source/object.cpp
 )
 add_library(yasf::yasf ALIAS yasf_yasf)
