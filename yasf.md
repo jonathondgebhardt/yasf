@@ -12,3 +12,6 @@
 ## Objects
 - Built via Factory/Builder.
 - On the fence about `Impl`.
+
+## End goal
+- Recreate WSU parking lot simulator
