@@ -19,6 +19,7 @@ include(Catch)
 
 add_executable(
 	yasf_test
+	source/clock_test.cpp
 	source/component_test.cpp
 	source/convert_test.cpp
 	source/entity_factory_test.cpp
