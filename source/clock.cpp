@@ -1,13 +1,21 @@
 #include "yasf/clock.hpp"
 
-#include "yasf/convert.hpp"
+#include "yasf/time_updater.hpp"
+#include "yasf/types.hpp"
 
 namespace yasf
 {
 
 auto clock::tick() -> void
 {
-    m_time += convert::sec_to_usec(m_delta);
+    auto* const updater = get_component<time_updater>();
+    if (updater == nullptr) {
+        return;
+    }
+
+    // TODO: although updater doesn't care what our implementation is, there's a
+    // coupling here. can i make this more generic?
+    m_time = updater->next_time(m_time, m_delta);
 }
 
 }  // namespace yasf
