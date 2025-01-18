@@ -12,7 +12,9 @@ namespace yasf
 {
 
 /**
- * @brief The base class of something in a simulation.
+ * @brief The basic building block of a simulation.
+ *
+ * An object can have child objects and components.
  */
 class YASF_EXPORT object
 {
@@ -56,8 +58,7 @@ public:
         requires std::is_base_of_v<object, T>
     {
         // TODO: make sure there's only one T?
-        m_children.push_back(std::make_unique<T>());
-        return true;
+        return add_child(std::make_unique<T>());
     }
 
     auto get_child(std::string_view name) -> object*;
