@@ -20,14 +20,15 @@ include(Catch)
 add_executable(
 	yasf_test
 	source/component_test.cpp
+	source/entity_factory_test.cpp
+	source/entity_test.cpp
 	source/object_factory_test.cpp
 	source/object_test.cpp
+	source/position_test.cpp
 	source/status_test.cpp
 	source/uuid_test.cpp
 	source/vec3d_test.cpp
-	source/position_test.cpp
-	source/entity_test.cpp
-	source/entity_factory_test.cpp
+	source/velocity_test.cpp
 )
 target_link_libraries(
     yasf_test PRIVATE
