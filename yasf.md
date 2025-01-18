@@ -38,12 +38,15 @@ Perhaps there could be a `component` that enables tracking the history of member
 ## object/component naming convention
 Perhaps I should use a naming convention for these classes. 
 ### Ideas
-- `oobject`, `ccomponent`
-- `o_object`, `c_component`
-- `object_object`, `component_component`
+- `oentity`, `cposition`
+- `o_entity`, `c_position`
+- `object_entity`, `component_postion`
 
 ## Classes that work on `component`
 I think my first major step towards a simulation is adding a class that moves an `entity`. Until I nail down how the tree looks, I'll just add a class that takes a root `object` and updates it's `position` `component`.
 
 Pseudo-code:
 - position += velocity * delta_time
+
+## Classes that require time
+I've implemented a basic `mover` that moves an `entity` given it's `position`, `velocity` and delta time. The time is currently hard-coded. I need to design a clock. Maybe for now, I'll just bake a clock into `mover` and extract it when the time comes.
