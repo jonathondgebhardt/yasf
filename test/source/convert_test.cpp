@@ -8,7 +8,7 @@
 
 TEST_CASE("sec_to_us: zero seconds", "[convert]")
 {
-    REQUIRE(yasf::convert::sec_to_usec(0.0) == yasf::time_us{0});
+    REQUIRE(yasf::convert::sec_to_usec(0.0) == yasf::time_usec{0});
 }
 
 TEST_CASE("sec_to_us: one second", "[convert]")

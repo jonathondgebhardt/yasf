@@ -16,7 +16,7 @@ public:
 
     auto tick() -> void;
 
-    auto time() const -> time_us { return m_time; }
+    auto time() const -> time_usec { return m_time; }
 
     auto set_delta(time_sec delta) { m_delta = delta; }
 
@@ -24,7 +24,7 @@ public:
 
 private:
     YASF_SUPPRESS_C4251
-    time_us m_time{};
+    time_usec m_time{};
     time_sec m_delta{};
 };
 
