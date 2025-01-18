@@ -8,6 +8,8 @@
 namespace yasf
 {
 
+class object;
+
 /**
  * @brief Reports the name of the library
  */
@@ -31,12 +33,19 @@ public:
      */
     auto name() const -> std::string_view;
 
+    auto parent() const -> object*;
+
 protected:
     explicit component(std::string name);
 
 private:
     YASF_SUPPRESS_C4251
     std::string m_name;
+    object* m_parent{};
+
+    // Allows object to set m_parent.
+    // TODO: should i just add set_parent?
+    friend class object;
 };
 
 }  // namespace yasf

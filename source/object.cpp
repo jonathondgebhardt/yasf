@@ -71,6 +71,12 @@ auto object::add_component(std::unique_ptr<component> component) -> bool
         return false;
     }
 
+    if (component->parent() != nullptr) {
+        return false;
+    }
+
+    component->m_parent = this;
+
     m_components.push_back(std::move(component));
     return true;
 }

@@ -98,8 +98,7 @@ public:
         requires std::is_base_of_v<component, T>
     {
         // TODO: make sure there's only one T?
-        m_components.push_back(std::make_unique<T>());
-        return true;
+        return add_component(std::make_unique<T>());
     }
 
     auto get_component(std::string_view name) const -> component*;
