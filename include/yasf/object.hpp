@@ -91,6 +91,14 @@ public:
         return found != std::size_t{0};
     }
 
+    /**
+     * @brief Adds the component to this object.
+     * @detail If component is null, this function returns false.
+     * @detail If the component already has a parent, this function returns
+     * null.
+     * @param component The component to add.
+     * @return Whether the component was added.
+     */
     auto add_component(std::unique_ptr<component> component) -> bool;
 
     template<typename T>

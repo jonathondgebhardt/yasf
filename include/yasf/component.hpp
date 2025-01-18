@@ -11,13 +11,15 @@ namespace yasf
 class object;
 
 /**
- * @brief Reports the name of the library
+ * @brief Provides behaviors or capabilities to `object`s.
+ *
+ * For example, if an `object` has a `position` `component`, it can move.
  */
 class YASF_EXPORT component
 {
 public:
     /**
-     * @brief Initializes the name field to the name of the project
+     * @brief Initializes the name of this component to 'component'.
      */
     component();
     component(const component&) = default;
@@ -29,13 +31,23 @@ public:
     auto operator=(component&&) noexcept -> component& = default;
 
     /**
-     * @brief Returns a non-owning pointer to the string stored in this class
+     * @brief Returns a view to the name of this class.
      */
     auto name() const -> std::string_view;
 
+    /**
+     * @brief Returns the parent.
+     * @detail If this `component` was not add to an `object`, this function
+     * will return null.
+     * @return The parent.
+     */
     auto parent() const -> object*;
 
 protected:
+    /**
+     * @brief Initializes the name of this component.
+     * @name The value to set on name.
+     */
     explicit component(std::string name);
 
 private:
