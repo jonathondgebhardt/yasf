@@ -17,7 +17,13 @@ public:
      * @brief Initializes the name field to the name of the project
      */
     position()
+        : component{"position"}
+    {
+    }
+
+    explicit position(vec3d vec)
         : component("position")
+        , m_vec{vec}
     {
     }
 

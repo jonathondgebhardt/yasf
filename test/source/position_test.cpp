@@ -9,6 +9,12 @@ TEST_CASE("position: default")
     REQUIRE(vec.is_zero());
 }
 
+TEST_CASE("position: parameterized ctor")
+{
+    const auto pos = yasf::position{yasf::vec3d{1.0, 2.0, 3.0}};
+    REQUIRE(pos.get() == yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+}
+
 TEST_CASE("position: set and get")
 {
     auto pos = yasf::position{};
