@@ -24,6 +24,7 @@ add_executable(
 	source/object_test.cpp
 	source/status_test.cpp
 	source/uuid_test.cpp
+	source/vec3d_test.cpp
 )
 target_link_libraries(
     yasf_test PRIVATE
