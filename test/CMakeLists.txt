@@ -22,6 +22,7 @@ add_executable(
 	source/component_test.cpp
 	source/entity_factory_test.cpp
 	source/entity_test.cpp
+	source/mover_test.cpp
 	source/object_factory_test.cpp
 	source/object_test.cpp
 	source/position_test.cpp
