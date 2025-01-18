@@ -18,15 +18,16 @@ include(cmake/variables.cmake)
 add_library(
 	yasf_yasf
 	source/clock.cpp
+	source/clock_factory.cpp
 	source/component.cpp
+	source/entity.cpp
+	source/entity_factory.cpp
 	source/fixed_time_updater.cpp
 	source/mover.cpp
+	source/object.cpp
 	source/object_factory.cpp
 	source/status.cpp
 	source/uuid.cpp
-	source/entity.cpp
-	source/entity_factory.cpp
-	source/object.cpp
 )
 add_library(yasf::yasf ALIAS yasf_yasf)
 
