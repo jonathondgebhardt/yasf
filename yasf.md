@@ -33,7 +33,7 @@ I dislike how add_child/add_component invalidates your handle to the child you a
 Should uuid be an inherent part of object?
 
 ## History tracking
-Perhaps there could be a `component` that enables tracking the history of members. Some object could collect these `component`s and records the value of members. This would cleanly seperate the "results" from the "configuration". Should I try to make this generic or should I provide an implementation for each "tracker"?
+Perhaps there could be a `component` that enables tracking the history of members. Some object could collect these `component`s and records the value of members. This would cleanly separate the "results" from the "configuration". Should I try to make this generic or should I provide an implementation for each "tracker"?
 
 ## object/component naming convention
 Perhaps I should use a naming convention for these classes. 
