@@ -24,4 +24,26 @@ I was missing a couple python packages: `jinja2` and `pygments`. Even after inst
 ### CMakeUserPresets.json
 This file contains the "dev" builds and is not tracked by the repo. If I clone the repo on another machine for development, I don't have the dev presets. I had to run cmake-init on an empty project to grab the user presets.
 ### Special features
-cmake-init adds a lot of cool builds like ci, coverage, thread sanitization, but I don't know how to take advantage of these features. See HACKING.md for documentation on how to use these features.
+cmake-init adds a lot of cool builds like ci, coverage, thread sanitization, but I don't know how to take advantage of these features. See HACKING.md for documentation on how to use these features. After reading this, I still don't know how to use the features.
+
+## object 
+I dislike how add_child/add_component invalidates your handle to the child you add. Perhaps add_child/add_component could return a handle on success.
+
+## uuid
+Should uuid be an inherent part of object?
+
+## History tracking
+Perhaps there could be a `component` that enables tracking the history of members. Some object could collect these `component`s and records the value of members. This would cleanly seperate the "results" from the "configuration". Should I try to make this generic or should I provide an implementation for each "tracker"?
+
+## object/component naming convention
+Perhaps I should use a naming convention for these classes. 
+### Ideas
+- `oobject`, `ccomponent`
+- `o_object`, `c_component`
+- `object_object`, `component_component`
+
+## Classes that work on `component`
+I think my first major step towards a simulation is adding a class that moves an `entity`. Until I nail down how the tree looks, I'll just add a class that takes a root `object` and updates it's `position` `component`.
+
+Pseudo-code:
+- position += velocity * delta_time
