@@ -20,6 +20,7 @@ include(Catch)
 add_executable(
 	yasf_test
 	source/component_test.cpp
+	source/convert_test.cpp
 	source/entity_factory_test.cpp
 	source/entity_test.cpp
 	source/mover_test.cpp
