@@ -17,6 +17,7 @@ include(cmake/variables.cmake)
 
 add_library(
     yasf_yasf
+	source/clock.cpp
 	source/component.cpp
 	source/mover.cpp
 	source/object_factory.cpp
