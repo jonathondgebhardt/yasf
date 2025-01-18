@@ -16,6 +16,8 @@ public:
 
 private:
     object* m_root{};
+
+    // TODO: don't have this as a member
     clock m_clock{1.0};
 };
 
