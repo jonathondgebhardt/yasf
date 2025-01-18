@@ -204,7 +204,7 @@ public:
 
 private:
     YASF_SUPPRESS_C4251
-    std::array<double, 3> m_data;
+    std::array<double, 3> m_data{};
 };
 
 }  // namespace yasf
