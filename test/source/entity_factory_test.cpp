@@ -24,4 +24,10 @@ TEST_CASE("entity_factory: build", "[library]")
         auto* position = obj->get_component("position");
         REQUIRE(position != nullptr);
     }
+
+    SECTION("has velocity")
+    {
+        auto* velocity = obj->get_component("velocity");
+        REQUIRE(velocity != nullptr);
+    }
 }
