@@ -7,7 +7,7 @@ namespace yasf
 {
 
 /**
- * @brief
+ * @brief An object that takes part in a simulation.
  */
 class YASF_EXPORT entity : public object
 {
