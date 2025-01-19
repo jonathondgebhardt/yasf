@@ -2,7 +2,7 @@
 
 #include "yasf/clock.hpp"
 #include "yasf/ensure.hpp"
-#include "yasf/object.hpp"
+#include "yasf/entity.hpp"
 #include "yasf/position.hpp"
 #include "yasf/velocity.hpp"
 
@@ -11,21 +11,29 @@ namespace yasf
 
 auto mover::process() -> void
 {
-    if (m_root == nullptr) {
+    auto* const service = get_entity_service();
+    ensure(service != nullptr, "failed to get entity_service");
+
+    auto* const clock = get_clock();
+    yasf::ensure(clock != nullptr, "failed to access clock");
+
+    // TODO: get all entities
+    // use Visitor pattern?
+    auto* lentity = service->get_child<entity>();
+    if (lentity == nullptr) {
         return;
     }
 
-    auto* pos = m_root->get_component<yasf::position>();
+    auto* pos = lentity->get_component<yasf::position>();
     if (pos == nullptr) {
         return;
     }
 
-    auto* const vel = m_root->get_component<yasf::velocity>();
+    auto* const vel = lentity->get_component<yasf::velocity>();
     if (vel == nullptr) {
         return;
     }
 
-    yasf::ensure(m_clock != nullptr, "failed to access clock");
     auto const delta_time = m_clock->delta_sec();
 
     auto pos_vec = pos->get();
