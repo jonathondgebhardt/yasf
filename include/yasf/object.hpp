@@ -11,6 +11,7 @@
 namespace yasf
 {
 
+class object_visitor;
 /**
  * @brief The basic building block of a simulation.
  *
@@ -139,6 +140,7 @@ public:
         return found != std::size_t{0};
     }
 
+    auto accept(object_visitor& visitor) -> void;
 protected:
     explicit object(std::string name);
 

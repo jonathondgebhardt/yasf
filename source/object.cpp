@@ -8,6 +8,7 @@
 #include "yasf/object.hpp"
 
 #include "yasf/component.hpp"
+#include "yasf/visitor.hpp"
 
 namespace yasf
 {
@@ -98,6 +99,14 @@ auto object::remove_component(std::string_view name) -> bool
     return found != std::size_t{0};
 
     return false;
+}
+
+auto object::accept(object_visitor& visitor) -> void
+{
+    visitor.visit(this);
+
+    std::ranges::for_each(m_children,
+                          [&](auto&& child) { child->accept(visitor); });
 }
 
 }  // namespace yasf
