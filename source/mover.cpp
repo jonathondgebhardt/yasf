@@ -9,13 +9,13 @@
 namespace yasf
 {
 
-auto mover::process() -> void
+auto mover::update() -> void
 {
     auto* const service = get_entity_service();
     ensure(service != nullptr, "failed to get entity_service");
 
-    // TODO: get all entities
-    // use Visitor pattern?
+    // TODO: how do i know which entities to get? should they be tagged somehow?
+    // also, how do i get them? visitor pattern?
     move_entity(service->get_child<entity>());
 }
 
@@ -24,13 +24,13 @@ auto mover::move_entity(entity* entity) -> void
     auto* const clock = get_clock();
     yasf::ensure(clock != nullptr, "failed to access clock");
 
-    auto* pos = entity->get_component<yasf::position>();
-    if (pos == nullptr) {
+    auto* const vel = entity->get_component<yasf::velocity>();
+    if (vel == nullptr || vel->get().is_zero()) {
         return;
     }
 
-    auto* const vel = entity->get_component<yasf::velocity>();
-    if (vel == nullptr) {
+    auto* pos = entity->get_component<yasf::position>();
+    if (pos == nullptr) {
         return;
     }
 

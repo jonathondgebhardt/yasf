@@ -11,10 +11,7 @@ namespace yasf
 class processor : public object
 {
 public:
-    processor()
-        : object("processor")
-    {
-    }
+    virtual auto update() -> void = 0;
 
     auto get_simulation() const -> simulation*;
 
