@@ -27,7 +27,7 @@ struct time_cache_processor : public yasf::processor
 
 TEST_CASE("simulation: name is simulation", "[simulation]")
 {
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto const sim = yasf::simulation{std::make_unique<yasf::clock>()};
     CHECK(sim.name() == "simulation");
 }
 
