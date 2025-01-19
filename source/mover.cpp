@@ -1,16 +1,13 @@
 #include "yasf/mover.hpp"
 
+#include "yasf/clock.hpp"
+#include "yasf/ensure.hpp"
 #include "yasf/object.hpp"
 #include "yasf/position.hpp"
 #include "yasf/velocity.hpp"
 
 namespace yasf
 {
-
-auto mover::set_root(object* root) -> void
-{
-    m_root = root;
-}
 
 auto mover::process() -> void
 {
@@ -28,8 +25,8 @@ auto mover::process() -> void
         return;
     }
 
-    // TODO: get delta from clock
-    auto const delta_time = 1.0;
+    yasf::ensure(m_clock != nullptr, "failed to access clock");
+    auto const delta_time = m_clock->delta_sec();
 
     auto pos_vec = pos->get();
     auto const vel_vec = vel->get();

@@ -2,6 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include "yasf/clock_factory.hpp"
 #include "yasf/entity_factory.hpp"
 #include "yasf/math.hpp"
 #include "yasf/position.hpp"
@@ -22,6 +23,15 @@ TEST_CASE("mover: process")
     auto mover = yasf::mover{};
     mover.set_root(entity.get());
 
+    auto clock = yasf::clock_factory::build_fixed_update(1.0);
+
+    SECTION("throws without clock")
+    {
+        CHECK_THROWS(mover.process());
+    }
+
+    mover.set_clock(clock.get());
+
     SECTION("no movement")
     {
         REQUIRE(vel->get().is_zero());
@@ -38,6 +48,8 @@ TEST_CASE("mover: process")
 
         constexpr auto iterations = 10;
         for (auto i = 1; i <= iterations; ++i) {
+            clock->tick();
+
             mover.process();
             auto const pos_vec = pos->get();
             REQUIRE(yasf::math::double_eq(pos_vec.x(), x_vel * i));
@@ -52,6 +64,8 @@ TEST_CASE("mover: process")
 
         constexpr auto iterations = 10;
         for (auto i = 1; i <= iterations; ++i) {
+            clock->tick();
+
             mover.process();
             auto const pos_vec = pos->get();
             REQUIRE(yasf::math::double_eq(pos_vec.x(), x_vel * i));
@@ -68,6 +82,8 @@ TEST_CASE("mover: process")
 
         constexpr auto iterations = 10;
         for (auto i = 1; i <= iterations; ++i) {
+            clock->tick();
+
             mover.process();
             auto const pos_vec = pos->get();
             REQUIRE(yasf::math::double_eq(pos_vec.x(), x_vel * i));
