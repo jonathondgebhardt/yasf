@@ -22,9 +22,6 @@ public:
     auto operator=(object_visitor&&) noexcept -> object_visitor& = default;
 
     virtual auto visit(object* obj) -> void = 0;
-
-private:
-    YASF_SUPPRESS_C4251
 };
 
 class component;
@@ -41,9 +38,6 @@ public:
         -> component_visitor& = default;
 
     virtual auto visit(component* comp) -> void = 0;
-
-private:
-    YASF_SUPPRESS_C4251
 };
 
 }  // namespace yasf
