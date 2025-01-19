@@ -25,6 +25,7 @@ add_executable(
 	source/convert_test.cpp
 	source/ensure_test.cpp
 	source/entity_factory_test.cpp
+	source/entity_service_test.cpp
 	source/entity_test.cpp
 	source/fixed_time_updater_test.cpp
 	source/mover_test.cpp
