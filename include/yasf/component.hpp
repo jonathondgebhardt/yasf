@@ -9,6 +9,7 @@ namespace yasf
 {
 
 class object;
+class component_visitor;
 
 /**
  * @brief Provides behaviors or capabilities to `object`s.
@@ -42,6 +43,8 @@ public:
      * @return The parent.
      */
     auto parent() const -> object*;
+
+    auto accept(component_visitor& visitor) -> void;
 
 protected:
     /**

@@ -12,6 +12,8 @@ namespace yasf
 {
 
 class object_visitor;
+class component_visitor;
+
 /**
  * @brief The basic building block of a simulation.
  *
@@ -141,6 +143,8 @@ public:
     }
 
     auto accept(object_visitor& visitor) -> void;
+    auto accept(component_visitor& visitor) -> void;
+
 protected:
     explicit object(std::string name);
 

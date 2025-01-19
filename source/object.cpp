@@ -109,4 +109,13 @@ auto object::accept(object_visitor& visitor) -> void
                           [&](auto&& child) { child->accept(visitor); });
 }
 
+auto object::accept(component_visitor& visitor) -> void
+{
+    std::ranges::for_each(
+        m_components, [&](auto&& component) { component->accept(visitor); });
+
+    std::ranges::for_each(m_children,
+                          [&](auto&& child) { child->accept(visitor); });
+}
+
 }  // namespace yasf

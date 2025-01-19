@@ -4,6 +4,7 @@
 #include "yasf/component.hpp"
 
 #include "yasf/object.hpp"
+#include "yasf/visitor.hpp"
 
 namespace yasf
 {
@@ -26,6 +27,11 @@ auto component::name() const -> std::string_view
 auto component::parent() const -> object*
 {
     return m_parent;
+}
+
+auto component::accept(component_visitor& visitor) -> void
+{
+    visitor.visit(this);
 }
 
 }  // namespace yasf
