@@ -1,8 +1,6 @@
 #pragma once
 
 #include <cstdint>
-#include <string>
-#include <string_view>
 
 #include "yasf/component.hpp"
 #include "yasf/yasf_export.hpp"
@@ -10,9 +8,7 @@
 namespace yasf
 {
 
-/**
- * @brief Reports the name of the library
- */
+// TODO: should probably delete this class.
 class YASF_EXPORT status : public component
 {
 public:
