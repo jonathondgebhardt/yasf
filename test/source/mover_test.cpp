@@ -67,9 +67,8 @@ TEST_CASE_METHOD(mover_fixture, "mover: 1-d movement", "[processor]")
     REQUIRE(pos != nullptr);
 
     constexpr auto iterations = 10;
-    for (auto i = 1; i <= iterations; ++i) {
-        m_sim->get_clock()->tick();
-        m_mover->process();
+    for (auto i = 0; i < iterations; ++i) {
+        m_sim->update();
 
         auto const pos_vec = pos->get();
         CHECK(yasf::math::double_eq(pos_vec.x(), x_vel * i));
@@ -89,9 +88,8 @@ TEST_CASE_METHOD(mover_fixture, "mover: 2-d movement", "[processor]")
     REQUIRE(pos != nullptr);
 
     constexpr auto iterations = 10;
-    for (auto i = 1; i <= iterations; ++i) {
-        m_sim->get_clock()->tick();
-        m_mover->process();
+    for (auto i = 0; i < iterations; ++i) {
+        m_sim->update();
 
         auto const pos_vec = pos->get();
         CHECK(yasf::math::double_eq(pos_vec.x(), x_vel * i));
@@ -114,9 +112,8 @@ TEST_CASE_METHOD(mover_fixture, "mover: 3-d movement", "[processor]")
     REQUIRE(pos != nullptr);
 
     constexpr auto iterations = 10;
-    for (auto i = 1; i <= iterations; ++i) {
-        m_sim->get_clock()->tick();
-        m_mover->process();
+    for (auto i = 0; i < iterations; ++i) {
+        m_sim->update();
 
         auto const pos_vec = pos->get();
         CHECK(yasf::math::double_eq(pos_vec.x(), x_vel * i));
