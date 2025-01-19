@@ -15,11 +15,6 @@ class YASF_EXPORT entity_factory
 {
 public:
     static auto build() -> std::unique_ptr<entity>;
-
-private:
-    // TODO: hopefully i can read an entity's definition from a file or
-    // something
-    auto build_impl() -> std::unique_ptr<entity>;
 };
 
 }  // namespace yasf

@@ -15,11 +15,6 @@ class YASF_EXPORT object_factory
 {
 public:
     static auto build() -> std::unique_ptr<object>;
-
-private:
-    // TODO: hopefully i can read an object's definition from a file or
-    // something
-    auto build_impl() -> std::unique_ptr<object>;
 };
 
 }  // namespace yasf

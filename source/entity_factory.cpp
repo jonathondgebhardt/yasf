@@ -13,20 +13,14 @@ namespace yasf
 
 auto entity_factory::build() -> std::unique_ptr<entity>
 {
-    auto builder = entity_factory{};
-    return builder.build_impl();
-}
-
-auto entity_factory::build_impl() -> std::unique_ptr<entity>
-{
     // TODO: do i have to repeat myself? do i want to somehow reuse the object
     // factory?
-    auto obj = std::make_unique<entity>();
-    obj->add_component(std::make_unique<status>());
-    obj->add_component(std::make_unique<uuid>());
-    obj->add_component(std::make_unique<position>());
-    obj->add_component(std::make_unique<velocity>());
-    return obj;
+    auto ent = std::make_unique<entity>();
+    ent->add_component(std::make_unique<status>());
+    ent->add_component(std::make_unique<uuid>());
+    ent->add_component(std::make_unique<position>());
+    ent->add_component(std::make_unique<velocity>());
+    return ent;
 }
 
 }  // namespace yasf
