@@ -40,6 +40,21 @@ struct mover_fixture
     static constexpr auto m_delta_time{1.0};
 };
 
+TEST_CASE_METHOD(mover_fixture, "mover: no movement", "[processor]")
+{
+    auto* vel = m_entity->get_component<yasf::velocity>();
+    REQUIRE(vel != nullptr);
+    REQUIRE(vel->get().is_zero());
+
+    auto* pos = m_entity->get_component<yasf::position>();
+    REQUIRE(pos != nullptr);
+    const auto pos_vec = pos->get();
+
+    m_sim->update();
+
+    CHECK(pos->get() == pos_vec);
+}
+
 TEST_CASE_METHOD(mover_fixture, "mover: 1-d movement", "[processor]")
 {
     constexpr auto x_vel = 1.0;
