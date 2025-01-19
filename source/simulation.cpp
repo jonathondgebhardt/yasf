@@ -23,16 +23,15 @@ auto simulation::update() -> void
     // "zero-frame", where processors have a chance to do something before time
     // has advanced.
     auto* const psvc = get_child<processor_service>();
-    if (psvc == nullptr) {
+    if (psvc != nullptr) {
         // TODO: not sure if running a simulation without any processors makes
         // sense, but i'll allow it.
-        return;
-    }
 
-    // TODO: decide how to get all processors. i want to avoid allocating. use
-    // visitor pattern?
-    auto* proc = psvc->get_child<processor>();
-    proc->update();
+        // TODO: decide how to get all processors. i want to avoid allocating.
+        // use visitor pattern?
+        auto* proc = psvc->get_child<processor>();
+        proc->update();
+    }
 
     m_clock->tick();
 }
