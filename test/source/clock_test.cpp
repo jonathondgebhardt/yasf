@@ -4,40 +4,18 @@
 
 #include "yasf/clock_factory.hpp"
 #include "yasf/convert.hpp"
+#include "yasf/fixed_time_updater.hpp"
 #include "yasf/math.hpp"
 #include "yasf/types.hpp"
 
-TEST_CASE("delta", "[clock]")
-{
-    constexpr auto one_second_delta = yasf::time_sec{1.0};
-
-    SECTION("ctor")
-    {
-        auto clock = yasf::clock{one_second_delta};
-        REQUIRE(yasf::math::double_eq(clock.delta(), one_second_delta));
-    }
-
-    SECTION("setter")
-    {
-        auto clock = yasf::clock{0};
-        REQUIRE(yasf::math::double_eq(clock.delta(), 0.0));
-
-        clock.set_delta(one_second_delta);
-        REQUIRE(yasf::math::double_eq(clock.delta(), one_second_delta));
-    }
-}
-
 TEST_CASE("tick: no updater", "[clock]")
 {
-    constexpr auto delta = 1.0;
-    auto clock = yasf::clock{delta};
-    REQUIRE(yasf::math::double_eq(clock.delta(), delta));
-
+    auto clock = yasf::clock{};
     clock.tick();
     REQUIRE(clock.time() == 0);
 }
 
-TEST_CASE("tick: one second delta", "[clock]")
+TEST_CASE("tick: one second delta fixed", "[clock]")
 {
     auto clock = yasf::clock_factory::build_fixed_update(1.0);
 
@@ -48,19 +26,23 @@ TEST_CASE("tick: one second delta", "[clock]")
     }
 }
 
-TEST_CASE("tick: change delta", "[clock]")
+TEST_CASE("tick: change delta fixed", "[clock]")
 {
     constexpr auto one_second_delta = yasf::time_sec{1.0};
     auto clock = yasf::clock_factory::build_fixed_update(one_second_delta);
 
     clock->tick();
-    REQUIRE(clock->time() == yasf::convert::sec_to_usec(one_second_delta));
+    REQUIRE(yasf::math::double_eq(clock->time_sec(), one_second_delta));
+
+    auto* updater = clock->get_component<yasf::fixed_time_updater>();
+    REQUIRE(updater != nullptr);
 
     constexpr auto two_second_delta = yasf::time_sec{2.0};
-    clock->set_delta(two_second_delta);
-    auto const offset = clock->time();
+    updater->set_delta(two_second_delta);
+
+    auto const offset = clock->time_sec();
 
     clock->tick();
-    REQUIRE(clock->time()
-            == offset + yasf::convert::sec_to_usec(two_second_delta));
+    REQUIRE(
+        yasf::math::double_eq(clock->time_sec(), offset + two_second_delta));
 }

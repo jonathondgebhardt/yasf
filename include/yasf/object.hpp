@@ -53,12 +53,12 @@ public:
      */
     auto add_child(std::unique_ptr<object> child) -> bool;
 
-    template<typename T>
-    auto add_child() -> bool
+    template<typename T, typename... Args>
+    auto add_child(Args&&... args) -> bool
         requires std::is_base_of_v<object, T>
     {
         // TODO: make sure there's only one T?
-        return add_child(std::make_unique<T>());
+        return add_child(std::make_unique<T>(std::forward<Args>(args)...));
     }
 
     auto get_child(std::string_view name) -> object*;
@@ -101,12 +101,12 @@ public:
      */
     auto add_component(std::unique_ptr<component> component) -> bool;
 
-    template<typename T>
-    auto add_component() -> bool
+    template<typename T, typename... Args>
+    auto add_component(Args&&... args) -> bool
         requires std::is_base_of_v<component, T>
     {
         // TODO: make sure there's only one T?
-        return add_component(std::make_unique<T>());
+        return add_component(std::make_unique<T>(std::forward<Args>(args)...));
     }
 
     auto get_component(std::string_view name) const -> component*;

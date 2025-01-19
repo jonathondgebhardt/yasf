@@ -18,7 +18,9 @@
 
 ## cmake-init notes
 ### C++ version
-Doesn't support C++ > 20. Crashes if given c++23.
+Doesn't support > c++20. Crashes if given c++23.
+
+The workflows/ci.yml file is not prepared for > c++20 either.
 ### Building documentation
 I was missing a couple python packages: `jinja2` and `pygments`. Even after installing these, it throws an exception.
 ### CMakeUserPresets.json
@@ -48,19 +50,18 @@ I think my first major step towards a simulation is adding a class that moves an
 Pseudo-code:
 - position += velocity * delta_time
 
-## Classes that require time
-I've implemented a basic `mover` that moves an `entity` given it's `position`, `velocity` and delta time. The time is currently hard-coded. I need to design a clock. Maybe for now, I'll just bake a clock into `mover` and extract it when the time comes.
+## Supporting event based and cycle based clocks
+I might need to rethink `time_updater`. Perhaps `time_updater` should include the fixed time between ticks, if appropriate, and `clock` has current time and elapsed time since last tick. That way, our `mover` can still work with an event based updater. I think this would also work with a "real-time" simulation.
 
 ## Simulation tree
 I guess it's that time: design the layout of the tree.
 
-├──
-│
-└──
-
 `simulation`: `object`
-├── children
-│     └── root of `entity`s: `object`
-│     └── root of processors: `object`
-├── components
-│     └── `clock`
+    │
+    ├── children
+    │     ├── root of `entity`s: `object`
+    │     └── root of processors: `object`
+    └── components
+          └── `clock`
+
+At the moment, I can't think of any other high-level classes I'll need.

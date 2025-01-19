@@ -7,23 +7,45 @@
 namespace yasf
 {
 
+/**
+ * @brief The simulation clock.
+ * @detail Time is measured in microseconds.
+ */
 class YASF_EXPORT clock : public object
 {
 public:
-    explicit clock(time_sec delta);
+    /**
+     * @brief Sets name to 'clock'.
+     */
+    explicit clock();
 
+    /**
+     * @brief Updates the simulation time.
+     * @detail How the time is updated depends on the `time_updater` component.
+     */
     auto tick() -> void;
 
-    auto time() const -> time_usec { return m_time; }
+    /**
+     * @brief Get the current simulation time.
+     * @return The current simulation time in microseconds.
+     */
+    auto time() const -> time_usec;
 
-    auto set_delta(time_sec delta) { m_delta = delta; }
+    auto time_sec() const -> yasf::time_sec;
 
-    auto delta() const -> time_sec { return m_delta; }
+    /**
+     * @brief Get the amount of elapsed simulation time since the last tick.
+     * @return The amount of elapsed simulation time since the last tick in
+     * microseconds.
+     */
+    auto delta() const -> time_usec;
+
+    auto delta_sec() const -> yasf::time_sec;
 
 private:
     YASF_SUPPRESS_C4251
     time_usec m_time{};
-    time_sec m_delta{};
+    time_usec m_delta{};
 };
 
 }  // namespace yasf

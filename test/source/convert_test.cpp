@@ -23,6 +23,5 @@ TEST_CASE("us_to_sec: zero seconds", "[convert]")
 
 TEST_CASE("us_to_sec: one second", "[convert]")
 {
-    REQUIRE(yasf::math::double_eq(yasf::convert::usec_to_sec(1),
-                                  yasf::constants::usec_to_sec));
+    REQUIRE(yasf::math::double_eq(yasf::convert::usec_to_sec(1000000), 1.0));
 }

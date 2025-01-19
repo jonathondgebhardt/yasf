@@ -28,9 +28,8 @@ auto mover::process() -> void
         return;
     }
 
-    // FIXME: maybe should take a "time update" object including sim time and
-    // delta.
-    auto const delta_time = m_clock.delta();
+    // TODO: get delta from clock
+    auto const delta_time = 1.0;
 
     auto pos_vec = pos->get();
     auto const vel_vec = vel->get();
