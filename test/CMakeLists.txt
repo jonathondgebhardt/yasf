@@ -38,6 +38,7 @@ add_executable(
 	source/vec3d_test.cpp
 	source/velocity_test.cpp
 	source/processor_service_test.cpp
+	source/processor_test.cpp
 )
 target_link_libraries(
     yasf_test PRIVATE
