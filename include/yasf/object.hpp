@@ -61,13 +61,13 @@ public:
         return add_child(std::make_unique<T>(std::forward<Args>(args)...));
     }
 
-    auto get_child(std::string_view name) -> object*;
+    auto get_child(std::string_view name) const -> object*;
 
     template<typename T>
-    auto get_child() -> T*
+    auto get_child() const -> T*
         requires std::is_base_of_v<object, T>
     {
-        auto& container = m_children;
+        const auto& container = m_children;
         const auto found = std::ranges::find_if(
             container,
             [](auto&& child)
@@ -112,10 +112,10 @@ public:
     auto get_component(std::string_view name) const -> component*;
 
     template<typename T>
-    auto get_component() -> T*
+    auto get_component() const -> T*
         requires std::is_base_of_v<component, T>
     {
-        auto& container = m_components;
+        const auto& container = m_components;
         const auto found = std::ranges::find_if(
             container,
             [](auto&& child)

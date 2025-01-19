@@ -48,7 +48,7 @@ auto object::add_child(std::unique_ptr<object> child) -> bool
     return true;
 }
 
-auto object::get_child(std::string_view name) -> object*
+auto object::get_child(std::string_view name) const -> object*
 {
     const auto& container = m_children;
     const auto found = std::ranges::find_if(
