@@ -1,4 +1,10 @@
+#include <memory>
+#include <utility>
+
 #include "yasf/simulation.hpp"
+
+#include "yasf/clock.hpp"
+#include "yasf/object.hpp"
 
 namespace yasf
 {

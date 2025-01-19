@@ -4,6 +4,7 @@
 #include "yasf/ensure.hpp"
 #include "yasf/entity_service.hpp"
 #include "yasf/processor_service.hpp"
+#include "yasf/simulation.hpp"
 
 namespace yasf
 {
