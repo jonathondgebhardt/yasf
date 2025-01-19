@@ -9,11 +9,16 @@ namespace yasf
 
 /**
  * @brief The root of the simulation.
+ *
+ * This class owns the simulation clock, the entity_service, and the
+ * processor_service.
  */
 class YASF_EXPORT simulation : public object
 {
 public:
     explicit simulation(std::unique_ptr<clock> clock);
+
+    auto update() -> void;
 
     auto get_clock() const -> clock* { return m_clock.get(); }
 
