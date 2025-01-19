@@ -2,6 +2,7 @@
 
 #include "yasf/clock.hpp"
 #include "yasf/convert.hpp"
+#include "yasf/ensure.hpp"
 #include "yasf/time_updater.hpp"
 #include "yasf/types.hpp"
 
@@ -22,10 +23,8 @@ fixed_time_updater::fixed_time_updater(time_sec delta)
 auto fixed_time_updater::next_time() -> time_usec
 {
     auto const* parent_clock = dynamic_cast<clock*>(parent());
-    if (parent_clock == nullptr) {
-        // TODO: throw an exception
-    }
-
+    yasf::ensure(parent_clock != nullptr,
+                 "failed to get parent clock to calculate next time");
     return parent_clock->time() + m_delta;
 }
 
