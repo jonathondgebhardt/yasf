@@ -14,27 +14,27 @@ auto mover::process() -> void
     auto* const service = get_entity_service();
     ensure(service != nullptr, "failed to get entity_service");
 
+    // TODO: get all entities
+    // use Visitor pattern?
+    move_entity(service->get_child<entity>());
+}
+
+auto mover::move_entity(entity* entity) -> void
+{
     auto* const clock = get_clock();
     yasf::ensure(clock != nullptr, "failed to access clock");
 
-    // TODO: get all entities
-    // use Visitor pattern?
-    auto* lentity = service->get_child<entity>();
-    if (lentity == nullptr) {
-        return;
-    }
-
-    auto* pos = lentity->get_component<yasf::position>();
+    auto* pos = entity->get_component<yasf::position>();
     if (pos == nullptr) {
         return;
     }
 
-    auto* const vel = lentity->get_component<yasf::velocity>();
+    auto* const vel = entity->get_component<yasf::velocity>();
     if (vel == nullptr) {
         return;
     }
 
-    auto const delta_time = m_clock->delta_sec();
+    auto const delta_time = clock->delta_sec();
 
     auto pos_vec = pos->get();
     auto const vel_vec = vel->get();

@@ -7,6 +7,7 @@ namespace yasf
 {
 
 class clock;
+class entity;
 
 class YASF_EXPORT mover : public processor
 {
@@ -19,7 +20,7 @@ public:
     auto process() -> void;
 
 private:
-    clock* m_clock{};
+    auto move_entity(entity* entity) -> void;
 };
 
 }  // namespace yasf
