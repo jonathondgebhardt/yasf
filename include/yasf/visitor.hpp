@@ -27,4 +27,23 @@ private:
     YASF_SUPPRESS_C4251
 };
 
+class component;
+
+class YASF_EXPORT component_visitor
+{
+public:
+    component_visitor() = default;
+    component_visitor(const component_visitor&) = default;
+    component_visitor(component_visitor&&) noexcept = default;
+    virtual ~component_visitor() = default;
+    auto operator=(const component_visitor&) -> component_visitor& = default;
+    auto operator=(component_visitor&&) noexcept
+        -> component_visitor& = default;
+
+    virtual auto visit(component* comp) -> void = 0;
+
+private:
+    YASF_SUPPRESS_C4251
+};
+
 }  // namespace yasf
