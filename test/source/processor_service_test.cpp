@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "yasf/processor_service.hpp"
 
 #include <catch2/catch_test_macros.hpp>
