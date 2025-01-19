@@ -71,3 +71,70 @@ TEST_CASE("object_visitor", "[visitor]")
         CHECK(visitor.m_count == 2);
     }
 }
+
+struct component_counting_visitor : public yasf::component_visitor
+{
+    void visit([[maybe_unused]] yasf::component* comp) override { ++m_count; }
+
+    std::uint64_t m_count{};
+};
+
+TEST_CASE("component_visitor", "[visitor]")
+{
+    auto obj = yasf::object{};
+    auto visitor = component_counting_visitor{};
+
+    SECTION("no components")
+    {
+        obj.accept(visitor);
+        CHECK(visitor.m_count == 0);
+    }
+
+    REQUIRE(obj.add_component<yasf::component>());
+
+    SECTION("single component")
+    {
+        // object
+        // - component
+        obj.accept(visitor);
+        CHECK(visitor.m_count == 1);
+    }
+
+    REQUIRE(obj.add_component<yasf::component>());
+
+    SECTION("two components")
+    {
+        // object
+        // - component
+        // - component
+        obj.accept(visitor);
+        CHECK(visitor.m_count == 2);
+    }
+
+    REQUIRE(obj.add_child<yasf::object>());
+    auto* child = obj.get_child<yasf::object>();
+    REQUIRE(child != nullptr);
+
+    SECTION("child with no components")
+    {
+        // object
+        // - component
+        // - component
+        // - object
+        child->accept(visitor);
+        CHECK(visitor.m_count == 0);
+    }
+
+    REQUIRE(child->add_component<yasf::component>());
+
+    SECTION("deep components")
+    {
+        // object
+        // - component
+        // - component
+        // - object
+        //	  - component
+        obj.accept(visitor);
+        CHECK(visitor.m_count == 3);
+    }
+}
