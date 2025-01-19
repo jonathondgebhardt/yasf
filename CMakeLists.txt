@@ -26,6 +26,7 @@ add_library(
 	source/mover.cpp
 	source/object.cpp
 	source/object_factory.cpp
+	source/processor_service.cpp
 	source/status.cpp
 	source/uuid.cpp
 )
