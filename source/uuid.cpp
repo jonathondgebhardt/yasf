@@ -1,28 +1,24 @@
 #include <sstream>
-#include <string_view>
 
 #include "yasf/uuid.hpp"
 
 #include <boost/uuid/uuid_generators.hpp>  // NOLINT
 #include <boost/uuid/uuid_io.hpp>
 
-#include "yasf/component.hpp"
-
 namespace yasf
 {
 
 uuid::uuid()
-    : component("uuid")
+    : m_uuid(boost::uuids::random_generator()())
 {
-    auto const boost_uuid = boost::uuids::random_generator()();
     std::stringstream stream;
-    stream << boost_uuid;
-    m_uuid = stream.str();
+    stream << m_uuid;
+    m_uuid_str = stream.str();
 }
 
-auto uuid::get() const -> std::string_view
+auto uuid::operator==(const uuid& other) const -> bool
 {
-    return m_uuid;
+    return m_uuid == other.m_uuid;
 }
 
 }  // namespace yasf

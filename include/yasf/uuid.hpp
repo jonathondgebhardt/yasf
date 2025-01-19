@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
 #include <string_view>
 
-#include "yasf/component.hpp"
+#include <boost/uuid.hpp>
+
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
@@ -12,19 +12,21 @@ namespace yasf
 /**
  * @brief Reports the name of the library
  */
-class YASF_EXPORT uuid : public component
+class YASF_EXPORT uuid
 {
 public:
-    /**
-     * @brief Initializes the name field to the name of the project
-     */
     uuid();
 
-    auto get() const -> std::string_view;
+    auto operator==(const uuid& other) const -> bool;
+
+    auto get() const -> std::string_view { return m_uuid_str; }
+
+    auto empty() const -> bool { return m_uuid.is_nil(); }
 
 private:
     YASF_SUPPRESS_C4251
-    std::string m_uuid;
+    boost::uuids::uuid m_uuid;
+    std::string m_uuid_str;
 };
 
 }  // namespace yasf
