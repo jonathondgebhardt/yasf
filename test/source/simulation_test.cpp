@@ -25,6 +25,12 @@ struct time_cache_processor : public yasf::processor
     yasf::time_usec m_update_time{};
 };
 
+TEST_CASE("simulation: name is simulation", "[simulation]")
+{
+    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    CHECK(sim.name() == "simulation");
+}
+
 TEST_CASE("simulation: zero frame", "[simulation]")
 {
     constexpr auto delta_time = 1.0;
