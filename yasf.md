@@ -44,15 +44,6 @@ Perhaps I should use a naming convention for these classes.
 - `o_entity`, `c_position`
 - `object_entity`, `component_postion`
 
-## Classes that work on `component`
-I think my first major step towards a simulation is adding a class that moves an `entity`. Until I nail down how the tree looks, I'll just add a class that takes a root `object` and updates it's `position` `component`.
-
-Pseudo-code:
-- position += velocity * delta_time
-
-## Supporting event based and cycle based clocks
-I might need to rethink `time_updater`. Perhaps `time_updater` should include the fixed time between ticks, if appropriate, and `clock` has current time and elapsed time since last tick. That way, our `mover` can still work with an event based updater. I think this would also work with a "real-time" simulation.
-
 ## Simulation tree
 I guess it's that time: design the layout of the tree.
 
@@ -65,3 +56,9 @@ I guess it's that time: design the layout of the tree.
           └── `clock`
 
 At the moment, I can't think of any other high-level classes I'll need.
+
+## How to stop?
+I need to implement knowing when to stop.
+
+## Async
+I'm going to have to think about thread safety at some point, if I even want to support that.
