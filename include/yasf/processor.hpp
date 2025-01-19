@@ -11,6 +11,9 @@ namespace yasf
 class processor : public object
 {
 public:
+    processor() = default;
+
+    // TODO: add m_enabled and update_impl?
     virtual auto update() -> void = 0;
 
     auto get_simulation() const -> simulation*;
