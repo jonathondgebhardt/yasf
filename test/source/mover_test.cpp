@@ -21,6 +21,10 @@ struct mover_fixture
         auto clock = yasf::clock_factory::build_fixed_update(m_delta_time);
         m_sim = std::make_unique<yasf::simulation>(std::move(clock));
 
+        // TODO: once again, this is inconvenient. i'd like something like this:
+        // auto esvc = ...
+        // m_sim->add_child(esvc);
+        // esvc->add_child(...);
         m_sim->add_child<yasf::entity_service>();
         auto* esvc = m_sim->get_child<yasf::entity_service>();
 
