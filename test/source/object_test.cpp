@@ -13,6 +13,12 @@ TEST_CASE("object: name", "[library]")
     REQUIRE(obj.name() == std::string("object"));
 }
 
+TEST_CASE("object: uuid", "[library]")
+{
+    auto const obj = yasf::object{};
+    CHECK_FALSE(obj.uuid().empty());
+}
+
 TEST_CASE("object: add_child", "[library]")
 {
     auto obj = yasf::object{};
