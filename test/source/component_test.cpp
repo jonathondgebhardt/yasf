@@ -9,11 +9,14 @@
 
 TEST_CASE("component: name", "[library]")
 {
-    SECTION("default")
-    {
-        auto const component = yasf::component{};
-        REQUIRE(component.name() == std::string("component"));
-    }
+    auto const component = yasf::component{};
+    REQUIRE(component.name() == std::string("component"));
+}
+
+TEST_CASE("component: uuid", "[library]")
+{
+    auto const component = yasf::component{};
+    CHECK_FALSE(component.uuid().empty());
 }
 
 TEST_CASE("component: parent", "[library]")

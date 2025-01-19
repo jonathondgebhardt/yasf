@@ -23,16 +23,6 @@ object::object(std::string name)
 {
 }
 
-auto object::name() const -> std::string_view
-{
-    return m_name;
-}
-
-auto object::parent() const -> object*
-{
-    return m_parent;
-}
-
 auto object::add_child(std::unique_ptr<object> child) -> bool
 {
     if (!child) {

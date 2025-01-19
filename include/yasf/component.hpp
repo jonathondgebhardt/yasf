@@ -3,6 +3,7 @@
 #include <string>
 #include <string_view>
 
+#include "yasf/uuid.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
@@ -34,7 +35,9 @@ public:
     /**
      * @brief Returns a view to the name of this class.
      */
-    auto name() const -> std::string_view;
+    auto name() const -> std::string_view { return m_name; }
+
+    auto uuid() const -> uuid { return m_uuid; }
 
     /**
      * @brief Returns the parent.
@@ -42,7 +45,7 @@ public:
      * will return null.
      * @return The parent.
      */
-    auto parent() const -> object*;
+    auto parent() const -> object* { return m_parent; }
 
     auto accept(component_visitor& visitor) -> void;
 
@@ -57,6 +60,7 @@ private:
     YASF_SUPPRESS_C4251
     std::string m_name;
     object* m_parent{};
+    yasf::uuid m_uuid;
 
     // Allows object to set m_parent.
     // TODO: should i just add set_parent?

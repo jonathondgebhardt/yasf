@@ -5,7 +5,6 @@
 #include "yasf/entity_factory.hpp"
 #include "yasf/position.hpp"
 #include "yasf/status.hpp"
-#include "yasf/uuid.hpp"
 #include "yasf/velocity.hpp"
 
 namespace yasf
@@ -17,7 +16,6 @@ auto entity_factory::build() -> std::unique_ptr<entity>
     // factory?
     auto ent = std::make_unique<entity>();
     ent->add_component(std::make_unique<status>());
-    ent->add_component(std::make_unique<uuid>());
     ent->add_component(std::make_unique<position>());
     ent->add_component(std::make_unique<velocity>());
     return ent;

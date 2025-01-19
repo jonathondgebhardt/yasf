@@ -13,12 +13,6 @@ TEST_CASE("entity_factory: build", "[library]")
         REQUIRE(status != nullptr);
     }
 
-    SECTION("has uuid")
-    {
-        auto* uuid = obj->get_component("uuid");
-        REQUIRE(uuid != nullptr);
-    }
-
     SECTION("has position")
     {
         auto* position = obj->get_component("position");

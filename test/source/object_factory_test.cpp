@@ -12,10 +12,4 @@ TEST_CASE("object_factory: build", "[library]")
         auto* status = obj->get_component("status");
         REQUIRE(status != nullptr);
     }
-
-    SECTION("has uuid")
-    {
-        auto* uuid = obj->get_component("uuid");
-        REQUIRE(uuid != nullptr);
-    }
 }

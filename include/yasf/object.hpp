@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "yasf/component.hpp"
+#include "yasf/uuid.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
@@ -38,14 +39,16 @@ public:
     /**
      * @brief Returns the name of this object.
      */
-    auto name() const -> std::string_view;
+    auto name() const -> std::string_view { return m_name; }
+
+    auto uuid() const -> uuid { return m_uuid; }
 
     /**
      * @brief Gets the parent of this object.
      * @detail If this object is not a child of another object, parent will be
      * null.
      */
-    auto parent() const -> object*;
+    auto parent() const -> object* { return m_parent; }
 
     /**
      * @brief Adds the child to this object.
@@ -153,6 +156,7 @@ private:
     object* m_parent{nullptr};
     std::vector<std::unique_ptr<object>> m_children;
     std::vector<std::unique_ptr<component>> m_components;
+    yasf::uuid m_uuid;
     std::string m_name;
 };
 
