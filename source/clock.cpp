@@ -1,6 +1,7 @@
 #include "yasf/clock.hpp"
 
 #include "yasf/convert.hpp"
+#include "yasf/logger.hpp"
 #include "yasf/object.hpp"
 #include "yasf/time_updater.hpp"
 #include "yasf/types.hpp"
@@ -17,7 +18,7 @@ auto clock::tick() -> void
 {
     auto* const updater = get_component<time_updater>();
     if (updater == nullptr) {
-        // TODO: log an error
+        yasf::log::error("failed to get updater");
         return;
     }
 
