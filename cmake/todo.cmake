@@ -15,6 +15,17 @@ default(PATTERNS
 
 set(flags "-n")
 
+default(BAD_WORDS
+	"TODO"
+	"FIXME"
+)
+
+set(bad_word_patterns "")
+foreach(bad_word IN LISTS BAD_WORDS)
+	list(APPEND bad_word_patterns "-e ${bad_word}")
+endforeach()
+
+
 file(GLOB_RECURSE files ${PATTERNS})
 set(contains_todo "")
 set(output "")
@@ -22,7 +33,7 @@ string(LENGTH "${CMAKE_SOURCE_DIR}/" path_prefix_length)
 
 foreach(file IN LISTS files)
 	execute_process(
-		COMMAND "${TODO_COMMAND}" "${flags}" "TODO" "${file}"
+		COMMAND "${TODO_COMMAND}" "${flags}" ${bad_word_patterns} "${file}"
 		WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
 		RESULT_VARIABLE result
 		OUTPUT_VARIABLE output
@@ -38,5 +49,5 @@ endforeach()
 
 if(NOT contains_todo STREQUAL "")
 	list(JOIN contains_todo "\n" bad_list)
-	message("The following files contain TODO:\n\n${bad_list}\n")
+	message("The following files contain a bad word (${BAD_WORDS}):\n\n${bad_list}\n")
 endif()
