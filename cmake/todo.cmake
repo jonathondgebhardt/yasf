@@ -28,7 +28,7 @@ foreach(file IN LISTS files)
 		OUTPUT_VARIABLE output
 	)
 	if(result EQUAL "0")
-		message(WARNING "'${file}': finder returned with ${result}\n${output}")
+		message(WARNING "'${file}': found bad word\n${output}")
 
 		string(SUBSTRING "${file}" "${path_prefix_length}" -1 relative_file)
 		list(APPEND contains_todo "${relative_file}")
