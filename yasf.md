@@ -31,9 +31,6 @@ cmake-init adds a lot of cool builds like ci, coverage, thread sanitization, but
 ## object 
 I dislike how add_child/add_component invalidates your handle to the child you add. Perhaps add_child/add_component could return a handle on success.
 
-## uuid
-Should uuid be an inherent part of object?
-
 ## History tracking
 Perhaps there could be a `component` that enables tracking the history of members. Some object could collect these `component`s and records the value of members. This would cleanly separate the "results" from the "configuration". Should I try to make this generic or should I provide an implementation for each "tracker"?
 
@@ -50,10 +47,11 @@ I guess it's that time: design the layout of the tree.
 `simulation`: `object`
     │
     ├── children
-    │     ├── root of `entity`s: `object`
-    │     └── root of processors: `object`
-    └── components
-          └── `clock`
+    │   ├── `entity_service` (root of `entity`s)
+    │   └── `processor_service` (root of `processor`s)
+    ├── components
+    └── `clock`
+        └── `time_updater`
 
 At the moment, I can't think of any other high-level classes I'll need.
 
@@ -62,3 +60,24 @@ I need to implement knowing when to stop.
 
 ## Async
 I'm going to have to think about thread safety at some point, if I even want to support that.
+
+## Event-based simulations.
+With the current implementation, the `time_updater` `component` of the `clock` is responsible for determining the next simulation time. If it were an event-based simulation, another `time_updater` would be aware of the next event to process and update time accordingly. Who owns the events in this scenario?
+
+For now, I've decided to put that responsibility on the user. I have the changes somewhere.
+
+## Logger
+### Encapsulation
+The question I need to answer first is "how do I want to interact with the logger?". Do I want to use macros or do I want to interact with some kind of logger object? Macros would be much simpler, although the linter would probably complain that I'm not using a constexpr function. The object would provide more flexibility, but I don't think I'll really take advantage of that.
+
+```cpp
+if (bad_condition) {
+    yasf::log::error() << "a bad thing happened!";
+    yasf::log::error("a bad thing {}", "happened");
+}
+```
+### Backtraces
+I'd like to enable backtraces on certain logger messages. For example: `yasf::ensure` should log a critical message and it should include a back trace.
+
+## TODO finder
+It might be cool to add another custom cmake target that looks for TODO comments in the code.
