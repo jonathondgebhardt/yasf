@@ -23,6 +23,15 @@ auto clock::tick() -> void
     }
 
     auto const next_time = updater->next_time();
+
+    if (next_time == m_time) {
+        yasf::log::warn("time was not advanced");
+    }
+
+    if (next_time < m_time) {
+        yasf::log::warn("delta time is negative");
+    }
+
     m_delta = next_time - m_time;
     m_time = next_time;
 }
