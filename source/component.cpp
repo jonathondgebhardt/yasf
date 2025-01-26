@@ -2,7 +2,6 @@
 
 #include "yasf/component.hpp"
 
-#include "yasf/object.hpp"
 #include "yasf/visitor.hpp"
 
 namespace yasf

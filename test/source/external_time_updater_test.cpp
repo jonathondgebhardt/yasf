@@ -1,3 +1,6 @@
+#include <memory>
+#include <utility>
+
 #include "yasf/external_time_updater.hpp"
 
 #include <catch2/catch_test_macros.hpp>
@@ -12,6 +15,7 @@ TEST_CASE("external_time_updater: name is external_time_updater",
     CHECK(updater.name() == "external_time_updater");
 }
 
+// NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("external_time_updater: next_time", "[time_updater]")
 {
     // TODO: really dislike this
@@ -43,3 +47,5 @@ TEST_CASE("external_time_updater: next_time", "[time_updater]")
     REQUIRE_NOTHROW(sim.update());
     CHECK(clock->time() == 0);
 }
+
+// NOLINTEND(readability-function-cognitive-complexity)
