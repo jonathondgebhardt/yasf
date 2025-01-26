@@ -7,13 +7,11 @@
 
 #include "yasf/component.hpp"
 #include "yasf/uuid.hpp"
+#include "yasf/visitor.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
 {
-
-class object_visitor;
-class component_visitor;
 
 /**
  * @brief The basic building block of a simulation.

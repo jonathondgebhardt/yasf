@@ -4,13 +4,13 @@
 #include <string_view>
 
 #include "yasf/uuid.hpp"
+#include "yasf/visitor.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf
 {
 
 class object;
-class component_visitor;
 
 /**
  * @brief Provides behaviors or capabilities to `object`s.
