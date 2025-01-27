@@ -4,9 +4,26 @@
 #include "yasf/simulation.hpp"
 
 #include "yasf/clock.hpp"
+#include "yasf/logger.hpp"
 #include "yasf/object.hpp"
 #include "yasf/processor.hpp"
 #include "yasf/processor_service.hpp"
+#include "yasf/visitor.hpp"
+
+namespace
+{
+
+struct processor_visitor : public yasf::object_visitor
+{
+    void visit(yasf::object* obj) override
+    {
+        if (auto* proc = dynamic_cast<yasf::processor*>(obj)) {
+            proc->update();
+        }
+    }
+};
+
+}  // namespace
 
 namespace yasf
 {
@@ -24,13 +41,12 @@ auto simulation::update() -> void
     // has advanced.
     auto* const psvc = get_child<processor_service>();
     if (psvc != nullptr) {
-        // TODO: not sure if running a simulation without any processors makes
-        // sense, but i'll allow it.
-
-        // TODO: decide how to get all processors. i want to avoid allocating.
-        // use visitor pattern?
-        auto* proc = psvc->get_child<processor>();
-        proc->update();
+        auto visitor = processor_visitor{};
+        psvc->accept(visitor);
+    } else {
+        // Not sure if running a simulation without any processors makes sense,
+        // but i'll allow it.
+        yasf::log::warn("updating simulation without a processor service");
     }
 
     m_clock->tick();
