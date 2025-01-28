@@ -9,18 +9,18 @@
 namespace yasf
 {
 
-fixed_time_updater::fixed_time_updater(time_usec delta)
+fixed_time_updater::fixed_time_updater(time_useconds delta)
     : time_updater("fixed_time_updater")
     , m_delta(delta)
 {
 }
 
-fixed_time_updater::fixed_time_updater(time_sec delta)
-    : fixed_time_updater(convert::sec_to_usec(delta))
+fixed_time_updater::fixed_time_updater(time_seconds delta)
+    : fixed_time_updater(convert::seconds_to_useconds(delta))
 {
 }
 
-auto fixed_time_updater::next_time() -> time_usec
+auto fixed_time_updater::next_time() -> time_useconds
 {
     auto const* parent_clock = dynamic_cast<clock*>(parent());
     yasf::ensure(parent_clock != nullptr,
@@ -28,24 +28,24 @@ auto fixed_time_updater::next_time() -> time_usec
     return parent_clock->time() + m_delta;
 }
 
-auto fixed_time_updater::delta() const -> time_usec
+auto fixed_time_updater::delta() const -> time_useconds
 {
     return m_delta;
 }
 
-auto fixed_time_updater::delta_sec() const -> time_sec
+auto fixed_time_updater::delta_sec() const -> time_seconds
 {
-    return convert::usec_to_sec(m_delta);
+    return convert::useconds_to_seconds(m_delta);
 }
 
-auto fixed_time_updater::set_delta(time_usec delta) -> void
+auto fixed_time_updater::set_delta(time_useconds delta) -> void
 {
     m_delta = delta;
 }
 
-auto fixed_time_updater::set_delta(time_sec delta) -> void
+auto fixed_time_updater::set_delta(time_seconds delta) -> void
 {
-    m_delta = convert::sec_to_usec(delta);
+    m_delta = convert::seconds_to_useconds(delta);
 }
 
 }  // namespace yasf

@@ -36,24 +36,24 @@ auto clock::tick() -> void
     m_time = next_time;
 }
 
-auto clock::time() const -> time_usec
+auto clock::time() const -> time_useconds
 {
     return m_time;
 }
 
-auto clock::time_sec() const -> yasf::time_sec
+auto clock::time_sec() const -> yasf::time_seconds
 {
-    return convert::usec_to_sec(m_time);
+    return convert::useconds_to_seconds(m_time);
 }
 
-auto clock::delta() const -> time_usec
+auto clock::delta() const -> time_useconds
 {
     return m_delta;
 }
 
-auto clock::delta_sec() const -> yasf::time_sec
+auto clock::delta_sec() const -> yasf::time_seconds
 {
-    return convert::usec_to_sec(m_delta);
+    return convert::useconds_to_seconds(m_delta);
 }
 
 }  // namespace yasf

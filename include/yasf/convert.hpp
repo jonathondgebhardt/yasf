@@ -6,14 +6,14 @@
 namespace yasf::convert
 {
 
-constexpr auto sec_to_usec(time_sec sec) -> time_usec
+constexpr auto seconds_to_useconds(time_seconds sec) -> time_useconds
 {
-    return static_cast<time_usec>(sec * constants::sec_to_usec);
+    return static_cast<time_useconds>(sec * constants::seconds_to_useconds);
 }
 
-constexpr auto usec_to_sec(time_usec usec) -> time_sec
+constexpr auto useconds_to_seconds(time_useconds usec) -> time_seconds
 {
-    return static_cast<time_sec>(usec) * constants::usec_to_sec;
+    return static_cast<time_seconds>(usec) * constants::useconds_to_seconds;
 }
 
 }  // namespace yasf::convert

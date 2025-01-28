@@ -14,8 +14,10 @@ namespace yasf
 class YASF_EXPORT clock_factory
 {
 public:
-    static auto build_fixed_update(time_sec delta) -> std::unique_ptr<clock>;
-    static auto build_fixed_update(time_usec delta) -> std::unique_ptr<clock>;
+    static auto build_fixed_update(time_seconds delta)
+        -> std::unique_ptr<clock>;
+    static auto build_fixed_update(time_useconds delta)
+        -> std::unique_ptr<clock>;
 };
 
 }  // namespace yasf

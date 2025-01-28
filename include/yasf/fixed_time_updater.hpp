@@ -12,8 +12,8 @@ class fixed_time_updater : public time_updater
 public:
     fixed_time_updater() = delete;
 
-    explicit fixed_time_updater(time_usec delta);
-    explicit fixed_time_updater(time_sec delta);
+    explicit fixed_time_updater(time_useconds delta);
+    explicit fixed_time_updater(time_seconds delta);
 
     // clang-format-19 + gcc-14 doesn't like trailing return here.
     // auto next_time() override -> time_usec;
@@ -24,19 +24,19 @@ public:
      * @detail Throws an exception if parent is not a clock.
      * @return The delta time plus the parent clock's time.
      */
-    time_usec next_time() override;
+    time_useconds next_time() override;
 
     // NOLINTEND(modernize-use-trailing-return-type)
 
-    auto delta() const -> time_usec;
-    auto delta_sec() const -> time_sec;
+    auto delta() const -> time_useconds;
+    auto delta_sec() const -> time_seconds;
 
-    auto set_delta(time_usec delta) -> void;
-    auto set_delta(time_sec delta) -> void;
+    auto set_delta(time_useconds delta) -> void;
+    auto set_delta(time_seconds delta) -> void;
 
 private:
     YASF_SUPPRESS_C4251
-    time_usec m_delta{};
+    time_useconds m_delta{};
 };
 
 }  // namespace yasf

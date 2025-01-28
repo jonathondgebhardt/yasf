@@ -29,14 +29,17 @@ public:
      * @brief
      * @return
      */
-    time_usec next_time() override { return m_next_time; }
+    time_useconds next_time() override { return m_next_time; }
 
     // NOLINTEND(modernize-use-trailing-return-type)
 
-    auto set_next_time(time_usec next_time) -> void { m_next_time = next_time; }
+    auto set_next_time(time_useconds next_time) -> void
+    {
+        m_next_time = next_time;
+    }
 
 private:
-    time_usec m_next_time{};
+    time_useconds m_next_time{};
 };
 
 }  // namespace yasf

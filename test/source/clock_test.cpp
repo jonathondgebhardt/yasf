@@ -22,13 +22,13 @@ TEST_CASE("tick: one second delta fixed", "[clock]")
     constexpr auto iterations = 10;
     for (auto i = 0; i < iterations; ++i) {
         clock->tick();
-        REQUIRE(clock->time() == yasf::convert::sec_to_usec(i + 1));
+        REQUIRE(clock->time() == yasf::convert::seconds_to_useconds(i + 1));
     }
 }
 
 TEST_CASE("tick: change delta fixed", "[clock]")
 {
-    constexpr auto one_second_delta = yasf::time_sec{1.0};
+    constexpr auto one_second_delta = yasf::time_seconds{1.0};
     auto clock = yasf::clock_factory::build_fixed_update(one_second_delta);
 
     clock->tick();
@@ -37,7 +37,7 @@ TEST_CASE("tick: change delta fixed", "[clock]")
     auto* updater = clock->get_component<yasf::fixed_time_updater>();
     REQUIRE(updater != nullptr);
 
-    constexpr auto two_second_delta = yasf::time_sec{2.0};
+    constexpr auto two_second_delta = yasf::time_seconds{2.0};
     updater->set_delta(two_second_delta);
 
     auto const offset = clock->time_sec();

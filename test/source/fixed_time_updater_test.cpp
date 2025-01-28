@@ -8,8 +8,9 @@
 
 TEST_CASE("fixed_time_updater: delta", "[time_updater]")
 {
-    constexpr auto delta_time_sec = yasf::time_sec{1.0};
-    constexpr auto delta_time_usec = yasf::convert::sec_to_usec(delta_time_sec);
+    constexpr auto delta_time_sec = yasf::time_seconds{1.0};
+    constexpr auto delta_time_usec =
+        yasf::convert::seconds_to_useconds(delta_time_sec);
 
     SECTION("delta: ctor seconds")
     {

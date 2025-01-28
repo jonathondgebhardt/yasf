@@ -22,7 +22,7 @@ struct time_cache_processor : public yasf::processor
         m_update_time = clock->time();
     }
 
-    yasf::time_usec m_update_time{};
+    yasf::time_useconds m_update_time{};
 };
 
 TEST_CASE("simulation: name is simulation", "[simulation]")
@@ -47,7 +47,7 @@ TEST_CASE("simulation: zero frame", "[simulation]")
 
     REQUIRE_NOTHROW(sim.update());
 
-    CHECK(proc->m_update_time == yasf::time_usec{0});
+    CHECK(proc->m_update_time == yasf::time_useconds{0});
 }
 
 TEST_CASE("simulation: update advances sim time", "[simulation]")

@@ -10,7 +10,7 @@ namespace yasf
 class time_updater : public component
 {
 public:
-    virtual auto next_time() -> time_usec = 0;
+    virtual auto next_time() -> time_useconds = 0;
 
 protected:
     explicit time_updater(std::string name)

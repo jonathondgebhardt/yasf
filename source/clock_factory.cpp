@@ -10,12 +10,13 @@
 namespace yasf
 {
 
-auto clock_factory::build_fixed_update(time_sec delta) -> std::unique_ptr<clock>
+auto clock_factory::build_fixed_update(time_seconds delta)
+    -> std::unique_ptr<clock>
 {
-    return build_fixed_update(convert::sec_to_usec(delta));
+    return build_fixed_update(convert::seconds_to_useconds(delta));
 }
 
-auto clock_factory::build_fixed_update(time_usec delta)
+auto clock_factory::build_fixed_update(time_useconds delta)
     -> std::unique_ptr<clock>
 {
     auto obj = std::make_unique<clock>();

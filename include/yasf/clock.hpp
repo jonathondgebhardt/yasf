@@ -29,23 +29,23 @@ public:
      * @brief Get the current simulation time.
      * @return The current simulation time in microseconds.
      */
-    auto time() const -> time_usec;
+    auto time() const -> time_useconds;
 
-    auto time_sec() const -> yasf::time_sec;
+    auto time_sec() const -> yasf::time_seconds;
 
     /**
      * @brief Get the amount of elapsed simulation time since the last tick.
      * @return The amount of elapsed simulation time since the last tick in
      * microseconds.
      */
-    auto delta() const -> time_usec;
+    auto delta() const -> time_useconds;
 
-    auto delta_sec() const -> yasf::time_sec;
+    auto delta_sec() const -> yasf::time_seconds;
 
 private:
     YASF_SUPPRESS_C4251
-    time_usec m_time{};
-    time_usec m_delta{};
+    time_useconds m_time{};
+    time_useconds m_delta{};
 };
 
 }  // namespace yasf
