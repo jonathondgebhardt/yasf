@@ -1,6 +1,7 @@
 #pragma once
 
-#include "yasf/constants.hpp"
+#include <chrono>
+
 #include "yasf/types.hpp"
 
 namespace yasf::convert
@@ -8,42 +9,42 @@ namespace yasf::convert
 
 constexpr auto seconds_to_useconds(time_seconds seconds) -> time_useconds
 {
-    return static_cast<time_useconds>(seconds * constants::seconds_to_useconds);
+    return std::chrono::duration_cast<time_useconds>(seconds);
 }
 
 constexpr auto useconds_to_seconds(time_useconds useconds) -> time_seconds
 {
-    return static_cast<time_seconds>(useconds) * constants::useconds_to_seconds;
+    return std::chrono::duration_cast<time_seconds>(useconds);
 }
 
 constexpr auto minutes_to_seconds(time_minutes minutes) -> time_seconds
 {
-    return static_cast<time_seconds>(minutes * constants::minutes_to_seconds);
+    return std::chrono::duration_cast<time_seconds>(minutes);
 }
 
 constexpr auto seconds_to_minutes(time_seconds seconds) -> time_minutes
 {
-    return static_cast<time_minutes>(seconds * constants::seconds_to_minutes);
+    return std::chrono::duration_cast<time_minutes>(seconds);
 }
 
 constexpr auto hours_to_minutes(time_hours hours) -> time_minutes
 {
-    return static_cast<time_minutes>(hours * constants::hours_to_minutes);
+    return std::chrono::duration_cast<time_minutes>(hours);
 }
 
 constexpr auto minutes_to_hours(time_minutes minutes) -> time_hours
 {
-    return static_cast<time_hours>(minutes * constants::minutes_to_hours);
+    return std::chrono::duration_cast<time_hours>(minutes);
 }
 
 constexpr auto days_to_hours(time_days days) -> time_hours
 {
-    return static_cast<time_hours>(days * constants::days_to_hours);
+    return std::chrono::duration_cast<time_hours>(days);
 }
 
 constexpr auto hours_to_days(time_hours hours) -> time_days
 {
-    return static_cast<time_days>(hours * constants::hours_to_days);
+    return std::chrono::duration_cast<time_days>(hours);
 }
 
 }  // namespace yasf::convert

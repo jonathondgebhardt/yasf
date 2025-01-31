@@ -38,7 +38,7 @@ struct mover_visitor : public object_visitor
 
         auto pos_vec = pos->get();
         auto const vel_vec = vel->get();
-        pos_vec += vel_vec * delta_time;
+        pos_vec += vel_vec * delta_time.count();
         pos->set(pos_vec);
     }
 

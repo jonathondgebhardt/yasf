@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "yasf/clock.hpp"
+#include "yasf/types.hpp"
 #include "yasf/yasf_export.hpp"
 
 namespace yasf

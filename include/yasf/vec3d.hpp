@@ -126,6 +126,7 @@ public:
         return *this;
     }
 
+    // TODO: consider adding time overload
     constexpr auto operator*(double factor) const -> vec3d
     {
         auto tmp = vec3d{m_data};

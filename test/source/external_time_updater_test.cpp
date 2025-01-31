@@ -7,6 +7,7 @@
 
 #include "yasf/clock.hpp"
 #include "yasf/simulation.hpp"
+#include "yasf/types.hpp"
 
 TEST_CASE("external_time_updater: name is external_time_updater",
           "[time_updater]")
@@ -35,17 +36,17 @@ TEST_CASE("external_time_updater: next_time", "[time_updater]")
     REQUIRE_NOTHROW(sim.update());
 
     // Simulation time should have advanced with a fixed_time_updater.
-    CHECK(clock->time() == 0);
+    CHECK(clock->time().count() == 0);
 
-    updater->set_next_time(1);
+    updater->set_next_time(yasf::time_useconds{1});
     REQUIRE_NOTHROW(sim.update());
-    CHECK(clock->time() == 1);
-    CHECK(clock->delta() == 1);
+    CHECK(clock->time().count() == 1);
+    CHECK(clock->delta().count() == 1);
 
     // Go backwards in time.
-    updater->set_next_time(0);
+    updater->set_next_time(yasf::time_useconds{0});
     REQUIRE_NOTHROW(sim.update());
-    CHECK(clock->time() == 0);
+    CHECK(clock->time().count() == 0);
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)
