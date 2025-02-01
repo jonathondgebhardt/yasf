@@ -17,7 +17,7 @@ class YASF_EXPORT clock_factory
 public:
     static auto build_fixed_update(time_seconds delta)
         -> std::unique_ptr<clock>;
-    static auto build_fixed_update(time_useconds delta)
+    static auto build_fixed_update(time_microseconds delta)
         -> std::unique_ptr<clock>;
 };
 

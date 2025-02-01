@@ -7,12 +7,12 @@
 namespace yasf::convert
 {
 
-constexpr auto seconds_to_useconds(time_seconds seconds) -> time_useconds
+constexpr auto seconds_to_useconds(time_seconds seconds) -> time_microseconds
 {
-    return std::chrono::duration_cast<time_useconds>(seconds);
+    return std::chrono::duration_cast<time_microseconds>(seconds);
 }
 
-constexpr auto useconds_to_seconds(time_useconds useconds) -> time_seconds
+constexpr auto useconds_to_seconds(time_microseconds useconds) -> time_seconds
 {
     return std::chrono::duration_cast<time_seconds>(useconds);
 }

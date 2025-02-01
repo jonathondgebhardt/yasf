@@ -9,7 +9,7 @@ constexpr auto seconds_to_minutes = 60;
 constexpr auto seconds_to_hours = 3600;
 constexpr auto seconds_to_days = 86400;
 
-using time_useconds = std::chrono::microseconds;
+using time_microseconds = std::chrono::microseconds;
 using time_milliseconds = std::chrono::milliseconds;
 using time_seconds = std::chrono::duration<double>;
 using time_minutes =

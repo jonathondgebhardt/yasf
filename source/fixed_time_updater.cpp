@@ -9,7 +9,7 @@
 namespace yasf
 {
 
-fixed_time_updater::fixed_time_updater(time_useconds delta)
+fixed_time_updater::fixed_time_updater(time_microseconds delta)
     : time_updater("fixed_time_updater")
     , m_delta(delta)
 {
@@ -20,7 +20,7 @@ fixed_time_updater::fixed_time_updater(time_seconds delta)
 {
 }
 
-auto fixed_time_updater::next_time() -> time_useconds
+auto fixed_time_updater::next_time() -> time_microseconds
 {
     auto const* parent_clock = dynamic_cast<clock*>(parent());
     yasf::ensure(parent_clock != nullptr,
@@ -28,7 +28,7 @@ auto fixed_time_updater::next_time() -> time_useconds
     return parent_clock->time() + m_delta;
 }
 
-auto fixed_time_updater::delta() const -> time_useconds
+auto fixed_time_updater::delta() const -> time_microseconds
 {
     return m_delta;
 }
@@ -38,7 +38,7 @@ auto fixed_time_updater::delta_sec() const -> time_seconds
     return convert::useconds_to_seconds(m_delta);
 }
 
-auto fixed_time_updater::set_delta(time_useconds delta) -> void
+auto fixed_time_updater::set_delta(time_microseconds delta) -> void
 {
     m_delta = delta;
 }

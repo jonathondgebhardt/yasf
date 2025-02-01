@@ -9,20 +9,20 @@ TEST_CASE("seconds_to_useconds", "[convert]")
     SECTION("zero seconds")
     {
         CHECK(yasf::convert::seconds_to_useconds(yasf::time_seconds{0.0})
-              == yasf::time_useconds{0});
+              == yasf::time_microseconds{0});
     }
 
     SECTION("one second")
     {
         CHECK(yasf::convert::seconds_to_useconds(yasf::time_seconds{1.0})
-              == yasf::time_useconds{1000000});
+              == yasf::time_microseconds{1000000});
     }
 
     SECTION("one and a half seconds")
     {
         CHECK(yasf::convert::seconds_to_useconds(
                   yasf::time_seconds{1.5})  // NOLINT
-              == yasf::time_useconds{1500000});
+              == yasf::time_microseconds{1500000});
     }
 }
 
@@ -30,14 +30,15 @@ TEST_CASE("useconds_to_seconds", "[convert]")
 {
     SECTION("zero seconds")
     {
-        CHECK(yasf::convert::useconds_to_seconds(yasf::time_useconds{0})
+        CHECK(yasf::convert::useconds_to_seconds(yasf::time_microseconds{0})
               == yasf::time_seconds{0.0});
     }
 
     SECTION("one second")
     {
-        CHECK(yasf::convert::useconds_to_seconds(yasf::time_useconds{1000000})
-              == yasf::time_seconds{1.0});
+        CHECK(
+            yasf::convert::useconds_to_seconds(yasf::time_microseconds{1000000})
+            == yasf::time_seconds{1.0});
     }
 }
 

@@ -38,13 +38,13 @@ TEST_CASE("external_time_updater: next_time", "[time_updater]")
     // Simulation time should have advanced with a fixed_time_updater.
     CHECK(clock->time().count() == 0);
 
-    updater->set_next_time(yasf::time_useconds{1});
+    updater->set_next_time(yasf::time_microseconds{1});
     REQUIRE_NOTHROW(sim.update());
     CHECK(clock->time().count() == 1);
     CHECK(clock->delta().count() == 1);
 
     // Go backwards in time.
-    updater->set_next_time(yasf::time_useconds{0});
+    updater->set_next_time(yasf::time_microseconds{0});
     REQUIRE_NOTHROW(sim.update());
     CHECK(clock->time().count() == 0);
 }

@@ -16,7 +16,7 @@ auto clock_factory::build_fixed_update(time_seconds delta)
     return build_fixed_update(convert::seconds_to_useconds(delta));
 }
 
-auto clock_factory::build_fixed_update(time_useconds delta)
+auto clock_factory::build_fixed_update(time_microseconds delta)
     -> std::unique_ptr<clock>
 {
     auto obj = std::make_unique<clock>();
