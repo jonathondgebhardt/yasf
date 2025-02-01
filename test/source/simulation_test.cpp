@@ -54,6 +54,17 @@ TEST_CASE("simulation: update advances sim time", "[simulation]")
     constexpr auto delta_time = yasf::time_seconds{1.0};
     auto sim =
         yasf::simulation{yasf::clock_factory::build_fixed_update(delta_time)};
+
+    auto* const clock = sim.get_clock();
+    REQUIRE(clock != nullptr);
+
+    REQUIRE(clock->time_sec() == yasf::time_seconds{0.0});
+    REQUIRE(clock->delta_sec() == yasf::time_seconds{0.0});
+
+    REQUIRE_NOTHROW(sim.update());
+    CHECK(clock->time_sec() == delta_time);
+    CHECK(clock->delta_sec() == delta_time);
+}
     auto* const clock = sim.get_clock();
 
     REQUIRE_NOTHROW(sim.update());
