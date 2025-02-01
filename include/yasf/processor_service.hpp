@@ -19,6 +19,11 @@ public:
     {
     }
 
+    /**
+     * @brief Updates all child processors.
+     */
+    auto update() -> void;
+
     auto get_simulation() const -> simulation*;
 
     auto get_clock() const -> clock*;
