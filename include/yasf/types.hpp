@@ -17,4 +17,17 @@ using time_minutes =
 using time_hours = std::chrono::duration<double, std::ratio<seconds_to_hours>>;
 using time_days = std::chrono::duration<double, std::ratio<seconds_to_days>>;
 
+template<typename T, typename... U>
+concept is_any_of = (std::same_as<T, U> || ...);
+
+template<typename T>
+concept time_type = is_any_of<T,
+                              time_microseconds,
+                              time_milliseconds,
+                              time_seconds,
+                              time_seconds,
+                              time_minutes,
+                              time_hours,
+                              time_days>;
+
 }  // namespace yasf
