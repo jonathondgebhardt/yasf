@@ -15,6 +15,7 @@
 
 ## End goal
 - Recreate WSU parking lot simulator
+- Recreate Grocery Store simulator
 
 ## cmake-init notes
 ### C++ version
@@ -45,7 +46,6 @@ Perhaps I should use a naming convention for these classes.
 I guess it's that time: design the layout of the tree.
 
 `simulation`: `object`
-    │
     ├── children
     │   ├── `entity_service` (root of `entity`s)
     │   └── `processor_service` (root of `processor`s)
@@ -66,6 +66,8 @@ With the current implementation, the `time_updater` `component` of the `clock` i
 
 For now, I've decided to put that responsibility on the user. I have the changes somewhere.
 
+After thinking about this, I think it would make the most sense for the events to be owned by the simulation. I would like it to be convenient to queue events.
+
 ## Logger
 ### Encapsulation
 The question I need to answer first is "how do I want to interact with the logger?". Do I want to use macros or do I want to interact with some kind of logger object? Macros would be much simpler, although the linter would probably complain that I'm not using a constexpr function. The object would provide more flexibility, but I don't think I'll really take advantage of that.
@@ -79,5 +81,5 @@ if (bad_condition) {
 ### Backtraces
 I'd like to enable backtraces on certain logger messages. For example: `yasf::ensure` should log a critical message and it should include a back trace.
 
-## TODO finder
-It might be cool to add another custom cmake target that looks for TODO comments in the code.
+## User should be able to specify time_type
+It might be really convenient if the user was able to specify what the base time unit is.
