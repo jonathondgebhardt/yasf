@@ -4,6 +4,7 @@
 #include "yasf/ensure.hpp"
 #include "yasf/entity.hpp"
 #include "yasf/position.hpp"
+#include "yasf/types.hpp"
 #include "yasf/velocity.hpp"
 #include "yasf/visitor.hpp"
 
@@ -34,7 +35,7 @@ struct mover_visitor : public object_visitor
             return;
         }
 
-        auto const delta_time = m_clock->delta_sec();
+        auto const delta_time = m_clock->delta<yasf::time_seconds>();
 
         auto pos_vec = pos->get();
         auto const vel_vec = vel->get();

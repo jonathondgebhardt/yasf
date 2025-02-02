@@ -15,14 +15,12 @@ TEST_CASE("fixed_time_updater: delta", "[time_updater]")
     {
         auto const updater = yasf::fixed_time_updater{delta_time_sec};
         CHECK(updater.delta() == delta_time_usec);
-        CHECK(updater.delta_sec() == delta_time_sec);
     }
 
     SECTION("delta: ctor micro seconds")
     {
         auto const updater = yasf::fixed_time_updater{delta_time_usec};
         CHECK(updater.delta() == delta_time_usec);
-        CHECK(updater.delta_sec() == delta_time_sec);
     }
 
     SECTION("delta: setter seconds")
@@ -30,7 +28,6 @@ TEST_CASE("fixed_time_updater: delta", "[time_updater]")
         auto updater = yasf::fixed_time_updater{yasf::time_seconds{0.0}};
         updater.set_delta(delta_time_sec);
         CHECK(updater.delta() == delta_time_usec);
-        CHECK(updater.delta_sec() == delta_time_sec);
     }
 
     SECTION("delta: setter seconds")
@@ -38,7 +35,6 @@ TEST_CASE("fixed_time_updater: delta", "[time_updater]")
         auto updater = yasf::fixed_time_updater{yasf::time_seconds{0.0}};
         updater.set_delta(delta_time_usec);
         CHECK(updater.delta() == delta_time_usec);
-        CHECK(updater.delta_sec() == delta_time_sec);
     }
 }
 

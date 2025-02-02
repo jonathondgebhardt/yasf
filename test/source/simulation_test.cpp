@@ -58,12 +58,12 @@ TEST_CASE("simulation: update advances sim time", "[simulation]")
     auto* const clock = sim.get_clock();
     REQUIRE(clock != nullptr);
 
-    REQUIRE(clock->time_sec() == yasf::time_seconds{0.0});
-    REQUIRE(clock->delta_sec() == yasf::time_seconds{0.0});
+    REQUIRE(clock->time() == yasf::time_seconds{0.0});
+    REQUIRE(clock->delta() == yasf::time_seconds{0.0});
 
     REQUIRE_NOTHROW(sim.update());
-    CHECK(clock->time_sec() == delta_time);
-    CHECK(clock->delta_sec() == delta_time);
+    CHECK(clock->time() == delta_time);
+    CHECK(clock->delta() == delta_time);
 }
 
 // NOLINTBEGIN(readability-function-cognitive-complexity)
@@ -88,12 +88,12 @@ TEST_CASE("simulation: update advances sim time with processors",
 
     REQUIRE(psvc->add_child<concrete_processor>());
 
-    REQUIRE(clock->time_sec() == yasf::time_seconds{0.0});
-    REQUIRE(clock->delta_sec() == yasf::time_seconds{0.0});
+    REQUIRE(clock->time() == yasf::time_seconds{0.0});
+    REQUIRE(clock->delta() == yasf::time_seconds{0.0});
 
     REQUIRE_NOTHROW(sim.update());
-    CHECK(clock->time_sec() == delta_time);
-    CHECK(clock->delta_sec() == delta_time);
+    CHECK(clock->time() == delta_time);
+    CHECK(clock->delta() == delta_time);
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)

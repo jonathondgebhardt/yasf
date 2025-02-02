@@ -28,24 +28,4 @@ auto fixed_time_updater::next_time() -> time_microseconds
     return parent_clock->time() + m_delta;
 }
 
-auto fixed_time_updater::delta() const -> time_microseconds
-{
-    return m_delta;
-}
-
-auto fixed_time_updater::delta_sec() const -> time_seconds
-{
-    return convert::useconds_to_seconds(m_delta);
-}
-
-auto fixed_time_updater::set_delta(time_microseconds delta) -> void
-{
-    m_delta = delta;
-}
-
-auto fixed_time_updater::set_delta(time_seconds delta) -> void
-{
-    m_delta = convert::seconds_to_useconds(delta);
-}
-
 }  // namespace yasf

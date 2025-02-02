@@ -33,9 +33,10 @@ public:
 
     // NOLINTEND(modernize-use-trailing-return-type)
 
-    auto set_next_time(time_microseconds next_time) -> void
+    template<time_type T>
+    auto set_next_time(T next_time) -> void
     {
-        m_next_time = next_time;
+        m_next_time = std::chrono::duration_cast<time_microseconds>(next_time);
     }
 
 private:

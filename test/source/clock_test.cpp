@@ -29,11 +29,11 @@ TEST_CASE("tick: one second delta fixed", "[clock]")
 
 TEST_CASE("tick: change delta fixed", "[clock]")
 {
-    constexpr auto one_second_delta = yasf::time_seconds{1.0};
+    constexpr auto one_second_delta = yasf::time_seconds{1.5};
     auto clock = yasf::clock_factory::build_fixed_update(one_second_delta);
 
     clock->tick();
-    CHECK(clock->time_sec() == one_second_delta);
+    CHECK(clock->time() == one_second_delta);
 
     auto* updater = clock->get_component<yasf::fixed_time_updater>();
     CHECK(updater != nullptr);
@@ -41,8 +41,8 @@ TEST_CASE("tick: change delta fixed", "[clock]")
     constexpr auto two_second_delta = yasf::time_seconds{2.0};
     updater->set_delta(two_second_delta);
 
-    auto const offset = clock->time_sec();
+    auto const offset = clock->time();
 
     clock->tick();
-    CHECK(clock->time_sec() == offset + two_second_delta);
+    CHECK(clock->time() == offset + two_second_delta);
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <chrono>
+
 #include "yasf/time_updater.hpp"
 #include "yasf/types.hpp"
 #include "yasf/yasf_export.hpp"
@@ -28,11 +30,17 @@ public:
 
     // NOLINTEND(modernize-use-trailing-return-type)
 
-    auto delta() const -> time_microseconds;
-    auto delta_sec() const -> time_seconds;
+    template<time_type T = time_microseconds>
+    auto delta() const -> T
+    {
+        return std::chrono::duration_cast<time_microseconds>(m_delta);
+    }
 
-    auto set_delta(time_microseconds delta) -> void;
-    auto set_delta(time_seconds delta) -> void;
+    template<time_type T = time_microseconds>
+    auto set_delta(T delta) -> void
+    {
+        m_delta = std::chrono::duration_cast<time_microseconds>(delta);
+    }
 
 private:
     YASF_SUPPRESS_C4251

@@ -27,20 +27,24 @@ public:
 
     /**
      * @brief Get the current simulation time.
-     * @return The current simulation time in microseconds.
+     * @return The current simulation time in the requested representation.
      */
-    auto time() const -> time_microseconds;
-
-    auto time_sec() const -> yasf::time_seconds;
+    template<time_type T = time_microseconds>
+    auto time() const -> T
+    {
+        return std::chrono::duration_cast<T>(m_time);
+    }
 
     /**
      * @brief Get the amount of elapsed simulation time since the last tick.
      * @return The amount of elapsed simulation time since the last tick in
-     * microseconds.
+     * the requested representation.
      */
-    auto delta() const -> time_microseconds;
-
-    auto delta_sec() const -> yasf::time_seconds;
+    template<time_type T = time_microseconds>
+    auto delta() const -> T
+    {
+        return std::chrono::duration_cast<T>(m_delta);
+    }
 
 private:
     YASF_SUPPRESS_C4251
