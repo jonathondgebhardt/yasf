@@ -48,6 +48,15 @@ auto object::get_child(std::string_view name) const -> object*
     return found != container.end() ? found->get() : nullptr;
 }
 
+auto object::get_child(const yasf::uuid& uid) const -> object*
+{
+    const auto& container = m_children;
+    const auto found = std::ranges::find_if(
+        container, [&](auto&& child) { return child->uuid() == uid; });
+
+    return found != container.end() ? found->get() : nullptr;
+}
+
 auto object::remove_child(std::string_view name) -> bool
 {
     auto& container = m_children;

@@ -67,6 +67,8 @@ public:
 
     auto get_child(std::string_view name) const -> object*;
 
+    auto get_child(const yasf::uuid& uid) const -> object*;
+
     template<typename T>
     auto get_child() const -> T*
         requires std::is_base_of_v<object, T>
