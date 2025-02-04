@@ -30,6 +30,10 @@ public:
 
     auto time() const -> time_microseconds { return m_time; }
 
+    auto operator<(const event& other) -> bool { return m_time < other.m_time; }
+
+    auto operator>(const event& other) -> bool { return m_time > other.m_time; }
+
 private:
     yasf::time_microseconds m_time;
     event_type m_type{};
