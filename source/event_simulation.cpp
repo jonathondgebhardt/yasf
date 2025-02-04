@@ -23,13 +23,13 @@ event_simulation::event_simulation(std::unique_ptr<clock> clock)
 
 auto event_simulation::update() -> void
 {
-    if (!has_events()) {
+    // Get the next event to process.
+    auto* const evt = top();
+
+    if (evt == nullptr) {
         yasf::log::warn("no more events");
         return;
     }
-
-    // Get the next event to process.
-    auto* const evt = top();
 
     // Advance simulation time.
     auto* updater = m_clock->get_component<external_time_updater>();
