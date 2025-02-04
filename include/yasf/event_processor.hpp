@@ -17,7 +17,7 @@ public:
     {
     }
 
-    virtual auto on_event(event* evt) -> void;
+    virtual auto on_event(const event* evt) -> void = 0;
 
     auto get_simulation() const -> simulation*;
 
