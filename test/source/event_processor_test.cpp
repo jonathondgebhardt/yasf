@@ -10,10 +10,15 @@
 #include "yasf/event_processor_service.hpp"
 #include "yasf/simulation.hpp"
 
+namespace
+{
+
 struct concrete_processor : public yasf::event_processor
 {
     void on_event([[maybe_unused]] const yasf::event* evt) override {}
 };
+
+}  // namespace
 
 TEST_CASE("event_processor: name is processor", "[event_processor]")
 {

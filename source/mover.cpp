@@ -8,20 +8,20 @@
 #include "yasf/velocity.hpp"
 #include "yasf/visitor.hpp"
 
-namespace yasf
+namespace
 {
 
-struct mover_visitor : public object_visitor
+struct mover_visitor : public yasf::object_visitor
 {
-    void visit(object* obj) override
+    void visit(yasf::object* obj) override
     {
-        auto* ent = dynamic_cast<entity*>(obj);
+        auto* ent = dynamic_cast<yasf::entity*>(obj);
         if (ent != nullptr) {
             move_entity(ent);
         }
     }
 
-    auto move_entity(entity* entity) const -> void
+    auto move_entity(yasf::entity* entity) const -> void
     {
         yasf::ensure(m_clock != nullptr, "failed to access clock");
 
@@ -43,8 +43,13 @@ struct mover_visitor : public object_visitor
         pos->set(pos_vec);
     }
 
-    clock* m_clock{};
+    yasf::clock* m_clock{};
 };
+
+}  // namespace
+
+namespace yasf
+{
 
 auto mover::update() -> void
 {

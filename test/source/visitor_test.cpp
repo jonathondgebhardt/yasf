@@ -7,12 +7,17 @@
 #include "yasf/component.hpp"
 #include "yasf/object.hpp"
 
+namespace
+{
+
 struct object_counting_visitor : public yasf::object_visitor
 {
     void visit([[maybe_unused]] yasf::object* obj) override { ++m_count; }
 
     std::uint64_t m_count{};
 };
+
+}  // namespace
 
 TEST_CASE("object_visitor", "[visitor]")
 {
