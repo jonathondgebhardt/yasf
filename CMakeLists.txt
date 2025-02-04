@@ -23,6 +23,7 @@ add_library(
 	source/entity.cpp
 	source/entity_factory.cpp
 	source/event_processor.cpp
+	source/event_processor_service.cpp
 	source/fixed_time_updater.cpp
 	source/mover.cpp
 	source/object.cpp
