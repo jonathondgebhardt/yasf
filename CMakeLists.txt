@@ -24,6 +24,7 @@ add_library(
 	source/entity_factory.cpp
 	source/event_processor.cpp
 	source/event_processor_service.cpp
+	source/event_simulation.cpp
 	source/fixed_time_updater.cpp
 	source/mover.cpp
 	source/object.cpp
