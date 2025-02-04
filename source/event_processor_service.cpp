@@ -4,9 +4,9 @@
 #include "yasf/ensure.hpp"
 #include "yasf/event.hpp"
 #include "yasf/event_processor.hpp"
+#include "yasf/event_simulation.hpp"
 #include "yasf/logger.hpp"
 #include "yasf/object.hpp"
-#include "yasf/simulation.hpp"
 #include "yasf/visitor.hpp"
 
 namespace
@@ -41,9 +41,9 @@ auto event_processor_service::on_event(event* evt) -> void
     accept(visitor);
 }
 
-auto event_processor_service::get_simulation() const -> simulation*
+auto event_processor_service::get_simulation() const -> event_simulation*
 {
-    return dynamic_cast<simulation*>(parent());
+    return dynamic_cast<event_simulation*>(parent());
 }
 
 auto event_processor_service::get_clock() const -> clock*
