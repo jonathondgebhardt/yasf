@@ -8,6 +8,7 @@
 #include "yasf/object.hpp"
 
 #include "yasf/component.hpp"
+#include "yasf/uuid.hpp"
 #include "yasf/visitor.hpp"
 
 namespace yasf
