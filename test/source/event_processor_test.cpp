@@ -1,15 +1,18 @@
+#include <memory>
+
 #include "yasf/event_processor.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 
 #include "yasf/clock.hpp"
 #include "yasf/entity_service.hpp"
+#include "yasf/event.hpp"
 #include "yasf/event_processor_service.hpp"
 #include "yasf/simulation.hpp"
 
 struct concrete_processor : public yasf::event_processor
 {
-    void on_event([[maybe_unused]] yasf::event* evt) override {}
+    void on_event([[maybe_unused]] const yasf::event* evt) override {}
 };
 
 TEST_CASE("event_processor: name is processor", "[event_processor]")
