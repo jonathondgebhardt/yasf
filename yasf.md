@@ -68,6 +68,8 @@ For now, I've decided to put that responsibility on the user. I have the changes
 
 After thinking about this, I think it would make the most sense for the events to be owned by the simulation. I would like it to be convenient to queue events.
 
+I created an event specific `simulation` in grocery-store-sim, but the framework doesn't really allow for that. For example, getting the `simulation` from `processor::get_simulation()` returns a `yasf::simulation`. If the user wants to define their own `simulation`, they'll have to recreate a chunk of the framework.
+
 ## Logger
 ### Encapsulation
 The question I need to answer first is "how do I want to interact with the logger?". Do I want to use macros or do I want to interact with some kind of logger object? Macros would be much simpler, although the linter would probably complain that I'm not using a constexpr function. The object would provide more flexibility, but I don't think I'll really take advantage of that.
