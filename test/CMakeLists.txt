@@ -29,6 +29,7 @@ add_executable(
 	source/entity_test.cpp
 	source/event_processor_service_test.cpp
 	source/event_processor_test.cpp
+	source/event_simulation_factory_test.cpp
 	source/event_simulation_test.cpp
 	source/event_test.cpp
 	source/external_time_updater_test.cpp
