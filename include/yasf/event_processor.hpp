@@ -12,6 +12,11 @@ namespace yasf
 class event_processor : public object
 {
 public:
+    event_processor()
+        : object("event_processor")
+    {
+    }
+
     virtual auto on_event(event* evt) -> void;
 
     auto get_simulation() const -> simulation*;
