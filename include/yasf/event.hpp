@@ -26,6 +26,14 @@ public:
     {
     }
 
+    event(const event&) = default;
+    event(event&&) = delete;
+
+    virtual ~event() = default;
+
+    auto operator=(const event&) -> event& = default;
+    auto operator=(event&&) -> event& = delete;
+
     auto type() const -> event_type { return m_type; }
 
     auto time() const -> time_microseconds { return m_time; }
