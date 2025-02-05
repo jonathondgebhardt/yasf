@@ -8,7 +8,7 @@
 #include "yasf/entity_service.hpp"
 #include "yasf/event.hpp"
 #include "yasf/event_processor_service.hpp"
-#include "yasf/simulation.hpp"
+#include "yasf/event_simulation.hpp"
 
 namespace
 {
@@ -28,7 +28,7 @@ TEST_CASE("event_processor: name is processor", "[event_processor]")
 
 TEST_CASE("event_processor: simulation getters", "[event_processor]")
 {
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
 
     REQUIRE(sim.add_child<yasf::event_processor_service>());
     auto* const psvc = sim.get_child<yasf::event_processor_service>();

@@ -8,7 +8,7 @@
 #include "yasf/clock.hpp"
 #include "yasf/event.hpp"
 #include "yasf/event_processor.hpp"
-#include "yasf/simulation.hpp"
+#include "yasf/event_simulation.hpp"
 #include "yasf/types.hpp"
 
 TEST_CASE("event_processor_service: name is processor_service",
@@ -21,7 +21,7 @@ TEST_CASE("event_processor_service: name is processor_service",
 TEST_CASE("event_processor_service: simulation getters",
           "[event_processor_service]")
 {
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
 
     REQUIRE(sim.add_child<yasf::event_processor_service>());
     auto* const psvc = sim.get_child<yasf::event_processor_service>();
@@ -53,7 +53,7 @@ TEST_CASE("event_processor_service: update", "[event_processor_service]")
         std::size_t m_visited_count{};
     };
 
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
 
     REQUIRE(sim.add_child<yasf::event_processor_service>());
     auto* const psvc = sim.get_child<yasf::event_processor_service>();

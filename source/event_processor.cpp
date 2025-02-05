@@ -4,16 +4,16 @@
 #include "yasf/ensure.hpp"
 #include "yasf/entity_service.hpp"
 #include "yasf/event_processor_service.hpp"
-#include "yasf/simulation.hpp"
+#include "yasf/event_simulation.hpp"
 
 namespace yasf
 {
 
-auto event_processor::get_simulation() const -> simulation*
+auto event_processor::get_simulation() const -> event_simulation*
 {
     auto* const service = dynamic_cast<event_processor_service*>(parent());
     ensure(service != nullptr, "failed to get processor_service");
-    return dynamic_cast<simulation*>(service->parent());
+    return dynamic_cast<event_simulation*>(service->parent());
 }
 
 auto event_processor::get_clock() const -> clock*
