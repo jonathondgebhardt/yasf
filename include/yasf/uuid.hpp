@@ -23,7 +23,7 @@ public:
 
     auto tail(std::uint8_t len) -> std::string_view
     {
-        return get().substr(m_uuid_str.length(), len);
+        return get().substr(m_uuid_str.length() - len);
     }
 
     auto empty() const -> bool { return m_uuid.is_nil(); }
