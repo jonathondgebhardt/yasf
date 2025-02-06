@@ -42,9 +42,19 @@ private:
 
     YASF_SUPPRESS_C4251
     std::unique_ptr<clock> m_clock;
+
+    struct event_comparator
+    {
+        auto operator()(const std::unique_ptr<event>& lhs,
+                        const std::unique_ptr<event>& rhs) const -> bool
+        {
+            return lhs->time() > rhs->time();
+        }
+    };
+
     std::priority_queue<std::unique_ptr<event>,
                         std::vector<std::unique_ptr<event>>,
-                        std::greater<>>
+                        event_comparator>
         m_events;
 };
 
