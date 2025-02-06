@@ -7,6 +7,12 @@
 namespace yasf::convert
 {
 
+template<time_type T, time_type U>
+constexpr auto time_cast(U time) -> T
+{
+    return std::chrono::duration_cast<T>(time);
+}
+
 constexpr auto seconds_to_useconds(time_seconds seconds) -> time_microseconds
 {
     return std::chrono::duration_cast<time_microseconds>(seconds);
