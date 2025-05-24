@@ -8,7 +8,7 @@
 namespace yasf
 {
 
-class processor : public object
+class YASF_EXPORT processor : public object
 {
 public:
     processor()

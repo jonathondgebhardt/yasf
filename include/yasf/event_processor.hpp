@@ -9,7 +9,7 @@
 namespace yasf
 {
 
-class event_processor : public object
+class YASF_EXPORT event_processor : public object
 {
 public:
     event_processor()

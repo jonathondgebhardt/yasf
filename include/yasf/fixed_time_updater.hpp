@@ -9,7 +9,7 @@
 namespace yasf
 {
 
-class fixed_time_updater : public time_updater
+class YASF_EXPORT fixed_time_updater : public time_updater
 {
 public:
     fixed_time_updater() = delete;
