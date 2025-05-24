@@ -166,7 +166,7 @@ public:
         const auto sum_of_products = std::accumulate(  // NOLINT
             m_data.begin(),
             m_data.end(),
-            0,
+            0.0,
             [](const auto acc, const auto component)
             { return acc + (component * component); });
         return std::sqrt(sum_of_products);
