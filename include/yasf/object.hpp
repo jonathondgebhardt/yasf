@@ -26,12 +26,12 @@ public:
      */
     object();
 
-    object(const object&) = default;
+    object(const object&) = delete;
     object(object&&) noexcept = default;
 
     virtual ~object() = default;
 
-    auto operator=(const object&) -> object& = default;
+    auto operator=(const object&) -> object& = delete;
     auto operator=(object&&) noexcept -> object& = default;
 
     /**
