@@ -7,7 +7,7 @@
 namespace yasf
 {
 
-class time_updater : public component
+class YASF_EXPORT time_updater : public component
 {
 public:
     virtual auto next_time() -> time_microseconds = 0;
