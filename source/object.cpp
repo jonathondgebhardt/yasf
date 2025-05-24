@@ -97,8 +97,6 @@ auto object::remove_component(std::string_view name) -> bool
     const auto found = std::erase_if(
         container, [&](auto&& child) { return child->name() == name; });
     return found != std::size_t{0};
-
-    return false;
 }
 
 auto object::accept(object_visitor& visitor) -> void
