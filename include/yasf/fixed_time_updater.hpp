@@ -23,7 +23,7 @@ public:
 
     /**
      * @brief Adds delta time to the parent clock's time.
-     * @detail Throws an exception if parent is not a clock.
+     * Throws an exception if parent is not a clock.
      * @return The delta time plus the parent clock's time.
      */
     time_microseconds next_time() override;

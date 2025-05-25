@@ -43,15 +43,14 @@ public:
 
     /**
      * @brief Gets the parent of this object.
-     * @detail If this object is not a child of another object, parent will be
-     * null.
+     * If this object is not a child of another object, parent will be null.
      */
     auto parent() const -> object* { return m_parent; }
 
     /**
      * @brief Adds the child to this object.
-     * @detail If child is null, this function returns false.
-     * @detail If the child already has a parent, this function returns null.
+     * If child is null, this function returns false. If the child already has a
+     * parent, this function returns null.
      * @param child The child to add.
      * @return Whether the child was added.
      */
@@ -99,9 +98,8 @@ public:
 
     /**
      * @brief Adds the component to this object.
-     * @detail If component is null, this function returns false.
-     * @detail If the component already has a parent, this function returns
-     * null.
+     * If component is null, this function returns false. If the component
+     * already has a parent, this function returns null.
      * @param component The component to add.
      * @return Whether the component was added.
      */

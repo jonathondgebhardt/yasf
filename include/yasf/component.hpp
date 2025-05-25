@@ -41,8 +41,8 @@ public:
 
     /**
      * @brief Returns the parent.
-     * @detail If this `component` was not add to an `object`, this function
-     * will return null.
+     * If this `component` was not add to an `object`, this function will return
+     * null.
      * @return The parent.
      */
     auto parent() const -> object* { return m_parent; }

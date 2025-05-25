@@ -9,7 +9,7 @@ namespace yasf
 
 /**
  * @brief The simulation clock.
- * @detail Time is measured in microseconds.
+ * Time is measured in microseconds.
  */
 class YASF_EXPORT clock : public object
 {
@@ -21,7 +21,7 @@ public:
 
     /**
      * @brief Updates the simulation time.
-     * @detail How the time is updated depends on the `time_updater` component.
+     * How the time is updated depends on the `time_updater` component.
      */
     auto tick() -> void;
 
