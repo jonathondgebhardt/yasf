@@ -16,4 +16,14 @@ TEST_CASE("uuid", "[library]")
         auto const other = yasf::uuid{};
         CHECK(uuid != other);
     }
+
+    SECTION("get")
+    {
+        CHECK(!uuid.get().empty());
+    }
+
+    SECTION("tail")
+    {
+        CHECK(uuid.tail(1).size() < uuid.tail(2).size());
+    }
 }
