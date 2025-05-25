@@ -5,6 +5,9 @@
 namespace yasf
 {
 
+/**
+ * @cond yasf_dev
+ */
 constexpr auto seconds_to_minutes = 60;
 constexpr auto seconds_to_hours = 3600;
 constexpr auto seconds_to_days = 86400;
