@@ -24,14 +24,6 @@ public:
     auto get_clock() const -> clock*;
 
     auto get_entity_service() const -> entity_service*;
-
-protected:
-    explicit event_processor(std::string name)
-        : object{std::move(name)}
-    {
-    }
-
-private:
 };
 
 }  // namespace yasf
