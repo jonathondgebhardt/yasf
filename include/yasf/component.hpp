@@ -13,9 +13,9 @@ namespace yasf
 class object;
 
 /**
- * @brief Provides behaviors or capabilities to `object`s.
+ * @brief Provides behaviors or capabilities to objects.
  *
- * For example, if an `object` has a `position` `component`, it can move.
+ * For example, if an object has a position component, it can move.
  */
 class YASF_EXPORT component
 {
@@ -41,7 +41,7 @@ public:
 
     /**
      * @brief Returns the parent.
-     * If this `component` was not add to an `object`, this function will return
+     * If this component was not add to an object, this function will return
      * null.
      * @return The parent.
      */
