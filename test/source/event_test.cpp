@@ -12,4 +12,13 @@ TEST_CASE("event: getters", "[event]")
     auto const evt = yasf::event{time, type};
     CHECK(evt.time() == time);
     CHECK(evt.type() == type);
+
+    SECTION("type")
+    {
+        constexpr auto other_time = time + time;
+        auto const other =
+            yasf::event{other_time, yasf::event_type::simulation_start};
+        CHECK(evt < other);
+        CHECK(other > evt);
+    }
 }
