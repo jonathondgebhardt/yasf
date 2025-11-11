@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf/visitor.hpp file | yasf</title>
+  <title>yasf::object_visitor class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,7 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="dir_e5ff1cab72e0bc508a6d0e4c68dded69.html">yasf</a>/</span>visitor.hpp <span class="m-thin">file</span>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>object_visitor <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="visitor_8hpp.html">&lt;yasf/visitor.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -58,28 +59,46 @@
             <li>
               Reference
               <ul>
-                <li><a href="#namespaces">Namespaces</a></li>
-                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-        <section id="namespaces">
-          <h2><a href="#namespaces">Namespaces</a></h2>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt>namespace <a href="namespaceyasf.html" class="m-doc">yasf</a></dt>
+            <dt id="a4a6d25f84299d444962ad6fe35dc6366">
+              <span class="m-doc-wrap-bumper"><a href="#a4a6d25f84299d444962ad6fe35dc6366" class="m-doc-self">object_visitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae7ed279bbf06a0faeec3cb7ee61afa9f">
+              <span class="m-doc-wrap-bumper"><a href="#ae7ed279bbf06a0faeec3cb7ee61afa9f" class="m-doc-self">object_visitor</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1object__visitor.html" class="m-doc">object_<wbr />visitor</a>&amp;) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5b3e5c4228422f3d1a39d22701d2b9aa">
+              <span class="m-doc-wrap-bumper"><a href="#a5b3e5c4228422f3d1a39d22701d2b9aa" class="m-doc-self">object_visitor</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1object__visitor.html" class="m-doc">object_<wbr />visitor</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa969f98ade8a09f1091d02bb80b6e110">
+              <span class="m-doc-wrap-bumper"><a href="#aa969f98ade8a09f1091d02bb80b6e110" class="m-doc-self">~object_visitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
             <dd><span></span></dd>
           </dl>
         </section>
-        <section id="nested-classes">
-          <h2><a href="#nested-classes">Classes</a></h2>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt>
-              class <a href="classyasf_1_1object__visitor.html" class="m-doc">yasf::object_visitor</a>
+            <dt id="af0b8b2e2fa94c9288bde9ad4bb542c15">
+              <span class="m-doc-wrap-bumper">auto <a href="#af0b8b2e2fa94c9288bde9ad4bb542c15" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1object__visitor.html" class="m-doc">object_<wbr />visitor</a>&amp;) -&gt; object_visitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt>
-              class <a href="classyasf_1_1component__visitor.html" class="m-doc">yasf::component_visitor</a>
+            <dt id="a6726320eb48967f25c3b6d7113b8fbb0">
+              <span class="m-doc-wrap-bumper">auto <a href="#a6726320eb48967f25c3b6d7113b8fbb0" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1object__visitor.html" class="m-doc">object_<wbr />visitor</a>&amp;&amp;) noexcept -&gt; object_visitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3eb7a96bc2381c228b9311f780eda8a9">
+              <span class="m-doc-wrap-bumper">auto <a href="#a3eb7a96bc2381c228b9311f780eda8a9" class="m-doc-self">visit</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1object.html" class="m-doc">object</a>*) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>

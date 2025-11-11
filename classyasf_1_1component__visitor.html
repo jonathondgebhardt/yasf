@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::visitor class | yasf</title>
+  <title>yasf::component_visitor class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,9 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <div class="m-doc-include m-code m-inverted m-right-m m-text-right"><span class="cp">#include</span> <a class="cpf" href="visitor_8hpp.html">&lt;yasf/visitor.hpp&gt;</a></div>
-          <div class="m-doc-template">template&lt;typename T&gt;</div>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>visitor <span class="m-thin">class</span>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>component_visitor <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="visitor_8hpp.html">&lt;yasf/visitor.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -69,20 +68,20 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a58f8fe905ef8ae3b9ea9d1d61670685f">
-              <span class="m-doc-wrap-bumper"><a href="#a58f8fe905ef8ae3b9ea9d1d61670685f" class="m-doc-self">visitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            <dt id="aa8287f79cd5ce4cc315bcaa808ae941e">
+              <span class="m-doc-wrap-bumper"><a href="#aa8287f79cd5ce4cc315bcaa808ae941e" class="m-doc-self">component_visitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a983c3b93d5e59c13e60ac4767c332f1e">
-              <span class="m-doc-wrap-bumper"><a href="#a983c3b93d5e59c13e60ac4767c332f1e" class="m-doc-self">visitor</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1visitor.html" class="m-doc">visitor</a>&amp;) <span class="m-label m-flat m-info">defaulted</span></span>
+            <dt id="a9da2118b9e3fec30275d3324034efbe3">
+              <span class="m-doc-wrap-bumper"><a href="#a9da2118b9e3fec30275d3324034efbe3" class="m-doc-self">component_visitor</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1component__visitor.html" class="m-doc">component_<wbr />visitor</a>&amp;) <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a1ec7c78691a8ba4de169813819cf0fe6">
-              <span class="m-doc-wrap-bumper"><a href="#a1ec7c78691a8ba4de169813819cf0fe6" class="m-doc-self">visitor</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1visitor.html" class="m-doc">visitor</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            <dt id="a024950ca675379b83be838c972b949cb">
+              <span class="m-doc-wrap-bumper"><a href="#a024950ca675379b83be838c972b949cb" class="m-doc-self">component_visitor</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1component__visitor.html" class="m-doc">component_<wbr />visitor</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a1a11d40ddfcaf6335ed8f13aa36c7c62">
-              <span class="m-doc-wrap-bumper"><a href="#a1a11d40ddfcaf6335ed8f13aa36c7c62" class="m-doc-self">~visitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            <dt id="a1bf0471c30028a0956d29f6a77c43ad0">
+              <span class="m-doc-wrap-bumper"><a href="#a1bf0471c30028a0956d29f6a77c43ad0" class="m-doc-self">~component_visitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -90,16 +89,16 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="aefcfb2e2f7c7a391bb5c4c65b3680e18">
-              <span class="m-doc-wrap-bumper">auto <a href="#aefcfb2e2f7c7a391bb5c4c65b3680e18" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1visitor.html" class="m-doc">visitor</a>&amp;) -&gt; visitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span></span>
+            <dt id="a5ae1c0cf12326141b337c84fea36d673">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5ae1c0cf12326141b337c84fea36d673" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1component__visitor.html" class="m-doc">component_<wbr />visitor</a>&amp;) -&gt; component_visitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a347f8c1aaa6704c5b63fe097fe6b832c">
-              <span class="m-doc-wrap-bumper">auto <a href="#a347f8c1aaa6704c5b63fe097fe6b832c" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1visitor.html" class="m-doc">visitor</a>&amp;&amp;) noexcept -&gt; visitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            <dt id="a27fa434c90f6112562cc48ddd1cc8007">
+              <span class="m-doc-wrap-bumper">auto <a href="#a27fa434c90f6112562cc48ddd1cc8007" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1component__visitor.html" class="m-doc">component_<wbr />visitor</a>&amp;&amp;) noexcept -&gt; component_visitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a8e5523d36093c016f3c5ae3a6d2f2cd4">
-              <span class="m-doc-wrap-bumper">auto <a href="#a8e5523d36093c016f3c5ae3a6d2f2cd4" class="m-doc-self">visit</a>(</span><span class="m-doc-wrap">T*) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
+            <dt id="a87d72dd12445187b4cb9a94a6c0b738c">
+              <span class="m-doc-wrap-bumper">auto <a href="#a87d72dd12445187b4cb9a94a6c0b738c" class="m-doc-self">visit</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1component.html" class="m-doc">component</a>*) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>
