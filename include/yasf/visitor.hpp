@@ -34,8 +34,8 @@ public:
     component_visitor(component_visitor&&) noexcept = default;
     virtual ~component_visitor() = default;
     auto operator=(const component_visitor&) -> component_visitor& = default;
-    auto operator=(component_visitor&&) noexcept
-        -> component_visitor& = default;
+    auto operator=(component_visitor&&) noexcept -> component_visitor& =
+                                                        default;
 
     virtual auto visit(component*) -> void = 0;
 };
