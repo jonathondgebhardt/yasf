@@ -1,0 +1,16 @@
+{
+  "name": "C++ (Clang)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "root",
+  "runArgs": ["--userns=keep-id"],
+  "customizations": {
+    "vscode": {
+      "extensions": ["llvm-vs-code-extensions.vscode-clangd"]
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.cache/vcpkg,target=/opt/vcpkg/installed,type=bind"
+  ]
+}
