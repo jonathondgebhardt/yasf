@@ -24,9 +24,3 @@ RUN apt-get update && apt-get install -y \
     cppcheck \
     && rm -rf /var/lib/apt/lists/*
 
-# Install vcpkg
-RUN git clone https://github.com/microsoft/vcpkg.git $VCPKG_ROOT \
-    && $VCPKG_ROOT/bootstrap-vcpkg.sh
-
-# Make vcpkg available globally
-ENV PATH="$VCPKG_ROOT:$PATH"
