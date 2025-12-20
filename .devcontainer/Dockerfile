@@ -1,7 +1,8 @@
 FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV VCPKG_ROOT=/opt/vcpkg
+ENV VCPKG_ROOT=/workspace/vcpkg
+ENV PATH="$VCPKG_ROOT:$PATH"
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \

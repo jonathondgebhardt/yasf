@@ -1,5 +1,5 @@
 {
-  "name": "C++ (Clang)",
+  "name": "yasf-ubuntu",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -11,6 +11,9 @@
     }
   },
   "mounts": [
-    "source=${localEnv:HOME}/.cache/vcpkg,target=/opt/vcpkg/installed,type=bind"
-  ]
+    "source=${localWorkspaceFolder},target=/workspace/yasf,type=bind",
+    "source=${localEnv:VCPKG_HOME},target=/workspace/vcpkg,type=bind"
+  ],
+  "postCreateCommand": "cd /workspace/vcpkg && ./bootstrap-vcpkg.sh",
+  "workspaceFolder": "/workspace/yasf"
 }
