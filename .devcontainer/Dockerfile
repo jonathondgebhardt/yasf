@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV VCPKG_ROOT=/opt/vcpkg
 ENV PATH="$VCPKG_ROOT:$PATH"
 
+WORKDIR /workspace/yasf
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
