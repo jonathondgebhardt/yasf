@@ -1,25 +1,25 @@
 {
-	"name": "yasf",
-	"version-semver": "0.1.0",
-	"dependencies": [
-		{
-			"name": "boost-uuid"
-		},
-		{
-			"name": "spdlog"
-		}
-	],
-	"default-features": [],
-	"features": {
-		"test": {
-			"description": "Dependencies for testing",
-			"dependencies": [
-				{
-					"name": "catch2",
-					"version>=": "3.7.1"
-				}
-			]
-		}
-	},
-	"builtin-baseline": "d7112d1a4fb50410d3639f5f586972591d848beb"
+  "name": "yasf",
+  "version-semver": "0.1.0",
+  "dependencies": [
+    {
+      "name": "boost-uuid"
+    },
+    {
+      "name": "spdlog"
+    }
+  ],
+  "default-features": [],
+  "features": {
+    "test": {
+      "description": "Dependencies for testing",
+      "dependencies": [
+        {
+          "name": "catch2",
+          "version>=": "3.7.1"
+        }
+      ]
+    }
+  },
+  "builtin-baseline": "d7112d1a4fb50410d3639f5f586972591d848beb"
 }
