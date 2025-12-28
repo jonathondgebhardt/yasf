@@ -9,14 +9,14 @@
 #include "yasf/processor_service.hpp"
 #include "yasf/simulation.hpp"
 
-struct concrete_processor : public yasf::Processor
+struct ConcreteProcessor : public yasf::Processor
 {
     void update() override {}
 };
 
 TEST_CASE("processor: name is processor", "[processor]")
 {
-    auto const proc = concrete_processor{};
+    auto const proc = ConcreteProcessor{};
     CHECK(proc.name() == "processor");
 }
 
@@ -28,8 +28,8 @@ TEST_CASE("processor: simulation getters", "[processor]")
     auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
-    REQUIRE(psvc->add_child(std::make_unique<concrete_processor>()));
-    auto* const proc = psvc->get_child<concrete_processor>();
+    REQUIRE(psvc->add_child(std::make_unique<ConcreteProcessor>()));
+    auto* const proc = psvc->get_child<ConcreteProcessor>();
     REQUIRE(proc != nullptr);
 
     SECTION("get_simulation")

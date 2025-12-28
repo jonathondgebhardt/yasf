@@ -11,7 +11,7 @@
 namespace
 {
 
-struct processor_visitor : public yasf::ObjectVisitor
+struct ProcessorVisitor : public yasf::ObjectVisitor
 {
     void visit(yasf::Object* obj) override
     {
@@ -29,7 +29,7 @@ namespace yasf
 
 auto ProcessorService::update() -> void
 {
-    auto visitor = processor_visitor{};
+    auto visitor = ProcessorVisitor{};
     accept(visitor);
 }
 

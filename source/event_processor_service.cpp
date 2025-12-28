@@ -12,9 +12,9 @@
 namespace
 {
 
-struct processor_visitor : public yasf::ObjectVisitor
+struct ProcessorVisitor : public yasf::ObjectVisitor
 {
-    explicit processor_visitor(yasf::Event* evt)
+    explicit ProcessorVisitor(yasf::Event* evt)
         : m_event{evt}
     {
     }
@@ -37,7 +37,7 @@ namespace yasf
 
 auto EventProcessorService::on_event(Event* evt) -> void
 {
-    auto visitor = processor_visitor{evt};
+    auto visitor = ProcessorVisitor{evt};
     accept(visitor);
 }
 

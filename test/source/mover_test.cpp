@@ -14,9 +14,9 @@
 #include "yasf/simulation.hpp"
 #include "yasf/velocity.hpp"
 
-struct mover_fixture
+struct MoverFixture
 {
-    mover_fixture()
+    MoverFixture()
     {
         auto clock = yasf::ClockFactory::build_fixed_update(m_delta_time);
         m_sim = std::make_unique<yasf::Simulation>(std::move(clock));
@@ -44,7 +44,7 @@ struct mover_fixture
     yasf::time_seconds m_delta_time{1.0};
 };
 
-TEST_CASE_METHOD(mover_fixture, "mover: no movement", "[processor]")
+TEST_CASE_METHOD(MoverFixture, "mover: no movement", "[processor]")
 {
     auto* vel = m_entity->get_component<yasf::Velocity>();
     REQUIRE(vel != nullptr);
@@ -59,7 +59,7 @@ TEST_CASE_METHOD(mover_fixture, "mover: no movement", "[processor]")
     CHECK(pos->get() == pos_vec);
 }
 
-TEST_CASE_METHOD(mover_fixture, "mover: 1-d movement", "[processor]")
+TEST_CASE_METHOD(MoverFixture, "mover: 1-d movement", "[processor]")
 {
     constexpr auto x_vel = 1.0;
     auto* vel = m_entity->get_component<yasf::Velocity>();
@@ -79,7 +79,7 @@ TEST_CASE_METHOD(mover_fixture, "mover: 1-d movement", "[processor]")
     }
 }
 
-TEST_CASE_METHOD(mover_fixture, "mover: 2-d movement", "[processor]")
+TEST_CASE_METHOD(MoverFixture, "mover: 2-d movement", "[processor]")
 {
     constexpr auto x_vel = 1.0;
     constexpr auto y_vel = 2.0;
@@ -102,7 +102,7 @@ TEST_CASE_METHOD(mover_fixture, "mover: 2-d movement", "[processor]")
 }
 
 // NOLINTBEGIN(readability-function-cognitive-complexity)
-TEST_CASE_METHOD(mover_fixture, "mover: 3-d movement", "[processor]")
+TEST_CASE_METHOD(MoverFixture, "mover: 3-d movement", "[processor]")
 {
     constexpr auto x_vel = 1.0;
     constexpr auto y_vel = 2.0;

@@ -37,7 +37,7 @@ TEST_CASE("processor_service: simulation getters", "[processor_service]")
 // NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("processor_service: update", "[processor_service]")
 {
-    struct test_processor : public yasf::Processor
+    struct TestProcessor : public yasf::Processor
     {
         void update() override
         {
@@ -55,8 +55,8 @@ TEST_CASE("processor_service: update", "[processor_service]")
     auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
-    REQUIRE(psvc->add_child<test_processor>());
-    auto* const proc = psvc->get_child<test_processor>();
+    REQUIRE(psvc->add_child<TestProcessor>());
+    auto* const proc = psvc->get_child<TestProcessor>();
     REQUIRE(proc != nullptr);
 
     REQUIRE(!proc->m_visited);

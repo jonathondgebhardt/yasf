@@ -11,7 +11,7 @@
 namespace
 {
 
-struct mover_visitor : public yasf::ObjectVisitor
+struct MoverVisitor : public yasf::ObjectVisitor
 {
     void visit(yasf::Object* obj) override
     {
@@ -57,7 +57,7 @@ auto Mover::update() -> void
     Ensure(esvc != nullptr, "failed to get entity_service");
 
     auto* const clock = get_clock();
-    auto visitor = mover_visitor{};
+    auto visitor = MoverVisitor{};
 
     // TODO: used designated initializer
     visitor.m_clock = clock;

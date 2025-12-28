@@ -41,7 +41,7 @@ TEST_CASE("event_processor_service: simulation getters",
 // NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("event_processor_service: update", "[event_processor_service]")
 {
-    struct test_processor : public yasf::EventProcessor
+    struct TestProcessor : public yasf::EventProcessor
     {
         void on_event([[maybe_unused]] const yasf::Event* evt) override
         {
@@ -59,8 +59,8 @@ TEST_CASE("event_processor_service: update", "[event_processor_service]")
     auto* const psvc = sim.get_child<yasf::EventProcessorService>();
     REQUIRE(psvc != nullptr);
 
-    REQUIRE(psvc->add_child<test_processor>());
-    auto* const proc = psvc->get_child<test_processor>();
+    REQUIRE(psvc->add_child<TestProcessor>());
+    auto* const proc = psvc->get_child<TestProcessor>();
     REQUIRE(proc != nullptr);
 
     REQUIRE(!proc->m_visited);

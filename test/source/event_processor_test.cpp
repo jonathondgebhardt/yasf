@@ -13,7 +13,7 @@
 namespace
 {
 
-struct concrete_processor : public yasf::EventProcessor
+struct ConcreteProcessor : public yasf::EventProcessor
 {
     void on_event([[maybe_unused]] const yasf::Event* evt) override {}
 };
@@ -22,7 +22,7 @@ struct concrete_processor : public yasf::EventProcessor
 
 TEST_CASE("event_processor: name is processor", "[event_processor]")
 {
-    auto const proc = concrete_processor{};
+    auto const proc = ConcreteProcessor{};
     CHECK(proc.name() == "event_processor");
 }
 
@@ -34,8 +34,8 @@ TEST_CASE("event_processor: simulation getters", "[event_processor]")
     auto* const psvc = sim.get_child<yasf::EventProcessorService>();
     REQUIRE(psvc != nullptr);
 
-    REQUIRE(psvc->add_child(std::make_unique<concrete_processor>()));
-    auto* const proc = psvc->get_child<concrete_processor>();
+    REQUIRE(psvc->add_child(std::make_unique<ConcreteProcessor>()));
+    auto* const proc = psvc->get_child<ConcreteProcessor>();
     REQUIRE(proc != nullptr);
 
     SECTION("get_simulation")

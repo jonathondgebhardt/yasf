@@ -11,7 +11,7 @@
 #include "yasf/processor_service.hpp"
 #include "yasf/types.hpp"
 
-struct time_cache_processor : public yasf::Processor
+struct TimeCacheProcessor : public yasf::Processor
 {
     void update() override
     {
@@ -40,8 +40,8 @@ TEST_CASE("simulation: zero frame", "[simulation]")
     auto* psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
-    REQUIRE(psvc->add_child(std::make_unique<time_cache_processor>()));
-    auto* const proc = psvc->get_child<time_cache_processor>();
+    REQUIRE(psvc->add_child(std::make_unique<TimeCacheProcessor>()));
+    auto* const proc = psvc->get_child<TimeCacheProcessor>();
     REQUIRE(proc != nullptr);
 
     REQUIRE_NOTHROW(sim.update());
@@ -70,7 +70,7 @@ TEST_CASE("simulation: update advances sim time", "[simulation]")
 TEST_CASE("simulation: update advances sim time with processors",
           "[simulation]")
 {
-    struct concrete_processor : public yasf::Processor
+    struct ConcreteProcessor : public yasf::Processor
     {
         void update() override {}
     };
@@ -86,7 +86,7 @@ TEST_CASE("simulation: update advances sim time with processors",
     auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
-    REQUIRE(psvc->add_child<concrete_processor>());
+    REQUIRE(psvc->add_child<ConcreteProcessor>());
 
     REQUIRE(clock->time() == yasf::time_seconds{0.0});
     REQUIRE(clock->delta() == yasf::time_seconds{0.0});
