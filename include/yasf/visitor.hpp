@@ -34,8 +34,7 @@ public:
     ComponentVisitor(ComponentVisitor&&) noexcept = default;
     virtual ~ComponentVisitor() = default;
     auto operator=(const ComponentVisitor&) -> ComponentVisitor& = default;
-    auto operator=(ComponentVisitor&&) noexcept -> ComponentVisitor& =
-                                                        default;
+    auto operator=(ComponentVisitor&&) noexcept -> ComponentVisitor& = default;
 
     virtual auto visit(Component*) -> void = 0;
 };
