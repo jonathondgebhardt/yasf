@@ -6,14 +6,14 @@
 namespace yasf
 {
 
-class clock;
-class entity;
+class Clock;
+class Entity;
 
-class YASF_EXPORT mover : public processor
+class YASF_EXPORT Mover : public Processor
 {
 public:
-    mover()
-        : processor("mover")
+    Mover()
+        : Processor("mover")
     {
     }
 
@@ -24,7 +24,7 @@ public:
     // NOLINTEND(modernize-use-trailing-return-type)
 
 private:
-    auto move_entity(entity* entity) -> void;
+    auto move_entity(Entity* entity) -> void;
 };
 
 }  // namespace yasf

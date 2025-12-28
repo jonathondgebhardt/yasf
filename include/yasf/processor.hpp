@@ -8,26 +8,26 @@
 namespace yasf
 {
 
-class YASF_EXPORT processor : public object
+class YASF_EXPORT Processor : public Object
 {
 public:
-    processor()
-        : object("processor")
+    Processor()
+        : Object("processor")
     {
     }
 
     // TODO: add m_enabled and update_impl?
     virtual auto update() -> void = 0;
 
-    auto get_simulation() const -> simulation*;
+    auto get_simulation() const -> Simulation*;
 
-    auto get_clock() const -> clock*;
+    auto get_clock() const -> Clock*;
 
-    auto get_entity_service() const -> entity_service*;
+    auto get_entity_service() const -> EntityService*;
 
 protected:
-    explicit processor(std::string name)
-        : object(std::move(name))
+    explicit Processor(std::string name)
+        : Object(std::move(name))
     {
     }
 };

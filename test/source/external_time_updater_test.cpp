@@ -12,7 +12,7 @@
 TEST_CASE("external_time_updater: name is external_time_updater",
           "[time_updater]")
 {
-    auto const updater = yasf::external_time_updater{};
+    auto const updater = yasf::ExternalTimeUpdater{};
     CHECK(updater.name() == "external_time_updater");
 }
 
@@ -22,15 +22,15 @@ TEST_CASE("external_time_updater: next_time", "[time_updater]")
     // TODO: really dislike this
     auto sim = []()
     {
-        auto clock = std::make_unique<yasf::clock>();
-        REQUIRE(clock->add_component<yasf::external_time_updater>());
-        return yasf::simulation{std::move(clock)};
+        auto clock = std::make_unique<yasf::Clock>();
+        REQUIRE(clock->add_component<yasf::ExternalTimeUpdater>());
+        return yasf::Simulation{std::move(clock)};
     }();
 
     auto* const clock = sim.get_clock();
     REQUIRE(clock != nullptr);
 
-    auto* updater = clock->get_component<yasf::external_time_updater>();
+    auto* updater = clock->get_component<yasf::ExternalTimeUpdater>();
     REQUIRE(updater != nullptr);
 
     REQUIRE_NOTHROW(sim.update());

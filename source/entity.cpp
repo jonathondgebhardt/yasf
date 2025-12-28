@@ -5,8 +5,8 @@
 namespace yasf
 {
 
-entity::entity()
-    : object{"entity"}
+Entity::Entity()
+    : Object{"entity"}
 {
 }
 

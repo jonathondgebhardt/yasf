@@ -11,14 +11,14 @@
 namespace yasf
 {
 
-auto event_simulation_factory::build() -> std::unique_ptr<event_simulation>
+auto EventSimulationFactory::build() -> std::unique_ptr<EventSimulation>
 {
-    auto sim = std::make_unique<event_simulation>(std::make_unique<clock>());
+    auto sim = std::make_unique<EventSimulation>(std::make_unique<Clock>());
     auto* clock = sim->get_clock();
-    clock->add_component<external_time_updater>();
+    clock->add_component<ExternalTimeUpdater>();
 
-    sim->add_child<event_processor_service>();
-    sim->add_child<entity_service>();
+    sim->add_child<EventProcessorService>();
+    sim->add_child<EntityService>();
 
     return sim;
 }

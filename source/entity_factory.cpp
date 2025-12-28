@@ -9,13 +9,13 @@
 namespace yasf
 {
 
-auto entity_factory::build() -> std::unique_ptr<entity>
+auto EntityFactory::build() -> std::unique_ptr<Entity>
 {
     // TODO: do i have to repeat myself? do i want to somehow reuse the object
     // factory?
-    auto ent = std::make_unique<entity>();
-    ent->add_component(std::make_unique<position>());
-    ent->add_component(std::make_unique<velocity>());
+    auto ent = std::make_unique<Entity>();
+    ent->add_component(std::make_unique<Position>());
+    ent->add_component(std::make_unique<Velocity>());
     return ent;
 }
 

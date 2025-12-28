@@ -9,11 +9,11 @@ namespace yasf
 /**
  * @brief The root of all entities.
  */
-class YASF_EXPORT entity_service : public object
+class YASF_EXPORT EntityService : public Object
 {
 public:
-    entity_service()
-        : object("entity_service")
+    EntityService()
+        : Object("entity_service")
     {
     }
 };

@@ -13,20 +13,20 @@
 
 TEST_CASE("event_simulation: name is event_simulation", "[simulation]")
 {
-    auto const sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto const sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
     CHECK(sim.name() == "event_simulation");
 }
 
 TEST_CASE("event_simulation: update", "[simulation]")
 {
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
 
     SECTION("no events")
     {
         CHECK_NOTHROW(sim.update());
     }
 
-    sim.queue(std::make_unique<yasf::event>(yasf::time_microseconds{1},
+    sim.queue(std::make_unique<yasf::Event>(yasf::time_microseconds{1},
                                             yasf::event_type::user));
 
     SECTION("no updater")
@@ -36,14 +36,14 @@ TEST_CASE("event_simulation: update", "[simulation]")
 
     auto* clock = sim.get_clock();
     REQUIRE(clock != nullptr);
-    REQUIRE(clock->add_component<yasf::external_time_updater>());
+    REQUIRE(clock->add_component<yasf::ExternalTimeUpdater>());
 
     SECTION("updater")
     {
         CHECK_NOTHROW(sim.update());
     }
 
-    sim.add_child<yasf::event_processor_service>();
+    sim.add_child<yasf::EventProcessorService>();
 
     SECTION("processor_service")
     {
@@ -53,16 +53,16 @@ TEST_CASE("event_simulation: update", "[simulation]")
 
 TEST_CASE("event_simulation: get_clock", "[simulation]")
 {
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
     CHECK(sim.get_clock() != nullptr);
 }
 
 TEST_CASE("event_simulation: has_events", "[simulation]")
 {
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
 
     // Insert out of order.
-    sim.queue(std::make_unique<yasf::event>(yasf::time_microseconds{0},
+    sim.queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
                                             yasf::event_type::user));
 
     CHECK(sim.has_events());
@@ -70,10 +70,10 @@ TEST_CASE("event_simulation: has_events", "[simulation]")
 
 TEST_CASE("event_simulation: num_events", "[simulation]")
 {
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
 
     // Insert out of order.
-    sim.queue(std::make_unique<yasf::event>(yasf::time_microseconds{0},
+    sim.queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
                                             yasf::event_type::user));
 
     CHECK(sim.num_events() == std::size_t{1});

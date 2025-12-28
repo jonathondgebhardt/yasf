@@ -4,7 +4,7 @@
 
 TEST_CASE("uuid", "[library]")
 {
-    auto const uuid = yasf::uuid{};
+    auto const uuid = yasf::Uuid{};
 
     SECTION("populated on construction")
     {
@@ -13,7 +13,7 @@ TEST_CASE("uuid", "[library]")
 
     SECTION("uniqueness")
     {
-        auto const other = yasf::uuid{};
+        auto const other = yasf::Uuid{};
         CHECK(uuid != other);
     }
 

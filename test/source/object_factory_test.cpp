@@ -4,6 +4,6 @@
 
 TEST_CASE("object_factory: build", "[library]")
 {
-    auto obj = yasf::object_factory::build();
+    auto obj = yasf::ObjectFactory::build();
     REQUIRE(obj != nullptr);
 }

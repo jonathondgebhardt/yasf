@@ -10,9 +10,9 @@
 namespace
 {
 
-struct object_counting_visitor : public yasf::object_visitor
+struct ObjectCountingVisitor : public yasf::ObjectVisitor
 {
-    void visit([[maybe_unused]] yasf::object* obj) override { ++m_count; }
+    void visit([[maybe_unused]] yasf::Object* obj) override { ++m_count; }
 
     std::uint64_t m_count{};
 };
@@ -21,8 +21,8 @@ struct object_counting_visitor : public yasf::object_visitor
 
 TEST_CASE("object_visitor", "[visitor]")
 {
-    auto obj = yasf::object{};
-    auto visitor = object_counting_visitor{};
+    auto obj = yasf::Object{};
+    auto visitor = ObjectCountingVisitor{};
 
     SECTION("single object")
     {
@@ -31,7 +31,7 @@ TEST_CASE("object_visitor", "[visitor]")
         CHECK(visitor.m_count == 1);
     }
 
-    REQUIRE(obj.add_child<yasf::object>());
+    REQUIRE(obj.add_child<yasf::Object>());
 
     SECTION("nested object")
     {
@@ -41,7 +41,7 @@ TEST_CASE("object_visitor", "[visitor]")
         CHECK(visitor.m_count == 2);
     }
 
-    REQUIRE(obj.add_child<yasf::object>());
+    REQUIRE(obj.add_child<yasf::Object>());
 
     SECTION("nested siblings")
     {
@@ -53,9 +53,9 @@ TEST_CASE("object_visitor", "[visitor]")
         CHECK(visitor.m_count == 3);
     }
 
-    auto* child = obj.get_child<yasf::object>();
+    auto* child = obj.get_child<yasf::Object>();
     REQUIRE(child != nullptr);
-    REQUIRE(child->add_child<yasf::object>());
+    REQUIRE(child->add_child<yasf::Object>());
 
     SECTION("deeply nested")
     {
@@ -77,17 +77,17 @@ TEST_CASE("object_visitor", "[visitor]")
     }
 }
 
-struct component_counting_visitor : public yasf::component_visitor
+struct ComponentCountingVisitor : public yasf::ComponentVisitor
 {
-    void visit([[maybe_unused]] yasf::component* comp) override { ++m_count; }
+    void visit([[maybe_unused]] yasf::Component* comp) override { ++m_count; }
 
     std::uint64_t m_count{};
 };
 
 TEST_CASE("component_visitor", "[visitor]")
 {
-    auto obj = yasf::object{};
-    auto visitor = component_counting_visitor{};
+    auto obj = yasf::Object{};
+    auto visitor = ComponentCountingVisitor{};
 
     SECTION("no components")
     {
@@ -95,7 +95,7 @@ TEST_CASE("component_visitor", "[visitor]")
         CHECK(visitor.m_count == 0);
     }
 
-    REQUIRE(obj.add_component<yasf::component>());
+    REQUIRE(obj.add_component<yasf::Component>());
 
     SECTION("single component")
     {
@@ -105,7 +105,7 @@ TEST_CASE("component_visitor", "[visitor]")
         CHECK(visitor.m_count == 1);
     }
 
-    REQUIRE(obj.add_component<yasf::component>());
+    REQUIRE(obj.add_component<yasf::Component>());
 
     SECTION("two components")
     {
@@ -116,8 +116,8 @@ TEST_CASE("component_visitor", "[visitor]")
         CHECK(visitor.m_count == 2);
     }
 
-    REQUIRE(obj.add_child<yasf::object>());
-    auto* child = obj.get_child<yasf::object>();
+    REQUIRE(obj.add_child<yasf::Object>());
+    auto* child = obj.get_child<yasf::Object>();
     REQUIRE(child != nullptr);
 
     SECTION("child with no components")
@@ -130,7 +130,7 @@ TEST_CASE("component_visitor", "[visitor]")
         CHECK(visitor.m_count == 0);
     }
 
-    REQUIRE(child->add_component<yasf::component>());
+    REQUIRE(child->add_component<yasf::Component>());
 
     SECTION("deep components")
     {

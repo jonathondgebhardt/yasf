@@ -15,13 +15,13 @@
 namespace yasf
 {
 
-event_simulation::event_simulation(std::unique_ptr<clock> clock)
-    : object("event_simulation")
+EventSimulation::EventSimulation(std::unique_ptr<Clock> clock)
+    : Object("event_simulation")
     , m_clock(std::move(clock))
 {
 }
 
-auto event_simulation::update() -> void
+auto EventSimulation::update() -> void
 {
     // Get the next event to process.
     auto* const evt = top();
@@ -32,13 +32,13 @@ auto event_simulation::update() -> void
     }
 
     // Advance simulation time.
-    auto* updater = m_clock->get_component<external_time_updater>();
-    yasf::ensure(updater != nullptr, "failed to get updater");
+    auto* updater = m_clock->get_component<ExternalTimeUpdater>();
+    yasf::Ensure(updater != nullptr, "failed to get updater");
     updater->set_next_time(evt->time());
     m_clock->tick();
 
     // Update the simulation.
-    auto* const psvc = get_child<event_processor_service>();
+    auto* const psvc = get_child<EventProcessorService>();
     if (psvc != nullptr) {
         psvc->on_event(evt);
     } else {
@@ -51,19 +51,19 @@ auto event_simulation::update() -> void
     pop();
 }
 
-auto event_simulation::queue(std::unique_ptr<event> evt) -> void
+auto EventSimulation::queue(std::unique_ptr<Event> evt) -> void
 {
     // yasf::log::info("queueing event {}: {}", evt->type(),
     // evt->time().count());
     m_events.push(std::move(evt));
 }
 
-auto event_simulation::top() -> event*
+auto EventSimulation::top() -> Event*
 {
     return has_events() ? m_events.top().get() : nullptr;
 }
 
-auto event_simulation::pop() -> void
+auto EventSimulation::pop() -> void
 {
     if (has_events()) {
         m_events.pop();

@@ -11,12 +11,12 @@
 #include "yasf/processor_service.hpp"
 #include "yasf/types.hpp"
 
-struct time_cache_processor : public yasf::processor
+struct time_cache_processor : public yasf::Processor
 {
     void update() override
     {
         auto* const clock = get_clock();
-        yasf::ensure(clock != nullptr, "failed to get clock");
+        yasf::Ensure(clock != nullptr, "failed to get clock");
 
         m_update_time = clock->time();
     }
@@ -26,7 +26,7 @@ struct time_cache_processor : public yasf::processor
 
 TEST_CASE("simulation: name is simulation", "[simulation]")
 {
-    auto const sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto const sim = yasf::Simulation{std::make_unique<yasf::Clock>()};
     CHECK(sim.name() == "simulation");
 }
 
@@ -34,10 +34,10 @@ TEST_CASE("simulation: zero frame", "[simulation]")
 {
     constexpr auto delta_time = yasf::time_seconds{1.0};
     auto sim =
-        yasf::simulation{yasf::clock_factory::build_fixed_update(delta_time)};
+        yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
 
-    REQUIRE(sim.add_child<yasf::processor_service>());
-    auto* psvc = sim.get_child<yasf::processor_service>();
+    REQUIRE(sim.add_child<yasf::ProcessorService>());
+    auto* psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
     REQUIRE(psvc->add_child(std::make_unique<time_cache_processor>()));
@@ -53,7 +53,7 @@ TEST_CASE("simulation: update advances sim time", "[simulation]")
 {
     constexpr auto delta_time = yasf::time_seconds{1.0};
     auto sim =
-        yasf::simulation{yasf::clock_factory::build_fixed_update(delta_time)};
+        yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
 
     auto* const clock = sim.get_clock();
     REQUIRE(clock != nullptr);
@@ -70,20 +70,20 @@ TEST_CASE("simulation: update advances sim time", "[simulation]")
 TEST_CASE("simulation: update advances sim time with processors",
           "[simulation]")
 {
-    struct concrete_processor : public yasf::processor
+    struct concrete_processor : public yasf::Processor
     {
         void update() override {}
     };
 
     constexpr auto delta_time = yasf::time_seconds{1.0};
     auto sim =
-        yasf::simulation{yasf::clock_factory::build_fixed_update(delta_time)};
+        yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
 
     auto* const clock = sim.get_clock();
     REQUIRE(clock != nullptr);
 
-    REQUIRE(sim.add_child<yasf::processor_service>());
-    auto* const psvc = sim.get_child<yasf::processor_service>();
+    REQUIRE(sim.add_child<yasf::ProcessorService>());
+    auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
     REQUIRE(psvc->add_child<concrete_processor>());

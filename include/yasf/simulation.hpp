@@ -13,18 +13,18 @@ namespace yasf
  * This class owns the simulation clock, the entity_service, and the
  * processor_service.
  */
-class YASF_EXPORT simulation : public object
+class YASF_EXPORT Simulation : public Object
 {
 public:
-    explicit simulation(std::unique_ptr<clock> clock);
+    explicit Simulation(std::unique_ptr<Clock> clock);
 
     auto update() -> void;
 
-    auto get_clock() const -> clock* { return m_clock.get(); }
+    auto get_clock() const -> Clock* { return m_clock.get(); }
 
 private:
     YASF_SUPPRESS_C4251
-    std::unique_ptr<clock> m_clock;
+    std::unique_ptr<Clock> m_clock;
 };
 
 }  // namespace yasf

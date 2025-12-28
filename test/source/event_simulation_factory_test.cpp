@@ -17,7 +17,7 @@
 
 TEST_CASE("simulation_event_factory: build")
 {
-    auto const sim = yasf::event_simulation_factory::build();
+    auto const sim = yasf::EventSimulationFactory::build();
     REQUIRE(sim != nullptr);
 
     SECTION("has clock")
@@ -29,26 +29,26 @@ TEST_CASE("simulation_event_factory: build")
     {
         auto* const clock = sim->get_clock();
         REQUIRE(clock != nullptr);
-        CHECK(clock->get_component<yasf::external_time_updater>());
+        CHECK(clock->get_component<yasf::ExternalTimeUpdater>());
     }
 
     SECTION("has event_processor_service")
     {
-        CHECK(sim->get_child<yasf::event_processor_service>() != nullptr);
+        CHECK(sim->get_child<yasf::EventProcessorService>() != nullptr);
     }
 
     SECTION("has entity_service")
     {
-        CHECK(sim->get_child<yasf::entity_service>() != nullptr);
+        CHECK(sim->get_child<yasf::EntityService>() != nullptr);
     }
 }
 
 // NOLINTBEGIN (readability-function-cognitive-complexity)
 TEST_CASE("event_simulation: queue", "[simulation]")
 {
-    struct concrete_processor : public yasf::event_processor
+    struct concrete_processor : public yasf::EventProcessor
     {
-        void on_event(const yasf::event* evt) override
+        void on_event(const yasf::Event* evt) override
         {
             m_event_time = evt->time();
             m_clock_time = get_clock()->time();
@@ -58,25 +58,25 @@ TEST_CASE("event_simulation: queue", "[simulation]")
         yasf::time_microseconds m_clock_time{};
     };
 
-    auto sim = yasf::event_simulation_factory::build();
+    auto sim = yasf::EventSimulationFactory::build();
     REQUIRE(sim != nullptr);
 
     // Add a concrete processor so we can monitor simulation time.
-    auto* psvc = sim->get_child<yasf::event_processor_service>();
+    auto* psvc = sim->get_child<yasf::EventProcessorService>();
     REQUIRE(psvc != nullptr);
     REQUIRE(psvc->add_child<concrete_processor>());
     auto* const processor = psvc->get_child<concrete_processor>();
 
     // Insert out of order.
-    sim->queue(std::make_unique<yasf::event>(
+    sim->queue(std::make_unique<yasf::Event>(
         yasf::convert::time_cast<yasf::time_microseconds>(
             yasf::time_seconds{3.0}),
         yasf::event_type::user));
-    sim->queue(std::make_unique<yasf::event>(yasf::time_microseconds{0},
+    sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
                                              yasf::event_type::user));
-    sim->queue(std::make_unique<yasf::event>(yasf::time_microseconds{4},
+    sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{4},
                                              yasf::event_type::user));
-    sim->queue(std::make_unique<yasf::event>(yasf::time_microseconds{2},
+    sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{2},
                                              yasf::event_type::user));
 
     REQUIRE(sim->num_events() == std::size_t{4});

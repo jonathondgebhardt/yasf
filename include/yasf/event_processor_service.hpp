@@ -12,22 +12,22 @@ namespace yasf
 /**
  * @brief The root of all processors.
  */
-class YASF_EXPORT event_processor_service : public object
+class YASF_EXPORT EventProcessorService : public Object
 {
 public:
-    event_processor_service()
-        : object("event_processor_service")
+    EventProcessorService()
+        : Object("event_processor_service")
     {
     }
 
     /**
      * @brief Updates all child processors.
      */
-    auto on_event(event* evt) -> void;
+    auto on_event(Event* evt) -> void;
 
-    auto get_simulation() const -> event_simulation*;
+    auto get_simulation() const -> EventSimulation*;
 
-    auto get_clock() const -> clock*;
+    auto get_clock() const -> Clock*;
 };
 
 }  // namespace yasf

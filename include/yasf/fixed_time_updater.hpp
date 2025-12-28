@@ -9,13 +9,13 @@
 namespace yasf
 {
 
-class YASF_EXPORT fixed_time_updater : public time_updater
+class YASF_EXPORT FixedTimeUpdater : public TimeUpdater
 {
 public:
-    fixed_time_updater() = delete;
+    FixedTimeUpdater() = delete;
 
-    explicit fixed_time_updater(time_microseconds delta);
-    explicit fixed_time_updater(time_seconds delta);
+    explicit FixedTimeUpdater(time_microseconds delta);
+    explicit FixedTimeUpdater(time_seconds delta);
 
     // clang-format-19 + gcc-14 doesn't like trailing return here.
     // auto next_time() override -> time_usec;

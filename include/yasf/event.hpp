@@ -17,33 +17,33 @@ enum class event_type : std::uint16_t
     user_end = std::numeric_limits<std::uint16_t>::max()
 };
 
-class event
+class Event
 {
 public:
-    event(yasf::time_microseconds time, event_type type)
+    Event(yasf::time_microseconds time, event_type type)
         : m_time{time}
         , m_type{type}
     {
     }
 
-    event(const event&) = default;
-    event(event&&) = delete;
+    Event(const Event&) = default;
+    Event(Event&&) = delete;
 
-    virtual ~event() = default;
+    virtual ~Event() = default;
 
-    auto operator=(const event&) -> event& = default;
-    auto operator=(event&&) -> event& = delete;
+    auto operator=(const Event&) -> Event& = default;
+    auto operator=(Event&&) -> Event& = delete;
 
     auto type() const -> event_type { return m_type; }
 
     auto time() const -> time_microseconds { return m_time; }
 
-    auto operator<(const event& other) const -> bool
+    auto operator<(const Event& other) const -> bool
     {
         return m_time < other.m_time;
     }
 
-    auto operator>(const event& other) const -> bool
+    auto operator>(const Event& other) const -> bool
     {
         return m_time > other.m_time;
     }

@@ -12,18 +12,18 @@
 namespace yasf
 {
 
-simulation::simulation(std::unique_ptr<clock> clock)
-    : object("simulation")
+Simulation::Simulation(std::unique_ptr<Clock> clock)
+    : Object("simulation")
     , m_clock(std::move(clock))
 {
 }
 
-auto simulation::update() -> void
+auto Simulation::update() -> void
 {
     // Update the clock after updating the processors. This enables a
     // "zero-frame", where processors have a chance to do something before time
     // has advanced.
-    auto* const psvc = get_child<processor_service>();
+    auto* const psvc = get_child<ProcessorService>();
     if (psvc != nullptr) {
         psvc->update();
     } else {

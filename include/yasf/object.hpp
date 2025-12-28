@@ -18,34 +18,34 @@ namespace yasf
  *
  * An object can have child objects and components.
  */
-class YASF_EXPORT object
+class YASF_EXPORT Object
 {
 public:
     /**
      * @brief Sets name.
      */
-    object();
+    Object();
 
-    object(const object&) = delete;
-    object(object&&) noexcept = default;
+    Object(const Object&) = delete;
+    Object(Object&&) noexcept = default;
 
-    virtual ~object() = default;
+    virtual ~Object() = default;
 
-    auto operator=(const object&) -> object& = delete;
-    auto operator=(object&&) noexcept -> object& = default;
+    auto operator=(const Object&) -> Object& = delete;
+    auto operator=(Object&&) noexcept -> Object& = default;
 
     /**
      * @brief Returns the name of this object.
      */
     auto name() const -> std::string_view { return m_name; }
 
-    auto uuid() const -> uuid { return m_uuid; }
+    auto uuid() const -> Uuid { return m_uuid; }
 
     /**
      * @brief Gets the parent of this object.
      * If this object is not a child of another object, parent will be null.
      */
-    auto parent() const -> object* { return m_parent; }
+    auto parent() const -> Object* { return m_parent; }
 
     /**
      * @brief Adds the child to this object.
@@ -54,23 +54,23 @@ public:
      * @param child The child to add.
      * @return Whether the child was added.
      */
-    auto add_child(std::unique_ptr<object> child) -> bool;
+    auto add_child(std::unique_ptr<Object> child) -> bool;
 
     template<typename T, typename... Args>
     auto add_child(Args&&... args) -> bool
-        requires std::is_base_of_v<object, T>
+        requires std::is_base_of_v<Object, T>
     {
         // TODO: make sure there's only one T?
         return add_child(std::make_unique<T>(std::forward<Args>(args)...));
     }
 
-    auto get_child(std::string_view name) const -> object*;
+    auto get_child(std::string_view name) const -> Object*;
 
-    auto get_child(const yasf::uuid& uid) const -> object*;
+    auto get_child(const yasf::Uuid& uid) const -> Object*;
 
     template<typename T>
     auto get_child() const -> T*
-        requires std::is_base_of_v<object, T>
+        requires std::is_base_of_v<Object, T>
     {
         const auto& container = m_children;
         const auto found = std::ranges::find_if(
@@ -86,7 +86,7 @@ public:
 
     template<typename T>
     auto remove_child() -> bool
-        requires std::is_base_of_v<object, T>
+        requires std::is_base_of_v<Object, T>
     {
         auto& container = m_children;
         const auto found =
@@ -103,21 +103,21 @@ public:
      * @param component The component to add.
      * @return Whether the component was added.
      */
-    auto add_component(std::unique_ptr<component> component) -> bool;
+    auto add_component(std::unique_ptr<Component> component) -> bool;
 
     template<typename T, typename... Args>
     auto add_component(Args&&... args) -> bool
-        requires std::is_base_of_v<component, T>
+        requires std::is_base_of_v<Component, T>
     {
         // TODO: make sure there's only one T?
         return add_component(std::make_unique<T>(std::forward<Args>(args)...));
     }
 
-    auto get_component(std::string_view name) const -> component*;
+    auto get_component(std::string_view name) const -> Component*;
 
     template<typename T>
     auto get_component() const -> T*
-        requires std::is_base_of_v<component, T>
+        requires std::is_base_of_v<Component, T>
     {
         const auto& container = m_components;
         const auto found = std::ranges::find_if(
@@ -133,7 +133,7 @@ public:
 
     template<typename T>
     auto remove_component() -> bool
-        requires std::is_base_of_v<component, T>
+        requires std::is_base_of_v<Component, T>
     {
         auto& container = m_components;
         const auto found =
@@ -143,18 +143,18 @@ public:
         return found != std::size_t{0};
     }
 
-    auto accept(object_visitor& visitor) -> void;
-    auto accept(component_visitor& visitor) -> void;
+    auto accept(ObjectVisitor& visitor) -> void;
+    auto accept(ComponentVisitor& visitor) -> void;
 
 protected:
-    explicit object(std::string name);
+    explicit Object(std::string name);
 
 private:
     YASF_SUPPRESS_C4251
-    object* m_parent{nullptr};
-    std::vector<std::unique_ptr<object>> m_children;
-    std::vector<std::unique_ptr<component>> m_components;
-    yasf::uuid m_uuid;
+    Object* m_parent{nullptr};
+    std::vector<std::unique_ptr<Object>> m_children;
+    std::vector<std::unique_ptr<Component>> m_components;
+    yasf::Uuid m_uuid;
     std::string m_name;
 };
 

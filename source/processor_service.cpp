@@ -11,11 +11,11 @@
 namespace
 {
 
-struct processor_visitor : public yasf::object_visitor
+struct processor_visitor : public yasf::ObjectVisitor
 {
-    void visit(yasf::object* obj) override
+    void visit(yasf::Object* obj) override
     {
-        if (auto* proc = dynamic_cast<yasf::processor*>(obj)) {
+        if (auto* proc = dynamic_cast<yasf::Processor*>(obj)) {
             yasf::log::info("updating {}", proc->name());
             proc->update();
         }
@@ -27,21 +27,21 @@ struct processor_visitor : public yasf::object_visitor
 namespace yasf
 {
 
-auto processor_service::update() -> void
+auto ProcessorService::update() -> void
 {
     auto visitor = processor_visitor{};
     accept(visitor);
 }
 
-auto processor_service::get_simulation() const -> simulation*
+auto ProcessorService::get_simulation() const -> Simulation*
 {
-    return dynamic_cast<simulation*>(parent());
+    return dynamic_cast<Simulation*>(parent());
 }
 
-auto processor_service::get_clock() const -> clock*
+auto ProcessorService::get_clock() const -> Clock*
 {
     auto const* sim = get_simulation();
-    ensure(sim != nullptr, "failed to get simulation");
+    Ensure(sim != nullptr, "failed to get simulation");
     return sim->get_clock();
 }
 

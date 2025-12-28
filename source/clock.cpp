@@ -8,14 +8,14 @@
 namespace yasf
 {
 
-clock::clock()
-    : object("clock")
+Clock::Clock()
+    : Object("clock")
 {
 }
 
-auto clock::tick() -> void
+auto Clock::tick() -> void
 {
-    auto* const updater = get_component<time_updater>();
+    auto* const updater = get_component<TimeUpdater>();
     if (updater == nullptr) {
         yasf::log::error("failed to get updater");
         return;

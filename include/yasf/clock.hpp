@@ -11,13 +11,13 @@ namespace yasf
  * @brief The simulation clock.
  * Time is measured in microseconds.
  */
-class YASF_EXPORT clock : public object
+class YASF_EXPORT Clock : public Object
 {
 public:
     /**
      * @brief Sets name to 'clock'.
      */
-    explicit clock();
+    explicit Clock();
 
     /**
      * @brief Updates the simulation time.

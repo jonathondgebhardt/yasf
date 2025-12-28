@@ -4,21 +4,21 @@
 
 TEST_CASE("velocity: default")
 {
-    const auto pos = yasf::velocity{};
+    const auto pos = yasf::Velocity{};
     const auto vec = pos.get();
     REQUIRE(vec.is_zero());
 }
 
 TEST_CASE("velocity: parameterized ctor")
 {
-    const auto pos = yasf::velocity{yasf::vec3d{1.0, 2.0, 3.0}};
-    REQUIRE(pos.get() == yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+    const auto pos = yasf::Velocity{yasf::Vec3d{1.0, 2.0, 3.0}};
+    REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
 }
 
 TEST_CASE("velocity: set and get")
 {
-    auto pos = yasf::velocity{};
-    pos.set(yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+    auto pos = yasf::Velocity{};
+    pos.set(yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
     const auto vec = pos.get();
-    REQUIRE(vec == yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+    REQUIRE(vec == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
 }

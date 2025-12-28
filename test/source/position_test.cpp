@@ -4,21 +4,21 @@
 
 TEST_CASE("position: default")
 {
-    const auto pos = yasf::position{};
+    const auto pos = yasf::Position{};
     const auto vec = pos.get();
     REQUIRE(vec.is_zero());
 }
 
 TEST_CASE("position: parameterized ctor")
 {
-    const auto pos = yasf::position{yasf::vec3d{1.0, 2.0, 3.0}};
-    REQUIRE(pos.get() == yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+    const auto pos = yasf::Position{yasf::Vec3d{1.0, 2.0, 3.0}};
+    REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
 }
 
 TEST_CASE("position: set and get")
 {
-    auto pos = yasf::position{};
-    pos.set(yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+    auto pos = yasf::Position{};
+    pos.set(yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
     const auto vec = pos.get();
-    REQUIRE(vec == yasf::vec3d{1.0, 2.0, 3.0});  // NOLINT
+    REQUIRE(vec == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
 }

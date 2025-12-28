@@ -13,11 +13,11 @@ namespace yasf
 /**
  * @brief Used for event-based simulations.
  */
-class YASF_EXPORT external_time_updater : public time_updater
+class YASF_EXPORT ExternalTimeUpdater : public TimeUpdater
 {
 public:
-    external_time_updater()
-        : time_updater("external_time_updater")
+    ExternalTimeUpdater()
+        : TimeUpdater("external_time_updater")
     {
     }
 

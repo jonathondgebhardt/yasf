@@ -9,21 +9,21 @@
 namespace yasf
 {
 
-class YASF_EXPORT event_processor : public object
+class YASF_EXPORT EventProcessor : public Object
 {
 public:
-    event_processor()
-        : object("event_processor")
+    EventProcessor()
+        : Object("event_processor")
     {
     }
 
-    virtual auto on_event(const event* evt) -> void = 0;
+    virtual auto on_event(const Event* evt) -> void = 0;
 
-    auto get_simulation() const -> event_simulation*;
+    auto get_simulation() const -> EventSimulation*;
 
-    auto get_clock() const -> clock*;
+    auto get_clock() const -> Clock*;
 
-    auto get_entity_service() const -> entity_service*;
+    auto get_entity_service() const -> EntityService*;
 };
 
 }  // namespace yasf

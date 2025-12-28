@@ -9,23 +9,23 @@
 
 TEST_CASE("object: name", "[library]")
 {
-    auto const obj = yasf::object{};
+    auto const obj = yasf::Object{};
     REQUIRE(obj.name() == std::string("object"));
 }
 
 TEST_CASE("object: uuid", "[library]")
 {
-    auto const obj = yasf::object{};
+    auto const obj = yasf::Object{};
     CHECK_FALSE(obj.uuid().empty());
 }
 
 TEST_CASE("object: add_child", "[library]")
 {
-    auto obj = yasf::object{};
+    auto obj = yasf::Object{};
 
     SECTION("name")
     {
-        REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
+        REQUIRE(obj.add_child(std::make_unique<yasf::Object>()));
     }
 
     SECTION("null child")
@@ -35,14 +35,14 @@ TEST_CASE("object: add_child", "[library]")
 
     SECTION("templated")
     {
-        REQUIRE(obj.add_child<yasf::object>());
+        REQUIRE(obj.add_child<yasf::Object>());
     }
 }
 
 TEST_CASE("object: get_child", "[library]")
 {
-    auto obj = yasf::object{};
-    REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
+    auto obj = yasf::Object{};
+    REQUIRE(obj.add_child(std::make_unique<yasf::Object>()));
 
     SECTION("name")
     {
@@ -53,7 +53,7 @@ TEST_CASE("object: get_child", "[library]")
 
     SECTION("templated")
     {
-        auto* const child = obj.get_child<yasf::object>();
+        auto* const child = obj.get_child<yasf::Object>();
         REQUIRE(child != nullptr);
         REQUIRE(child->parent() != nullptr);
     }
@@ -61,11 +61,11 @@ TEST_CASE("object: get_child", "[library]")
 
 TEST_CASE("object: parent", "[library]")
 {
-    auto obj = yasf::object{};
+    auto obj = yasf::Object{};
 
     SECTION("take by value")
     {
-        REQUIRE(obj.add_child(std::make_unique<yasf::object>()));
+        REQUIRE(obj.add_child(std::make_unique<yasf::Object>()));
         auto const* child = obj.get_child("object");
         REQUIRE(child != nullptr);
         REQUIRE(child->parent() != nullptr);
@@ -73,7 +73,7 @@ TEST_CASE("object: parent", "[library]")
 
     SECTION("templated")
     {
-        REQUIRE(obj.add_child<yasf::object>());
+        REQUIRE(obj.add_child<yasf::Object>());
         auto const* child = obj.get_child("object");
         REQUIRE(child != nullptr);
         REQUIRE(child->parent() != nullptr);
@@ -82,8 +82,8 @@ TEST_CASE("object: parent", "[library]")
 
 TEST_CASE("object: remove_child", "[library]")
 {
-    auto obj = yasf::object{};
-    REQUIRE(obj.add_child<yasf::object>());
+    auto obj = yasf::Object{};
+    REQUIRE(obj.add_child<yasf::Object>());
 
     SECTION("name")
     {
@@ -92,17 +92,17 @@ TEST_CASE("object: remove_child", "[library]")
 
     SECTION("templated")
     {
-        REQUIRE(obj.remove_child<yasf::object>());
+        REQUIRE(obj.remove_child<yasf::Object>());
     }
 }
 
 TEST_CASE("object: add_component", "[library]")
 {
-    auto obj = yasf::object{};
+    auto obj = yasf::Object{};
 
     SECTION("name")
     {
-        REQUIRE(obj.add_component(std::make_unique<yasf::component>()));
+        REQUIRE(obj.add_component(std::make_unique<yasf::Component>()));
     }
 
     SECTION("null component")
@@ -112,14 +112,14 @@ TEST_CASE("object: add_component", "[library]")
 
     SECTION("templated")
     {
-        REQUIRE(obj.add_component<yasf::component>());
+        REQUIRE(obj.add_component<yasf::Component>());
     }
 }
 
 TEST_CASE("object: get_component", "[library]")
 {
-    auto obj = yasf::object{};
-    REQUIRE(obj.add_component(std::make_unique<yasf::component>()));
+    auto obj = yasf::Object{};
+    REQUIRE(obj.add_component(std::make_unique<yasf::Component>()));
 
     SECTION("name")
     {
@@ -128,14 +128,14 @@ TEST_CASE("object: get_component", "[library]")
 
     SECTION("valid component")
     {
-        REQUIRE(obj.get_component<yasf::component>() != nullptr);
+        REQUIRE(obj.get_component<yasf::Component>() != nullptr);
     }
 }
 
 TEST_CASE("object: remove_component", "[library]")
 {
-    auto obj = yasf::object{};
-    REQUIRE(obj.add_component<yasf::component>());
+    auto obj = yasf::Object{};
+    REQUIRE(obj.add_component<yasf::Component>());
 
     SECTION("name")
     {
@@ -144,6 +144,6 @@ TEST_CASE("object: remove_component", "[library]")
 
     SECTION("templated")
     {
-        REQUIRE(obj.remove_component<yasf::component>());
+        REQUIRE(obj.remove_component<yasf::Component>());
     }
 }

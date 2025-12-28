@@ -9,23 +9,23 @@
 namespace yasf
 {
 
-auto event_processor::get_simulation() const -> event_simulation*
+auto EventProcessor::get_simulation() const -> EventSimulation*
 {
-    auto* const service = dynamic_cast<event_processor_service*>(parent());
-    ensure(service != nullptr, "failed to get processor_service");
-    return dynamic_cast<event_simulation*>(service->parent());
+    auto* const service = dynamic_cast<EventProcessorService*>(parent());
+    Ensure(service != nullptr, "failed to get processor_service");
+    return dynamic_cast<EventSimulation*>(service->parent());
 }
 
-auto event_processor::get_clock() const -> clock*
+auto EventProcessor::get_clock() const -> Clock*
 {
-    auto* const service = dynamic_cast<event_processor_service*>(parent());
-    ensure(service != nullptr, "failed to get processor_service");
+    auto* const service = dynamic_cast<EventProcessorService*>(parent());
+    Ensure(service != nullptr, "failed to get processor_service");
     return service->get_clock();
 }
 
-auto event_processor::get_entity_service() const -> entity_service*
+auto EventProcessor::get_entity_service() const -> EntityService*
 {
     auto* const sim = get_simulation();
-    return sim->get_child<entity_service>();
+    return sim->get_child<EntityService>();
 }
 }  // namespace yasf

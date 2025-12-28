@@ -9,35 +9,35 @@
 namespace yasf
 {
 
-class object;
+class Object;
 
-class YASF_EXPORT object_visitor
+class YASF_EXPORT ObjectVisitor
 {
 public:
-    object_visitor() = default;
-    object_visitor(const object_visitor&) = default;
-    object_visitor(object_visitor&&) noexcept = default;
-    virtual ~object_visitor() = default;
-    auto operator=(const object_visitor&) -> object_visitor& = default;
-    auto operator=(object_visitor&&) noexcept -> object_visitor& = default;
+    ObjectVisitor() = default;
+    ObjectVisitor(const ObjectVisitor&) = default;
+    ObjectVisitor(ObjectVisitor&&) noexcept = default;
+    virtual ~ObjectVisitor() = default;
+    auto operator=(const ObjectVisitor&) -> ObjectVisitor& = default;
+    auto operator=(ObjectVisitor&&) noexcept -> ObjectVisitor& = default;
 
-    virtual auto visit(object*) -> void = 0;
+    virtual auto visit(Object*) -> void = 0;
 };
 
-class component;
+class Component;
 
-class YASF_EXPORT component_visitor
+class YASF_EXPORT ComponentVisitor
 {
 public:
-    component_visitor() = default;
-    component_visitor(const component_visitor&) = default;
-    component_visitor(component_visitor&&) noexcept = default;
-    virtual ~component_visitor() = default;
-    auto operator=(const component_visitor&) -> component_visitor& = default;
-    auto operator=(component_visitor&&) noexcept -> component_visitor& =
+    ComponentVisitor() = default;
+    ComponentVisitor(const ComponentVisitor&) = default;
+    ComponentVisitor(ComponentVisitor&&) noexcept = default;
+    virtual ~ComponentVisitor() = default;
+    auto operator=(const ComponentVisitor&) -> ComponentVisitor& = default;
+    auto operator=(ComponentVisitor&&) noexcept -> ComponentVisitor& =
                                                         default;
 
-    virtual auto visit(component*) -> void = 0;
+    virtual auto visit(Component*) -> void = 0;
 };
 
 }  // namespace yasf

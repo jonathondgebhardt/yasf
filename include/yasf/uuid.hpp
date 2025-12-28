@@ -12,12 +12,12 @@ namespace yasf
 /**
  * @brief Reports the name of the library
  */
-class YASF_EXPORT uuid
+class YASF_EXPORT Uuid
 {
 public:
-    uuid();
+    Uuid();
 
-    auto operator==(const uuid& other) const -> bool;
+    auto operator==(const Uuid& other) const -> bool;
 
     auto get() const -> std::string_view { return m_uuid_str; }
 

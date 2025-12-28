@@ -11,28 +11,28 @@
 namespace yasf
 {
 
-class YASF_EXPORT vec3d
+class YASF_EXPORT Vec3d
 {
 public:
-    constexpr vec3d() = default;
+    constexpr Vec3d() = default;
 
-    explicit constexpr vec3d(double scalar)  // NOLINT
-        : vec3d{{scalar, scalar, scalar}}
+    explicit constexpr Vec3d(double scalar)  // NOLINT
+        : Vec3d{{scalar, scalar, scalar}}
     {
     }
 
-    constexpr vec3d(double x, double y, double z)  // NOLINT
-        : vec3d{{x, y, z}}
+    constexpr Vec3d(double x, double y, double z)  // NOLINT
+        : Vec3d{{x, y, z}}
     {
     }
 
-    explicit constexpr vec3d(std::array<double, 3> data)
+    explicit constexpr Vec3d(std::array<double, 3> data)
         : m_data{data}
     {
     }
 
-    constexpr auto operator==(const vec3d&) const -> bool = default;
-    constexpr auto operator!=(const vec3d&) const -> bool = default;
+    constexpr auto operator==(const Vec3d&) const -> bool = default;
+    constexpr auto operator!=(const Vec3d&) const -> bool = default;
 
     constexpr auto operator==(std::array<double, 3> data) const -> bool
     {
@@ -60,102 +60,102 @@ public:
 
     constexpr auto z() -> double& { return m_data[2]; }
 
-    constexpr auto operator+(const vec3d& vec) const -> vec3d
+    constexpr auto operator+(const Vec3d& vec) const -> Vec3d
     {
         const auto data = std::array{m_data[0] + vec.m_data[0],
                                      m_data[1] + vec.m_data[1],
                                      m_data[2] + vec.m_data[2]};
-        return vec3d{data};
+        return Vec3d{data};
     }
 
-    constexpr auto operator+(double scalar) const -> vec3d
+    constexpr auto operator+(double scalar) const -> Vec3d
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp.m_data[0] += scalar;
         tmp.m_data[1] += scalar;
         tmp.m_data[2] += scalar;
         return tmp;
     }
 
-    constexpr auto operator+=(const vec3d& vec) -> vec3d&
+    constexpr auto operator+=(const Vec3d& vec) -> Vec3d&
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp = tmp + vec;
         m_data = tmp.m_data;
         return *this;
     }
 
-    constexpr auto operator+=(double scalar) -> vec3d&
+    constexpr auto operator+=(double scalar) -> Vec3d&
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp = tmp + scalar;
         m_data = tmp.m_data;
         return *this;
     }
 
-    constexpr auto operator-(const vec3d& vec) const -> vec3d
+    constexpr auto operator-(const Vec3d& vec) const -> Vec3d
     {
         const auto data = std::array{m_data[0] - vec.m_data[0],
                                      m_data[1] - vec.m_data[1],
                                      m_data[2] - vec.m_data[2]};
-        return vec3d{data};
+        return Vec3d{data};
     }
 
-    constexpr auto operator-(double scalar) const -> vec3d
+    constexpr auto operator-(double scalar) const -> Vec3d
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp.m_data[0] -= scalar;
         tmp.m_data[1] -= scalar;
         tmp.m_data[2] -= scalar;
         return tmp;
     }
 
-    constexpr auto operator-=(const vec3d& vec) -> vec3d&
+    constexpr auto operator-=(const Vec3d& vec) -> Vec3d&
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp = tmp - vec;
         m_data = tmp.m_data;
         return *this;
     }
 
-    constexpr auto operator-=(double scalar) -> vec3d&
+    constexpr auto operator-=(double scalar) -> Vec3d&
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp = tmp - scalar;
         m_data = tmp.m_data;
         return *this;
     }
 
     // TODO: consider adding time overload
-    constexpr auto operator*(double factor) const -> vec3d
+    constexpr auto operator*(double factor) const -> Vec3d
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp.m_data[0] *= factor;
         tmp.m_data[1] *= factor;
         tmp.m_data[2] *= factor;
         return tmp;
     }
 
-    constexpr auto operator*=(double factor) -> vec3d&
+    constexpr auto operator*=(double factor) -> Vec3d&
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp = tmp * factor;
         m_data = tmp.m_data;
         return *this;
     }
 
-    constexpr auto operator/(double factor) const -> vec3d
+    constexpr auto operator/(double factor) const -> Vec3d
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp.m_data[0] /= factor;
         tmp.m_data[1] /= factor;
         tmp.m_data[2] /= factor;
         return tmp;
     }
 
-    constexpr auto operator/=(double factor) -> vec3d&
+    constexpr auto operator/=(double factor) -> Vec3d&
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp = tmp / factor;
         m_data = tmp.m_data;
         return *this;
@@ -172,16 +172,16 @@ public:
         return std::sqrt(sum_of_products);
     }
 
-    auto normal() const -> vec3d
+    auto normal() const -> Vec3d
     {
-        auto tmp = vec3d{m_data};
+        auto tmp = Vec3d{m_data};
         tmp /= tmp.mag();
         return tmp;
     }
 
-    auto normalize() -> vec3d&
+    auto normalize() -> Vec3d&
     {
-        const auto tmp = vec3d{m_data}.normal();
+        const auto tmp = Vec3d{m_data}.normal();
         m_data = tmp.m_data;
         return *this;
     }
@@ -196,7 +196,7 @@ public:
     }
 
     friend auto operator<<(std::ostream& stream,
-                           const vec3d& vec) -> std::ostream&
+                           const Vec3d& vec) -> std::ostream&
     {
         stream << '{' << vec.x() << "}, {" << vec.y() << "}, {" << vec.z()
                << '}';

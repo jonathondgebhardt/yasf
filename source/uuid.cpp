@@ -8,7 +8,7 @@
 namespace yasf
 {
 
-uuid::uuid()
+Uuid::Uuid()
     : m_uuid(boost::uuids::random_generator()())
 {
     std::stringstream stream;
@@ -16,7 +16,7 @@ uuid::uuid()
     m_uuid_str = stream.str();
 }
 
-auto uuid::operator==(const uuid& other) const -> bool
+auto Uuid::operator==(const Uuid& other) const -> bool
 {
     return m_uuid == other.m_uuid;
 }

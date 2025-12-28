@@ -11,11 +11,11 @@ namespace yasf
 /**
  * @brief The root of all processors.
  */
-class YASF_EXPORT processor_service : public object
+class YASF_EXPORT ProcessorService : public Object
 {
 public:
-    processor_service()
-        : object("processor_service")
+    ProcessorService()
+        : Object("processor_service")
     {
     }
 
@@ -24,9 +24,9 @@ public:
      */
     auto update() -> void;
 
-    auto get_simulation() const -> simulation*;
+    auto get_simulation() const -> Simulation*;
 
-    auto get_clock() const -> clock*;
+    auto get_clock() const -> Clock*;
 };
 
 }  // namespace yasf

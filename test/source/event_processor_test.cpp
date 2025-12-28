@@ -13,9 +13,9 @@
 namespace
 {
 
-struct concrete_processor : public yasf::event_processor
+struct concrete_processor : public yasf::EventProcessor
 {
-    void on_event([[maybe_unused]] const yasf::event* evt) override {}
+    void on_event([[maybe_unused]] const yasf::Event* evt) override {}
 };
 
 }  // namespace
@@ -28,10 +28,10 @@ TEST_CASE("event_processor: name is processor", "[event_processor]")
 
 TEST_CASE("event_processor: simulation getters", "[event_processor]")
 {
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
 
-    REQUIRE(sim.add_child<yasf::event_processor_service>());
-    auto* const psvc = sim.get_child<yasf::event_processor_service>();
+    REQUIRE(sim.add_child<yasf::EventProcessorService>());
+    auto* const psvc = sim.get_child<yasf::EventProcessorService>();
     REQUIRE(psvc != nullptr);
 
     REQUIRE(psvc->add_child(std::make_unique<concrete_processor>()));
@@ -48,7 +48,7 @@ TEST_CASE("event_processor: simulation getters", "[event_processor]")
         CHECK(proc->get_clock());
     }
 
-    REQUIRE(sim.add_child<yasf::entity_service>());
+    REQUIRE(sim.add_child<yasf::EntityService>());
 
     SECTION("get_entity_service")
     {

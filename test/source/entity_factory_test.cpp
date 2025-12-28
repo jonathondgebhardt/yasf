@@ -4,7 +4,7 @@
 
 TEST_CASE("entity_factory: build", "[library]")
 {
-    auto obj = yasf::entity_factory::build();
+    auto obj = yasf::EntityFactory::build();
     REQUIRE(obj != nullptr);
 
     SECTION("has position")

@@ -7,17 +7,17 @@
 namespace yasf
 {
 
-component::component()
-    : component("component")
+Component::Component()
+    : Component("component")
 {
 }
 
-component::component(std::string name)
+Component::Component(std::string name)
     : m_name{std::move(name)}
 {
 }
 
-auto component::accept(component_visitor& visitor) -> void
+auto Component::accept(ComponentVisitor& visitor) -> void
 {
     visitor.visit(this);
 }

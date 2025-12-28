@@ -11,26 +11,26 @@
 namespace
 {
 
-struct mover_visitor : public yasf::object_visitor
+struct mover_visitor : public yasf::ObjectVisitor
 {
-    void visit(yasf::object* obj) override
+    void visit(yasf::Object* obj) override
     {
-        auto* ent = dynamic_cast<yasf::entity*>(obj);
+        auto* ent = dynamic_cast<yasf::Entity*>(obj);
         if (ent != nullptr) {
             move_entity(ent);
         }
     }
 
-    auto move_entity(yasf::entity* entity) const -> void
+    auto move_entity(yasf::Entity* entity) const -> void
     {
-        yasf::ensure(m_clock != nullptr, "failed to access clock");
+        yasf::Ensure(m_clock != nullptr, "failed to access clock");
 
-        auto* const vel = entity->get_component<yasf::velocity>();
+        auto* const vel = entity->get_component<yasf::Velocity>();
         if (vel == nullptr || vel->get().is_zero()) {
             return;
         }
 
-        auto* pos = entity->get_component<yasf::position>();
+        auto* pos = entity->get_component<yasf::Position>();
         if (pos == nullptr) {
             return;
         }
@@ -43,7 +43,7 @@ struct mover_visitor : public yasf::object_visitor
         pos->set(pos_vec);
     }
 
-    yasf::clock* m_clock{};
+    yasf::Clock* m_clock{};
 };
 
 }  // namespace
@@ -51,10 +51,10 @@ struct mover_visitor : public yasf::object_visitor
 namespace yasf
 {
 
-auto mover::update() -> void
+auto Mover::update() -> void
 {
     auto* const esvc = get_entity_service();
-    ensure(esvc != nullptr, "failed to get entity_service");
+    Ensure(esvc != nullptr, "failed to get entity_service");
 
     auto* const clock = get_clock();
     auto visitor = mover_visitor{};

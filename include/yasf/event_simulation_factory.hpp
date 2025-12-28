@@ -11,10 +11,10 @@ namespace yasf
 /**
  * @brief Reports the name of the library
  */
-class YASF_EXPORT event_simulation_factory
+class YASF_EXPORT EventSimulationFactory
 {
 public:
-    static auto build() -> std::unique_ptr<event_simulation>;
+    static auto build() -> std::unique_ptr<EventSimulation>;
 };
 
 }  // namespace yasf

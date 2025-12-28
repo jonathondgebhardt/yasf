@@ -9,7 +9,7 @@
 #include "yasf/processor_service.hpp"
 #include "yasf/simulation.hpp"
 
-struct concrete_processor : public yasf::processor
+struct concrete_processor : public yasf::Processor
 {
     void update() override {}
 };
@@ -22,10 +22,10 @@ TEST_CASE("processor: name is processor", "[processor]")
 
 TEST_CASE("processor: simulation getters", "[processor]")
 {
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::Simulation{std::make_unique<yasf::Clock>()};
 
-    REQUIRE(sim.add_child<yasf::processor_service>());
-    auto* const psvc = sim.get_child<yasf::processor_service>();
+    REQUIRE(sim.add_child<yasf::ProcessorService>());
+    auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
     REQUIRE(psvc->add_child(std::make_unique<concrete_processor>()));
@@ -42,7 +42,7 @@ TEST_CASE("processor: simulation getters", "[processor]")
         CHECK(proc->get_clock());
     }
 
-    REQUIRE(sim.add_child<yasf::entity_service>());
+    REQUIRE(sim.add_child<yasf::EntityService>());
 
     SECTION("get_entity_service")
     {

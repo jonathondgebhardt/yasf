@@ -4,7 +4,7 @@
 
 TEST_CASE("clock_factory: build fixed update", "[factory]")
 {
-    auto obj = yasf::clock_factory::build_fixed_update(yasf::time_seconds{1.0});
+    auto obj = yasf::ClockFactory::build_fixed_update(yasf::time_seconds{1.0});
     REQUIRE(obj != nullptr);
 
     SECTION("has fixed updater")

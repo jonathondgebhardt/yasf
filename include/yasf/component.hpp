@@ -10,34 +10,34 @@
 namespace yasf
 {
 
-class object;
+class Object;
 
 /**
  * @brief Provides behaviors or capabilities to objects.
  *
  * For example, if an object has a position component, it can move.
  */
-class YASF_EXPORT component
+class YASF_EXPORT Component
 {
 public:
     /**
      * @brief Initializes the name of this component to 'component'.
      */
-    component();
-    component(const component&) = default;
-    component(component&&) noexcept = default;
+    Component();
+    Component(const Component&) = default;
+    Component(Component&&) noexcept = default;
 
-    virtual ~component() = default;
+    virtual ~Component() = default;
 
-    auto operator=(const component&) -> component& = default;
-    auto operator=(component&&) noexcept -> component& = default;
+    auto operator=(const Component&) -> Component& = default;
+    auto operator=(Component&&) noexcept -> Component& = default;
 
     /**
      * @brief Returns a view to the name of this class.
      */
     auto name() const -> std::string_view { return m_name; }
 
-    auto uuid() const -> uuid { return m_uuid; }
+    auto uuid() const -> Uuid { return m_uuid; }
 
     /**
      * @brief Returns the parent.
@@ -45,26 +45,26 @@ public:
      * null.
      * @return The parent.
      */
-    auto parent() const -> object* { return m_parent; }
+    auto parent() const -> Object* { return m_parent; }
 
-    auto accept(component_visitor& visitor) -> void;
+    auto accept(ComponentVisitor& visitor) -> void;
 
 protected:
     /**
      * @brief Initializes the name of this component.
      * @name The value to set on name.
      */
-    explicit component(std::string name);
+    explicit Component(std::string name);
 
 private:
     YASF_SUPPRESS_C4251
     std::string m_name;
-    object* m_parent{};
-    yasf::uuid m_uuid;
+    Object* m_parent{};
+    yasf::Uuid m_uuid;
 
     // Allows object to set m_parent.
     // TODO: should i just add set_parent?
-    friend class object;
+    friend class Object;
 };
 
 }  // namespace yasf

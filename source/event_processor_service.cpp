@@ -12,22 +12,22 @@
 namespace
 {
 
-struct processor_visitor : public yasf::object_visitor
+struct processor_visitor : public yasf::ObjectVisitor
 {
-    explicit processor_visitor(yasf::event* evt)
+    explicit processor_visitor(yasf::Event* evt)
         : m_event{evt}
     {
     }
 
-    void visit(yasf::object* obj) override
+    void visit(yasf::Object* obj) override
     {
-        if (auto* proc = dynamic_cast<yasf::event_processor*>(obj)) {
+        if (auto* proc = dynamic_cast<yasf::EventProcessor*>(obj)) {
             yasf::log::info("updating {}", proc->name());
             proc->on_event(m_event);
         }
     }
 
-    yasf::event* m_event{};
+    yasf::Event* m_event{};
 };
 
 }  // namespace
@@ -35,21 +35,21 @@ struct processor_visitor : public yasf::object_visitor
 namespace yasf
 {
 
-auto event_processor_service::on_event(event* evt) -> void
+auto EventProcessorService::on_event(Event* evt) -> void
 {
     auto visitor = processor_visitor{evt};
     accept(visitor);
 }
 
-auto event_processor_service::get_simulation() const -> event_simulation*
+auto EventProcessorService::get_simulation() const -> EventSimulation*
 {
-    return dynamic_cast<event_simulation*>(parent());
+    return dynamic_cast<EventSimulation*>(parent());
 }
 
-auto event_processor_service::get_clock() const -> clock*
+auto EventProcessorService::get_clock() const -> Clock*
 {
     auto const* sim = get_simulation();
-    ensure(sim != nullptr, "failed to get simulation");
+    Ensure(sim != nullptr, "failed to get simulation");
     return sim->get_clock();
 }
 

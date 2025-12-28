@@ -14,17 +14,17 @@
 namespace yasf
 {
 
-object::object()
-    : object("object")
+Object::Object()
+    : Object("object")
 {
 }
 
-object::object(std::string name)
+Object::Object(std::string name)
     : m_name{std::move(name)}
 {
 }
 
-auto object::add_child(std::unique_ptr<object> child) -> bool
+auto Object::add_child(std::unique_ptr<Object> child) -> bool
 {
     if (!child) {
         return false;
@@ -40,7 +40,7 @@ auto object::add_child(std::unique_ptr<object> child) -> bool
     return true;
 }
 
-auto object::get_child(std::string_view name) const -> object*
+auto Object::get_child(std::string_view name) const -> Object*
 {
     const auto& container = m_children;
     const auto found = std::ranges::find_if(
@@ -49,7 +49,7 @@ auto object::get_child(std::string_view name) const -> object*
     return found != container.end() ? found->get() : nullptr;
 }
 
-auto object::get_child(const yasf::uuid& uid) const -> object*
+auto Object::get_child(const yasf::Uuid& uid) const -> Object*
 {
     const auto& container = m_children;
     const auto found = std::ranges::find_if(
@@ -58,7 +58,7 @@ auto object::get_child(const yasf::uuid& uid) const -> object*
     return found != container.end() ? found->get() : nullptr;
 }
 
-auto object::remove_child(std::string_view name) -> bool
+auto Object::remove_child(std::string_view name) -> bool
 {
     auto& container = m_children;
     const auto found = std::erase_if(
@@ -66,7 +66,7 @@ auto object::remove_child(std::string_view name) -> bool
     return found != std::size_t{0};
 }
 
-auto object::add_component(std::unique_ptr<component> component) -> bool
+auto Object::add_component(std::unique_ptr<Component> component) -> bool
 {
     if (!component) {
         return false;
@@ -82,7 +82,7 @@ auto object::add_component(std::unique_ptr<component> component) -> bool
     return true;
 }
 
-auto object::get_component(std::string_view name) const -> component*
+auto Object::get_component(std::string_view name) const -> Component*
 {
     const auto& container = m_components;
     const auto found = std::ranges::find_if(
@@ -91,7 +91,7 @@ auto object::get_component(std::string_view name) const -> component*
     return found != container.end() ? found->get() : nullptr;
 }
 
-auto object::remove_component(std::string_view name) -> bool
+auto Object::remove_component(std::string_view name) -> bool
 {
     auto& container = m_components;
     const auto found = std::erase_if(
@@ -99,7 +99,7 @@ auto object::remove_component(std::string_view name) -> bool
     return found != std::size_t{0};
 }
 
-auto object::accept(object_visitor& visitor) -> void
+auto Object::accept(ObjectVisitor& visitor) -> void
 {
     visitor.visit(this);
 
@@ -107,7 +107,7 @@ auto object::accept(object_visitor& visitor) -> void
                           [&](auto&& child) { child->accept(visitor); });
 }
 
-auto object::accept(component_visitor& visitor) -> void
+auto Object::accept(ComponentVisitor& visitor) -> void
 {
     std::ranges::for_each(
         m_components, [&](auto&& component) { component->accept(visitor); });

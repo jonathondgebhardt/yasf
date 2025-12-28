@@ -10,30 +10,30 @@ namespace yasf
 /**
  * @brief Reports the name of the library
  */
-class YASF_EXPORT velocity : public component
+class YASF_EXPORT Velocity : public Component
 {
 public:
     /**
      * @brief Initializes the name field to the name of the project
      */
-    velocity()
-        : component{"velocity"}
+    Velocity()
+        : Component{"velocity"}
     {
     }
 
-    explicit velocity(vec3d vec)
-        : component("velocity")
+    explicit Velocity(Vec3d vec)
+        : Component("velocity")
         , m_vec{vec}
     {
     }
 
-    auto get() const -> vec3d { return m_vec; }
+    auto get() const -> Vec3d { return m_vec; }
 
-    auto set(vec3d vec) -> void { m_vec = vec; }
+    auto set(Vec3d vec) -> void { m_vec = vec; }
 
 private:
     YASF_SUPPRESS_C4251
-    vec3d m_vec;
+    Vec3d m_vec;
 };
 
 }  // namespace yasf

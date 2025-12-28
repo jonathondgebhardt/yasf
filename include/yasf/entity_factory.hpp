@@ -11,10 +11,10 @@ namespace yasf
 /**
  * @brief Reports the name of the library
  */
-class YASF_EXPORT entity_factory
+class YASF_EXPORT EntityFactory
 {
 public:
-    static auto build() -> std::unique_ptr<entity>;
+    static auto build() -> std::unique_ptr<Entity>;
 };
 
 }  // namespace yasf

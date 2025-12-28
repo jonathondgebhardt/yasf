@@ -14,17 +14,17 @@
 TEST_CASE("event_processor_service: name is processor_service",
           "[event_processor_service]")
 {
-    auto const psvc = yasf::event_processor_service{};
+    auto const psvc = yasf::EventProcessorService{};
     CHECK(psvc.name() == "event_processor_service");
 }
 
 TEST_CASE("event_processor_service: simulation getters",
           "[event_processor_service]")
 {
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
 
-    REQUIRE(sim.add_child<yasf::event_processor_service>());
-    auto* const psvc = sim.get_child<yasf::event_processor_service>();
+    REQUIRE(sim.add_child<yasf::EventProcessorService>());
+    auto* const psvc = sim.get_child<yasf::EventProcessorService>();
     REQUIRE(psvc != nullptr);
 
     SECTION("get_simulation")
@@ -41,9 +41,9 @@ TEST_CASE("event_processor_service: simulation getters",
 // NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("event_processor_service: update", "[event_processor_service]")
 {
-    struct test_processor : public yasf::event_processor
+    struct test_processor : public yasf::EventProcessor
     {
-        void on_event([[maybe_unused]] const yasf::event* evt) override
+        void on_event([[maybe_unused]] const yasf::Event* evt) override
         {
             m_visited = true;
             ++m_visited_count;
@@ -53,10 +53,10 @@ TEST_CASE("event_processor_service: update", "[event_processor_service]")
         std::size_t m_visited_count{};
     };
 
-    auto sim = yasf::event_simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::EventSimulation{std::make_unique<yasf::Clock>()};
 
-    REQUIRE(sim.add_child<yasf::event_processor_service>());
-    auto* const psvc = sim.get_child<yasf::event_processor_service>();
+    REQUIRE(sim.add_child<yasf::EventProcessorService>());
+    auto* const psvc = sim.get_child<yasf::EventProcessorService>();
     REQUIRE(psvc != nullptr);
 
     REQUIRE(psvc->add_child<test_processor>());
@@ -66,7 +66,7 @@ TEST_CASE("event_processor_service: update", "[event_processor_service]")
     REQUIRE(!proc->m_visited);
     REQUIRE(proc->m_visited_count == std::size_t{0});
 
-    auto const evt = yasf::event{yasf::time_microseconds{},
+    auto const evt = yasf::Event{yasf::time_microseconds{},
                                  yasf::event_type::simulation_start};
     REQUIRE_NOTHROW(proc->on_event(&evt));
 

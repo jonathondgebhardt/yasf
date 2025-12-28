@@ -11,16 +11,16 @@
 
 TEST_CASE("processor_service: name is processor_service", "[processor_service]")
 {
-    auto const psvc = yasf::processor_service{};
+    auto const psvc = yasf::ProcessorService{};
     CHECK(psvc.name() == "processor_service");
 }
 
 TEST_CASE("processor_service: simulation getters", "[processor_service]")
 {
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::Simulation{std::make_unique<yasf::Clock>()};
 
-    REQUIRE(sim.add_child<yasf::processor_service>());
-    auto* const psvc = sim.get_child<yasf::processor_service>();
+    REQUIRE(sim.add_child<yasf::ProcessorService>());
+    auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
     SECTION("get_simulation")
@@ -37,7 +37,7 @@ TEST_CASE("processor_service: simulation getters", "[processor_service]")
 // NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("processor_service: update", "[processor_service]")
 {
-    struct test_processor : public yasf::processor
+    struct test_processor : public yasf::Processor
     {
         void update() override
         {
@@ -49,10 +49,10 @@ TEST_CASE("processor_service: update", "[processor_service]")
         std::size_t m_visited_count{};
     };
 
-    auto sim = yasf::simulation{std::make_unique<yasf::clock>()};
+    auto sim = yasf::Simulation{std::make_unique<yasf::Clock>()};
 
-    REQUIRE(sim.add_child<yasf::processor_service>());
-    auto* const psvc = sim.get_child<yasf::processor_service>();
+    REQUIRE(sim.add_child<yasf::ProcessorService>());
+    auto* const psvc = sim.get_child<yasf::ProcessorService>();
     REQUIRE(psvc != nullptr);
 
     REQUIRE(psvc->add_child<test_processor>());

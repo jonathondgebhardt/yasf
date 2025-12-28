@@ -7,10 +7,10 @@
 namespace yasf
 {
 
-class ensure
+class Ensure
 {
 public:
-    ensure(bool condition, const std::string& failure_message)
+    Ensure(bool condition, const std::string& failure_message)
     {
         if (!condition) {
             yasf::log::critical(failure_message);

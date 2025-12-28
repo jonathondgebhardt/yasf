@@ -4,6 +4,6 @@
 
 TEST_CASE("entity_service: name is entity_service", "[entity_service]")
 {
-    auto const esvc = yasf::entity_service{};
+    auto const esvc = yasf::EntityService{};
     CHECK(esvc.name() == "entity_service");
 }

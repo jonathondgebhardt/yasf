@@ -4,6 +4,6 @@
 
 TEST_CASE("entity: name")
 {
-    const auto entity = yasf::entity{};
+    const auto entity = yasf::Entity{};
     REQUIRE(entity.name() == "entity");
 }
