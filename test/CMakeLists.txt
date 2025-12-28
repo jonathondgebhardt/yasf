@@ -50,7 +50,7 @@ target_link_libraries(
     yasf_test PRIVATE
     yasf::yasf
     Catch2::Catch2WithMain
-	spdlog::spdlog
+    spdlog::spdlog
 )
 target_compile_features(yasf_test PRIVATE cxx_std_23)
 
