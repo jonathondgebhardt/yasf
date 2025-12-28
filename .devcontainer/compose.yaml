@@ -1,0 +1,17 @@
+services:
+  dev:
+    image: yasf-ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace/yasf
+      - $VCPKG_ROOT:/opt/vcpkg
+      - $HOME/.cache/vcpkg/archives:/vcpkg-cache
+    environment:
+      - VCPKG_ROOT=/opt/vcpkg
+      - VCPKG_DEFAULT_BINARY_CACHE=/vcpkg-cache
+    working_dir: /workspace/yasf
+    stdin_open: true
+    tty: true
+
