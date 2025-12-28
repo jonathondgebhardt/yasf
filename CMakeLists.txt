@@ -33,7 +33,6 @@ add_library(
 	source/processor.cpp
 	source/processor_service.cpp
 	source/simulation.cpp
-	source/status.cpp
 	source/uuid.cpp
 )
 add_library(yasf::yasf ALIAS yasf_yasf)

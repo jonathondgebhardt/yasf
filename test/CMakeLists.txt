@@ -41,7 +41,6 @@ add_executable(
 	source/processor_service_test.cpp
 	source/processor_test.cpp
 	source/simulation_test.cpp
-	source/status_test.cpp
 	source/uuid_test.cpp
 	source/vec3d_test.cpp
 	source/velocity_test.cpp

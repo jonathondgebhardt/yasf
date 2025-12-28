@@ -7,12 +7,6 @@ TEST_CASE("entity_factory: build", "[library]")
     auto obj = yasf::entity_factory::build();
     REQUIRE(obj != nullptr);
 
-    SECTION("has status")
-    {
-        auto* status = obj->get_component("status");
-        REQUIRE(status != nullptr);
-    }
-
     SECTION("has position")
     {
         auto* position = obj->get_component("position");
