@@ -71,13 +71,13 @@ TEST_CASE("event_simulation: queue", "[simulation]")
     sim->queue(std::make_unique<yasf::Event>(
         yasf::convert::time_cast<yasf::time_microseconds>(
             yasf::time_seconds{3.0}),
-        yasf::event_type::user));
+        yasf::EventType::USER));
     sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
-                                             yasf::event_type::user));
+                                             yasf::EventType::USER));
     sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{4},
-                                             yasf::event_type::user));
+                                             yasf::EventType::USER));
     sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{2},
-                                             yasf::event_type::user));
+                                             yasf::EventType::USER));
 
     REQUIRE(sim->num_events() == std::size_t{4});
 

@@ -27,7 +27,7 @@ TEST_CASE("event_simulation: update", "[simulation]")
     }
 
     sim.queue(std::make_unique<yasf::Event>(yasf::time_microseconds{1},
-                                            yasf::event_type::user));
+                                            yasf::EventType::USER));
 
     SECTION("no updater")
     {
@@ -63,7 +63,7 @@ TEST_CASE("event_simulation: has_events", "[simulation]")
 
     // Insert out of order.
     sim.queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
-                                            yasf::event_type::user));
+                                            yasf::EventType::USER));
 
     CHECK(sim.has_events());
 }
@@ -74,7 +74,7 @@ TEST_CASE("event_simulation: num_events", "[simulation]")
 
     // Insert out of order.
     sim.queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
-                                            yasf::event_type::user));
+                                            yasf::EventType::USER));
 
     CHECK(sim.num_events() == std::size_t{1});
 }

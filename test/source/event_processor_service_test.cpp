@@ -67,7 +67,7 @@ TEST_CASE("event_processor_service: update", "[event_processor_service]")
     REQUIRE(proc->m_visited_count == std::size_t{0});
 
     auto const evt = yasf::Event{yasf::time_microseconds{},
-                                 yasf::event_type::simulation_start};
+                                 yasf::EventType::SIMULATION_START};
     REQUIRE_NOTHROW(proc->on_event(&evt));
 
     CHECK(proc->m_visited);
