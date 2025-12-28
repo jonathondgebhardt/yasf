@@ -12,8 +12,8 @@
   },
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace/yasf,type=bind",
-    "source=${localEnv:VCPKG_HOME},target=/workspace/vcpkg,type=bind"
+    "source=${localEnv:VCPKG_ROOT},target=/opt/vcpkg,type=bind",
   ],
-  "postCreateCommand": "cd /workspace/vcpkg && ./bootstrap-vcpkg.sh",
+  "postCreateCommand": "cd /opt/vcpkg && ./bootstrap-vcpkg.sh",
   "workspaceFolder": "/workspace/yasf"
 }
