@@ -28,7 +28,6 @@ concept time_type = is_any_of<T,
                               time_microseconds,
                               time_milliseconds,
                               time_seconds,
-                              time_seconds,
                               time_minutes,
                               time_hours,
                               time_days>;
