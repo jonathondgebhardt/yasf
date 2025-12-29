@@ -27,6 +27,11 @@ public:
     {
     }
 
+    Velocity(double x, double y, double z)
+        : Velocity(Vec3d{x, y, z})
+    {
+    }
+
     auto get() -> Vec3d& { return m_vec; }
 
     auto set(Vec3d vec) -> void { m_vec = vec; }

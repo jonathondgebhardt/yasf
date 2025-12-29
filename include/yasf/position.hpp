@@ -27,6 +27,11 @@ public:
     {
     }
 
+    Position(double x, double y, double z)
+        : Position(Vec3d{x, y, z})
+    {
+    }
+
     auto get() -> Vec3d& { return m_vec; }
 
     auto set(Vec3d vec) -> void { m_vec = vec; }
