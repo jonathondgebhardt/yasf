@@ -27,7 +27,7 @@ public:
     {
     }
 
-    auto get() const -> Vec3d { return m_vec; }
+    auto get() -> Vec3d& { return m_vec; }
 
     auto set(Vec3d vec) -> void { m_vec = vec; }
 
