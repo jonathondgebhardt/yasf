@@ -317,9 +317,6 @@ auto main() -> int
 
     window.setFramerateLimit(60);
 
-    manager.add_drawable(
-        std::make_unique<SimulationTimeDrawable>(sim.get_clock()));
-
     EntityDrawable::BuildDrawables(sim, manager);
 
     const auto clock = sim.get_clock();
@@ -351,8 +348,13 @@ auto main() -> int
 
         ImGui::ShowDemoWindow();
 
-        ImGui::Begin("Hello, world!");
-        ImGui::Button("Look at this pretty button");
+        ImGui::Begin("Simulation");
+        const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
+        const auto hms = std::chrono::hh_mm_ss{seconds};
+        std::ostringstream oss;
+        oss << hms;
+        ImGui::Text("time: %s", oss.str().c_str());
+
         ImGui::End();
 
         window.clear();
