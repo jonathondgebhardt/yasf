@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include <SFML/Graphics/Drawable.hpp>
@@ -23,18 +24,31 @@ public:
      */
     struct Drawable
     {
+        Drawable() = default;
+
+        explicit Drawable(std::unique_ptr<sf::Drawable> drawable,
+                          std::optional<yasf::Uuid> uuid = std::nullopt)
+            : drawable{std::move(drawable)}
+            , uuid{std::move(uuid)}
+        {
+        }
+
+        virtual ~Drawable() = default;
+
+        virtual void update() {}
+
         // The drawable.
-        sf::Drawable* drawable;
+        std::unique_ptr<sf::Drawable> drawable;
 
         // The Uuid of the yasf entity.
-        yasf::Uuid uuid;
+        std::optional<yasf::Uuid> uuid;
     };
 
-    void add_drawable(Drawable drawable);
+    void add_drawable(std::unique_ptr<Drawable> drawable);
 
     void draw();
 
 private:
     sf::RenderWindow* m_window{};
-    std::vector<Drawable> m_drawables;
+    std::vector<std::unique_ptr<Drawable>> m_drawables;
 };
