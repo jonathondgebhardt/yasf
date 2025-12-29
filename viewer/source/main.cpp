@@ -301,6 +301,33 @@ struct EntityDrawable : SceneManager::Drawable
     int color_index{};
 };
 
+struct ImGuiVisitor
+{
+    explicit ImGuiVisitor(yasf::Simulation* sim)
+        : sim{sim}
+    {
+    }
+
+    static auto get_id(const yasf::Object* obj) -> std::string
+    {
+        return std::format("{} ({})", obj->name(), obj->uuid().tail(4));
+    }
+
+    auto draw() const -> void { draw_tree(sim); }
+
+    static auto draw_tree(const yasf::Object* obj) -> void
+    {
+        if (ImGui::TreeNode(get_id(obj).c_str())) {
+            std::ranges::for_each(obj->get_children(),
+                                  [](const auto child) { draw_tree(child); });
+
+            ImGui::TreePop();
+        }
+    }
+
+    yasf::Simulation* sim{};
+};
+
 }  // namespace
 
 auto main() -> int
@@ -318,6 +345,7 @@ auto main() -> int
     window.setFramerateLimit(60);
 
     EntityDrawable::BuildDrawables(sim, manager);
+    auto visitor = ImGuiVisitor{&sim};
 
     const auto clock = sim.get_clock();
     const auto updater = clock->get_component<yasf::ExternalTimeUpdater>();
@@ -354,6 +382,8 @@ auto main() -> int
         std::ostringstream oss;
         oss << hms;
         ImGui::Text("time: %s", oss.str().c_str());
+
+        visitor.draw();
 
         ImGui::End();
 
