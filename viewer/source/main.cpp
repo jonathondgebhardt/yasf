@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 #include "scene_manager.hpp"
 #include "yasf/clock_factory.hpp"
@@ -300,7 +302,12 @@ auto main() -> int
 {
     auto sim = make_sim(10);
 
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "yasf Viewer");
+    sf::RenderWindow window(sf::VideoMode({1024, 768}), "yasf Viewer");
+    if (!ImGui::SFML::Init(window)) {
+        yasf::log::error("failed to initialize ImGui");
+        return EXIT_FAILURE;
+    }
+
     auto manager = SceneManager{&window};
 
     window.setFramerateLimit(60);
@@ -313,10 +320,13 @@ auto main() -> int
     yasf::log::info("starting simulation visualization");
 
     // run the program as long as the window is open
+    sf::Clock deltaClock;
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last
         // iteration of the loop
         while (const auto event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, event.value());
+
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>()) {
                 window.close();
@@ -325,11 +335,21 @@ auto main() -> int
 
         sim.update();
 
-        // todo: is there a way to know time elapsed since last frame?
+        ImGui::SFML::Update(window, deltaClock.restart());
+
+        ImGui::ShowDemoWindow();
+
+        ImGui::Begin("Hello, world!");
+        ImGui::Button("Look at this pretty button");
+        ImGui::End();
+
         window.clear();
         manager.draw();
+        ImGui::SFML::Render(window);
         window.display();
     }
+
+    ImGui::SFML::Shutdown();
 
     yasf::log::info("simulation visualization ended");
 }
