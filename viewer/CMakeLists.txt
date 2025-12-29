@@ -11,7 +11,7 @@ if(PROJECT_IS_TOP_LEVEL)
   find_package(yasf REQUIRED)
 endif()
 
-find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
+find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
 
 # ---- Viewer ----
 
@@ -22,7 +22,8 @@ add_executable(
 target_link_libraries(
   yasf_viewer PRIVATE
   yasf::yasf
-  sfml-window
+  SFML::Window
+  SFML::Graphics
 )
 target_compile_features(yasf_viewer PRIVATE cxx_std_23)
 
