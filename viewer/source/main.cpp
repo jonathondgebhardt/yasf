@@ -64,6 +64,7 @@ struct EntityMover : yasf::Mover
             }
         }
 
+        // todo: don't hardcode this
         Bounds x_bounds = {0.0, 800.0};
         Bounds y_bounds = {0.0, 600.0};
     };
@@ -81,23 +82,34 @@ struct EntityMover : yasf::Mover
     BorderPatrol visitor;
 };
 
-auto make_sim() -> yasf::Simulation
+auto make_sim(const std::size_t num_entities) -> yasf::Simulation
 {
+    // todo: can i use a different time updater?
     auto sim = yasf::Simulation{yasf::ClockFactory::build_fixed_update(
         yasf::time_seconds{0.01667})};  // approx 60 times a second
 
     {
-        auto entity = yasf::EntityFactory::build();
-        const auto vel = entity->get_component<yasf::Velocity>();
-        yasf::Ensure(vel != nullptr, "failed to get entity velocity");
-        vel->set(yasf::Vec3d{300.0, 300.0, 0.0});
-
-        const auto pos = entity->get_component<yasf::Position>();
-        yasf::Ensure(pos != nullptr, "failed to get entity position");
-        pos->set(yasf::Vec3d{400.0, 300.0, 0.0});
-
         auto svc = std::make_unique<yasf::EntityService>();
-        svc->add_child(std::move(entity));
+
+        const unsigned int seed =
+            std::chrono::system_clock::now().time_since_epoch().count();
+
+        auto eng = std::mt19937{seed};
+
+        auto pos_dist = std::uniform_real_distribution{10.0, 500.0};
+        auto vel_dist = std::uniform_real_distribution{-300.0, 300.0};
+
+        for (auto i = 0u; i < num_entities; ++i) {
+            auto entity = yasf::EntityFactory::build();
+            const auto vel = entity->get_component<yasf::Velocity>();
+            const auto vel_component = vel_dist(eng);
+            vel->set(yasf::Vec3d{vel_component, vel_component, 0.0});
+
+            const auto pos = entity->get_component<yasf::Position>();
+            pos->set(yasf::Vec3d{pos_dist(eng), pos_dist(eng), 0.0});
+
+            svc->add_child(std::move(entity));
+        }
 
         sim.add_child(std::move(svc));
     }
@@ -208,7 +220,7 @@ struct EntityDrawable : SceneManager::Drawable
 
 auto main() -> int
 {
-    auto sim = make_sim();
+    auto sim = make_sim(3);
 
     sf::RenderWindow window(sf::VideoMode({800, 600}), "yasf Viewer");
     auto manager = SceneManager{&window};
@@ -235,6 +247,7 @@ auto main() -> int
 
         sim.update();
 
+        // todo: is there a way to know time elapsed since last frame?
         window.clear();
         manager.draw();
         window.display();
