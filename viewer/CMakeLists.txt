@@ -18,6 +18,7 @@ find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRE
 add_executable(
   yasf_viewer
   source/main.cpp
+  source/scene_manager.cpp
 )
 target_link_libraries(
   yasf_viewer PRIVATE
