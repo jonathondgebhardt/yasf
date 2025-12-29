@@ -27,3 +27,6 @@ target_link_libraries(
 )
 target_compile_features(yasf_viewer PRIVATE cxx_std_23)
 
+# ---- End-of-file commands ----
+
+add_folders(Viewer)
