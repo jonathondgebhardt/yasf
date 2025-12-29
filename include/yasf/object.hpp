@@ -82,6 +82,8 @@ public:
                                         : nullptr;
     }
 
+    auto get_children() const -> std::vector<Object*>;
+
     auto remove_child(std::string_view name) -> bool;
 
     template<typename T>

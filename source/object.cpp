@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
+#include <ranges>
 #include <string_view>
 #include <utility>
 #include <vector>
@@ -56,6 +57,14 @@ auto Object::get_child(const yasf::Uuid& uid) const -> Object*
         container, [&](auto&& child) { return child->uuid() == uid; });
 
     return found != container.end() ? found->get() : nullptr;
+}
+
+auto Object::get_children() const -> std::vector<Object*>
+{
+    return m_children
+        | std::views::transform([](const std::unique_ptr<Object>& child)
+                                { return child.get(); })
+        | std::ranges::to<std::vector>();
 }
 
 auto Object::remove_child(std::string_view name) -> bool
