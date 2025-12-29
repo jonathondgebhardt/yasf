@@ -12,6 +12,7 @@ if(PROJECT_IS_TOP_LEVEL)
 endif()
 
 find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
+find_package(ImGui-SFML CONFIG REQUIRED)
 
 # ---- Viewer ----
 
@@ -25,6 +26,8 @@ target_link_libraries(
   yasf::yasf
   SFML::Window
   SFML::Graphics
+  SFML::System
+  ImGui-SFML::ImGui-SFML
 )
 target_compile_features(yasf_viewer PRIVATE cxx_std_23)
 

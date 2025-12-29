@@ -24,7 +24,12 @@
       "description": "Dependencies for viewer",
       "dependencies": [
         {
-          "name": "sfml"
+          "name": "sfml",
+          "version>=": "3.0.2"
+        },
+        {
+          "name": "imgui-sfml",
+          "version>=": "3.0"
         }
       ]
     }
