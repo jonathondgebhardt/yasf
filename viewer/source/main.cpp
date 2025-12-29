@@ -161,9 +161,10 @@ struct EntityDrawable : SceneManager::Drawable
     EntityDrawable(yasf::Entity* entity)
         : SceneManager::Drawable{std::make_unique<sf::CircleShape>(10.0f)}
         , entity{entity}
+        , previous_velocity{*entity->get_component<yasf::Velocity>()}
     {
         const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
-        circle->setFillColor(sf::Color::Green);
+        circle->setFillColor(get_random_color());
         circle->setOutlineThickness(2.f);
         circle->setOutlineColor(sf::Color::White);
 
@@ -173,11 +174,70 @@ struct EntityDrawable : SceneManager::Drawable
 
     auto update() -> void override
     {
+        update_drawable_position();
+        update_drawable_color();
+    }
+
+    auto update_drawable_position() const -> void
+    {
         const auto pos_vec = entity->get_component<yasf::Position>()->get();
         const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
                                       static_cast<float>(pos_vec.y())};
         const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
         circle->setPosition(vec);
+    }
+
+    auto update_drawable_color() -> void
+    {
+        if (velocity_changed_sign()) {
+            const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
+            color_index = (color_index + 1) % 8;
+            circle->setFillColor(color_from_index(color_index));
+        }
+
+        previous_velocity = *entity->get_component<yasf::Velocity>();
+    }
+
+    auto velocity_changed_sign() -> bool
+    {
+        auto current_velocity = *entity->get_component<yasf::Velocity>();
+        return (std::signbit(previous_velocity.get().x())
+                != std::signbit(current_velocity.get().x()))
+            || (std::signbit(previous_velocity.get().y())
+                != std::signbit(current_velocity.get().y()));
+    }
+
+    static auto get_random_color() -> sf::Color
+    {
+        const unsigned int seed =
+            std::chrono::system_clock::now().time_since_epoch().count();
+
+        auto eng = std::mt19937{seed};
+        auto dist = std::uniform_int_distribution{0, 7};
+        return color_from_index(dist(eng));
+    }
+
+    static auto color_from_index(int index)
+    {
+        switch (index) {
+            case 0:
+                return sf::Color::Black;
+            case 1:
+                return sf::Color::White;
+            case 2:
+                return sf::Color::Red;
+            case 3:
+                return sf::Color::Green;
+            case 4:
+                return sf::Color::Blue;
+            case 5:
+                return sf::Color::Yellow;
+            case 6:
+                return sf::Color::Magenta;
+            case 7:
+            default:
+                return sf::Color::Cyan;
+        }
     }
 
     struct EntityVisitor : yasf::ObjectVisitor
@@ -214,13 +274,15 @@ struct EntityDrawable : SceneManager::Drawable
     }
 
     yasf::Entity* entity{};
+    yasf::Velocity previous_velocity{};
+    int color_index{};
 };
 
 }  // namespace
 
 auto main() -> int
 {
-    auto sim = make_sim(3);
+    auto sim = make_sim(10);
 
     sf::RenderWindow window(sf::VideoMode({800, 600}), "yasf Viewer");
     auto manager = SceneManager{&window};
