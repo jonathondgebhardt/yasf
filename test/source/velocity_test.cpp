@@ -11,8 +11,17 @@ TEST_CASE("velocity: default")
 
 TEST_CASE("velocity: parameterized ctor")
 {
-    auto vel = yasf::Velocity{yasf::Vec3d{1.0, 2.0, 3.0}};
-    REQUIRE(vel.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+    SECTION("Vec3d")
+    {
+        auto vel = yasf::Velocity{yasf::Vec3d{1.0, 2.0, 3.0}};
+        REQUIRE(vel.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+    }
+
+    SECTION("double, double, double")
+    {
+        auto vel = yasf::Velocity{1.0, 2.0, 3.0};
+        REQUIRE(vel.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+    }
 }
 
 TEST_CASE("velocity: set and get")
@@ -21,4 +30,13 @@ TEST_CASE("velocity: set and get")
     vel.set(yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
     const auto vec = vel.get();
     REQUIRE(vec == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+}
+
+TEST_CASE("velocity: modify vec in place")
+{
+    auto vel = yasf::Velocity{1.0, 2.0, 3.0};
+    REQUIRE(vel.get() == yasf::Vec3d{1.0, 2.0, 3.0});
+
+    vel.get() *= -1.0;
+    REQUIRE(vel.get() == yasf::Vec3d{-1.0, -2.0, -3.0});
 }

@@ -11,8 +11,17 @@ TEST_CASE("position: default")
 
 TEST_CASE("position: parameterized ctor")
 {
-    auto pos = yasf::Position{yasf::Vec3d{1.0, 2.0, 3.0}};
-    REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+    SECTION("Vec3d")
+    {
+        auto pos = yasf::Position{yasf::Vec3d{1.0, 2.0, 3.0}};
+        REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+    }
+
+    SECTION("double, double, double")
+    {
+        auto pos = yasf::Position{1.0, 2.0, 3.0};
+        REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
+    }
 }
 
 TEST_CASE("position: set and get")
