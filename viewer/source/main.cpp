@@ -72,6 +72,11 @@ struct EntityMover : yasf::Mover
         Bounds y_bounds = {0.0, 600.0};
     };
 
+    EntityMover()
+        : yasf::Mover("entity mover")
+    {
+    }
+
     auto update() -> void override
     {
         yasf::Mover::update();
