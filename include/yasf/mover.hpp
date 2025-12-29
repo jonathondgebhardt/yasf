@@ -23,6 +23,12 @@ public:
     void update() override;
     // NOLINTEND(modernize-use-trailing-return-type)
 
+protected:
+    explicit Mover(std::string name)
+        : Processor(std::move(name))
+    {
+    }
+
 private:
     auto move_entity(Entity* entity) -> void;
 };
