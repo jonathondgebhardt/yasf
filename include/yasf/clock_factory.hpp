@@ -19,6 +19,7 @@ public:
         -> std::unique_ptr<Clock>;
     static auto build_fixed_update(time_microseconds delta)
         -> std::unique_ptr<Clock>;
+    static auto build_external_update() -> std::unique_ptr<Clock>;
 };
 
 }  // namespace yasf
