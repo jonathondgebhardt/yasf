@@ -12,6 +12,7 @@
 #include "yasf/entity.hpp"
 #include "yasf/entity_factory.hpp"
 #include "yasf/entity_service.hpp"
+#include "yasf/external_time_updater.hpp"
 #include "yasf/mover.hpp"
 #include "yasf/position.hpp"
 #include "yasf/processor_service.hpp"
@@ -87,8 +88,7 @@ struct EntityMover : yasf::Mover
 auto make_sim(const std::size_t num_entities) -> yasf::Simulation
 {
     // todo: can i use a different time updater?
-    auto sim = yasf::Simulation{yasf::ClockFactory::build_fixed_update(
-        yasf::time_seconds{0.01667})};  // approx 60 times a second
+    auto sim = yasf::Simulation{yasf::ClockFactory::build_external_update()};
 
     {
         auto svc = std::make_unique<yasf::EntityService>();
@@ -317,10 +317,13 @@ auto main() -> int
 
     EntityDrawable::BuildDrawables(sim, manager);
 
+    const auto clock = sim.get_clock();
+    const auto updater = clock->get_component<yasf::ExternalTimeUpdater>();
+
     yasf::log::info("starting simulation visualization");
 
     // run the program as long as the window is open
-    sf::Clock deltaClock;
+    sf::Clock delta_clock;
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last
         // iteration of the loop
@@ -333,9 +336,13 @@ auto main() -> int
             }
         }
 
+        const auto delta_time = delta_clock.restart();
+        updater->set_next_time(
+            clock->time()
+            + yasf::time_microseconds{delta_time.asMicroseconds()});
         sim.update();
 
-        ImGui::SFML::Update(window, deltaClock.restart());
+        ImGui::SFML::Update(window, delta_time);
 
         ImGui::ShowDemoWindow();
 
