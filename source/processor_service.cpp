@@ -2,7 +2,6 @@
 
 #include "yasf/clock.hpp"
 #include "yasf/ensure.hpp"
-#include "yasf/logger.hpp"
 #include "yasf/object.hpp"
 #include "yasf/processor.hpp"
 #include "yasf/simulation.hpp"
@@ -16,7 +15,6 @@ struct ProcessorVisitor : public yasf::ObjectVisitor
     void visit(yasf::Object* obj) override
     {
         if (auto* proc = dynamic_cast<yasf::Processor*>(obj)) {
-            yasf::log::info("updating {}", proc->name());
             proc->update();
         }
     }
