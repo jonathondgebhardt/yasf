@@ -91,19 +91,34 @@ auto make_sim(const std::size_t num_entities) -> yasf::Simulation
     {
         auto svc = std::make_unique<yasf::EntityService>();
 
-        const unsigned int seed =
+        const auto seed =
             std::chrono::system_clock::now().time_since_epoch().count();
 
-        auto eng = std::mt19937{seed};
+        auto eng = std::mt19937{static_cast<unsigned int>(seed)};
 
         auto pos_dist = std::uniform_real_distribution{10.0, 500.0};
-        auto vel_dist = std::uniform_real_distribution{-300.0, 300.0};
+        auto vel_dist = std::uniform_real_distribution{100.0, 300.0};
+        auto vel_sign_dist = std::uniform_real_distribution{0.0, 1.0};
 
         for (auto i = 0u; i < num_entities; ++i) {
             auto entity = yasf::EntityFactory::build();
             const auto vel = entity->get_component<yasf::Velocity>();
-            const auto vel_component = vel_dist(eng);
-            vel->set(yasf::Vec3d{vel_component, vel_component, 0.0});
+            const auto [vel_x, vel_y] = [&]() -> std::pair<double, double>
+            {
+                auto vel_x = vel_dist(eng);
+                auto vel_y = vel_x;
+
+                if (const auto sign = vel_sign_dist(eng); sign <= 0.5) {
+                    vel_x *= -1.0;
+                }
+
+                if (const auto sign = vel_sign_dist(eng); sign <= 0.5) {
+                    vel_y *= -1.0;
+                }
+
+                return {vel_x, vel_y};
+            }();
+            vel->set(yasf::Vec3d{vel_x, vel_y, 0.0});
 
             const auto pos = entity->get_component<yasf::Position>();
             pos->set(yasf::Vec3d{pos_dist(eng), pos_dist(eng), 0.0});
@@ -158,7 +173,7 @@ struct SimulationTimeDrawable : SceneManager::Drawable
 
 struct EntityDrawable : SceneManager::Drawable
 {
-    EntityDrawable(yasf::Entity* entity)
+    explicit EntityDrawable(yasf::Entity* entity)
         : SceneManager::Drawable{std::make_unique<sf::CircleShape>(10.0f)}
         , entity{entity}
         , previous_velocity{*entity->get_component<yasf::Velocity>()}
@@ -209,10 +224,10 @@ struct EntityDrawable : SceneManager::Drawable
 
     static auto get_random_color() -> sf::Color
     {
-        const unsigned int seed =
+        const auto seed =
             std::chrono::system_clock::now().time_since_epoch().count();
 
-        auto eng = std::mt19937{seed};
+        auto eng = std::mt19937{static_cast<unsigned int>(seed)};
         auto dist = std::uniform_int_distribution{0, 7};
         return color_from_index(dist(eng));
     }
