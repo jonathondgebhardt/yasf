@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "scene_manager.hpp"
 #include "yasf/clock_factory.hpp"
 #include "yasf/convert.hpp"
 #include "yasf/ensure.hpp"
@@ -37,7 +38,7 @@ struct EntityMover : yasf::Mover
             return vec.y() >= y_bounds.first && vec.y() < y_bounds.second;
         }
 
-        void visit(yasf::Object* obj) override
+        auto visit(yasf::Object* obj) -> void override
         {
             if (obj == nullptr) {
                 return;
@@ -67,7 +68,7 @@ struct EntityMover : yasf::Mover
         Bounds y_bounds = {0.0, 600.0};
     };
 
-    void update() override
+    auto update() -> void override
     {
         yasf::Mover::update();
 
@@ -113,23 +114,94 @@ auto make_sim() -> yasf::Simulation
     return sim;
 }
 
-struct EntityVisitor : yasf::ObjectVisitor
+struct SimulationTimeDrawable : SceneManager::Drawable
 {
-    void visit(yasf::Object* obj) override
+    explicit SimulationTimeDrawable(yasf::Clock* clock)
+        : clock{clock}
     {
-        if (obj == nullptr) {
-            return;
-        }
-
-        const auto entity = dynamic_cast<yasf::Entity*>(obj);
-        if (entity == nullptr) {
-            return;
-        }
-
-        vec = entity->get_component<yasf::Position>()->get();
+        auto text = std::make_unique<sf::Text>(font);
+        text->setFillColor(sf::Color::Red);
+        text->setPosition({400.0, 300.0});
+        drawable = std::move(text);
     }
 
-    yasf::Vec3d vec;
+    [[nodiscard]] auto clock_time_to_time_string() const -> std::string
+    {
+        const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
+        const auto hms = std::chrono::hh_mm_ss{seconds};
+        std::ostringstream oss;
+        oss << hms;
+        return oss.str();
+    }
+
+    auto update() -> void override
+    {
+        const auto text = dynamic_cast<sf::Text*>(drawable.get());
+        text->setString(clock_time_to_time_string());
+    }
+
+    yasf::Clock* clock{};
+    sf::Font font{"arial.ttf"};
+};
+
+struct EntityDrawable : SceneManager::Drawable
+{
+    EntityDrawable(yasf::Entity* entity)
+        : SceneManager::Drawable{std::make_unique<sf::CircleShape>(10.0f)}
+        , entity{entity}
+    {
+        const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
+        circle->setFillColor(sf::Color::Green);
+        circle->setOutlineThickness(2.f);
+        circle->setOutlineColor(sf::Color::White);
+
+        // Center the circle (origin is top-left by default)
+        circle->setOrigin({10.0f, 10.0f});
+    }
+
+    auto update() -> void override
+    {
+        const auto pos_vec = entity->get_component<yasf::Position>()->get();
+        const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
+                                      static_cast<float>(pos_vec.y())};
+        const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
+        circle->setPosition(vec);
+    }
+
+    struct EntityVisitor : yasf::ObjectVisitor
+    {
+        auto visit(yasf::Object* obj) -> void override
+        {
+            if (obj == nullptr) {
+                return;
+            }
+
+            const auto entity = dynamic_cast<yasf::Entity*>(obj);
+            if (entity == nullptr) {
+                return;
+            }
+
+            entities.push_back(entity);
+        }
+
+        std::vector<yasf::Entity*> entities;
+    };
+
+    static void BuildDrawables(yasf::Simulation& sim, SceneManager& manager)
+    {
+        auto visitor = EntityVisitor{};
+        sim.accept(visitor);
+        std::ranges::for_each(
+            visitor.entities,
+            [&](const auto entity)
+            {
+                manager.add_drawable(std::make_unique<EntityDrawable>(entity));
+            });
+
+        yasf::log::info("created {} entity drawables", visitor.entities.size());
+    }
+
+    yasf::Entity* entity{};
 };
 
 }  // namespace
@@ -138,53 +210,23 @@ auto main() -> int
 {
     auto sim = make_sim();
 
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "My window");
-
-    auto visitor = EntityVisitor{};
-    sim.accept(visitor);
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "yasf Viewer");
+    auto manager = SceneManager{&window};
 
     window.setFramerateLimit(60);
 
-    const auto font = sf::Font{"arial.ttf"};
-    auto text = sf::Text{font, "hello world :)"};
-    text.setFillColor(sf::Color::Red);
-    text.setPosition({400.0, 300.0});
+    manager.add_drawable(
+        std::make_unique<SimulationTimeDrawable>(sim.get_clock()));
 
-    // 1. Create the circle shape
-    sf::CircleShape circle{10.0f};  // Constructor takes radius
+    EntityDrawable::BuildDrawables(sim, manager);
 
-    // 2. Set its properties (optional but recommended)
-    circle.setFillColor(sf::Color::Green);  // Set fill color
-    circle.setOutlineThickness(2.f);  // Set outline thickness
-    circle.setOutlineColor(sf::Color::White);  // Set outline color
-
-    // Center the circle (origin is top-left by default)
-    circle.setOrigin({10.0f, 10.0f});  // Move origin to the center
-
-    const auto update_drawable_position = [&]
-    {
-        sim.accept(visitor);
-        const auto pos = sf::Vector2f{static_cast<float>(visitor.vec.x()),
-                                      static_cast<float>(visitor.vec.y())};
-        circle.setPosition(pos);
-    };
-
-    const auto update_sim_time_label = [&]
-    {
-        const auto clock = sim.get_clock();
-        yasf::Ensure(clock != nullptr, "failed to get clock");
-        const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
-        const auto hms = std::chrono::hh_mm_ss{seconds};
-        std::ostringstream oss;
-        oss << hms;
-        text.setString(oss.str());
-    };
+    yasf::log::info("starting simulation visualization");
 
     // run the program as long as the window is open
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last
         // iteration of the loop
-        while (const std::optional event = window.pollEvent()) {
+        while (const auto event = window.pollEvent()) {
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>()) {
                 window.close();
@@ -192,12 +234,11 @@ auto main() -> int
         }
 
         sim.update();
-        update_drawable_position();
-        update_sim_time_label();
 
         window.clear();
-        window.draw(circle);
-        window.draw(text);
+        manager.draw();
         window.display();
     }
+
+    yasf::log::info("simulation visualization ended");
 }
