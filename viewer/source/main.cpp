@@ -148,8 +148,9 @@ struct SimulationTimeDrawable : SceneManager::Drawable
     {
         auto text = std::make_unique<sf::Text>(font);
         text->setFillColor(sf::Color::Red);
-        text->setPosition({400.0, 300.0});
         drawable = std::move(text);
+
+        render_bin = RenderBin::OVERLAY;
     }
 
     [[nodiscard]] auto clock_time_to_time_string() const -> std::string

@@ -24,31 +24,43 @@ public:
      */
     struct Drawable
     {
+        enum class RenderBin
+        {
+            BACKGROUND = 0,
+            FOREGROUND,
+            OVERLAY
+        };
+
         Drawable() = default;
 
-        explicit Drawable(std::unique_ptr<sf::Drawable> drawable,
+        explicit Drawable(std::unique_ptr<sf::Drawable> drawable, RenderBin render_bin = RenderBin::FOREGROUND,
                           std::optional<yasf::Uuid> uuid = std::nullopt)
-            : drawable{std::move(drawable)}
-            , uuid{std::move(uuid)}
+            : uuid{std::move(uuid)}
+            , drawable{std::move(drawable)}
+            , render_bin{render_bin}
         {
         }
 
         virtual ~Drawable() = default;
 
-        virtual void update() {}
+        virtual auto update() -> void {}
+
+        // The Uuid of the yasf entity.
+        std::optional<yasf::Uuid> uuid;
 
         // The drawable.
         std::unique_ptr<sf::Drawable> drawable;
 
-        // The Uuid of the yasf entity.
-        std::optional<yasf::Uuid> uuid;
+        RenderBin render_bin = RenderBin::FOREGROUND;
     };
 
-    void add_drawable(std::unique_ptr<Drawable> drawable);
+    auto add_drawable(std::unique_ptr<Drawable> drawable) -> void;
 
-    void draw();
+    auto draw() -> void;
 
 private:
     sf::RenderWindow* m_window{};
-    std::vector<std::unique_ptr<Drawable>> m_drawables;
+    std::vector<std::unique_ptr<Drawable>> m_background_drawables;
+    std::vector<std::unique_ptr<Drawable>> m_foreground_drawables;
+    std::vector<std::unique_ptr<Drawable>> m_overlay_drawables;
 };
