@@ -32,7 +32,7 @@ struct MoverVisitor : public yasf::ObjectVisitor
         }
 
         auto* const vel = entity->get_component<yasf::Velocity>();
-        if (vel == nullptr || vel->get().is_zero()) {
+        if (vel == nullptr || (vel->get().is_zero() && acc->get().is_zero())) {
             return;
         }
 
