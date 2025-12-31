@@ -24,7 +24,7 @@ public:
      */
     struct Drawable
     {
-        enum class RenderBin
+        enum class RenderBin : std::uint8_t
         {
             BACKGROUND = 0,
             FOREGROUND,
@@ -32,8 +32,11 @@ public:
         };
 
         Drawable() = default;
+        Drawable(const Drawable&) = delete;
+        Drawable(Drawable&&) = delete;
 
-        explicit Drawable(std::unique_ptr<sf::Drawable> drawable, RenderBin render_bin = RenderBin::FOREGROUND,
+        explicit Drawable(std::unique_ptr<sf::Drawable> drawable,
+                          RenderBin render_bin = RenderBin::FOREGROUND,
                           std::optional<yasf::Uuid> uuid = std::nullopt)
             : uuid{std::move(uuid)}
             , drawable{std::move(drawable)}
@@ -42,6 +45,9 @@ public:
         }
 
         virtual ~Drawable() = default;
+
+        auto operator=(const Drawable&) -> Drawable& = delete;
+        auto operator=(Drawable&&) -> Drawable& = delete;
 
         virtual auto update() -> void {}
 

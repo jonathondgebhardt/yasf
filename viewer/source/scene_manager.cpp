@@ -9,7 +9,7 @@ auto update_and_draw(
     const std::vector<std::unique_ptr<SceneManager::Drawable>>& drawables,
     sf::RenderWindow* window) -> void
 {
-    for (const auto drawable :
+    for (auto* const drawable :
          drawables
              | std::views::filter(
                  [](const std::unique_ptr<SceneManager::Drawable>& drawable)
