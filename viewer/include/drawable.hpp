@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics/Drawable.hpp>
+
 #include "graphics_window.hpp"
 
 namespace yasf::viewer
@@ -24,7 +25,11 @@ public:
         OVERLAY
     };
 
+    Drawable(const Drawable&) = default;
+    Drawable(Drawable&&) = delete;
     virtual ~Drawable() = default;
+    auto operator=(const Drawable&) -> Drawable& = default;
+    auto operator=(Drawable&&) -> Drawable& = delete;
 
     virtual auto update() -> void {}
 
@@ -32,20 +37,27 @@ public:
 
     auto render_bin() const -> RenderBin { return m_render_bin; }
 
-protected:
+    auto set_render_bin(RenderBin render_bin) -> void
+    {
+        m_render_bin = render_bin;
+    }
+
+private:
     RenderBin m_render_bin = RenderBin::FOREGROUND;
 };
 
-template<typename T> requires std::is_base_of_v<sf::Drawable, T>
+template<typename T>
+    requires std::is_base_of_v<sf::Drawable, T>
 class SfDrawable : public Drawable
 {
 public:
     auto draw() -> void override
     {
-        const auto window_handle =
+        auto* const window_handle =
             yasf::viewer::GraphicsWindow::instance()->handle();
         window_handle->draw(m_drawable);
     }
+
 protected:
     T m_drawable;
 };

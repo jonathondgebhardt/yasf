@@ -1,4 +1,7 @@
-#include <ranges>
+#include <algorithm>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "scene_manager.hpp"
 

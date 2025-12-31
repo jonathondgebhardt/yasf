@@ -3,9 +3,8 @@
 #include <memory>
 #include <vector>
 
-#include "yasf/uuid.hpp"
-#include "yasf/viewer/yasf_viewer_export.hpp"
 #include "drawable.hpp"
+#include "yasf/viewer/yasf_viewer_export.hpp"
 
 namespace yasf::viewer
 {
@@ -27,4 +26,5 @@ private:
     std::vector<std::unique_ptr<Drawable>> m_overlay_drawables;
 };
 
-}
+}  // namespace yasf::viewer
+

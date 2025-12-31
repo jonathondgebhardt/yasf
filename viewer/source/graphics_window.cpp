@@ -1,6 +1,9 @@
+#include <memory>
+
 #include "graphics_window.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/VideoMode.hpp>
 
 namespace yasf::viewer
 {

@@ -13,13 +13,13 @@ TEST_CASE("position: parameterized ctor")
 {
     SECTION("Vec3d")
     {
-        auto pos = yasf::Position{yasf::Vec3d{1.0, 2.0, 3.0}};
+        auto pos = yasf::Position{yasf::Vec3d{1.0, 2.0, 3.0}};  // NOLINT
         REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
     }
 
     SECTION("double, double, double")
     {
-        auto pos = yasf::Position{1.0, 2.0, 3.0};
+        auto pos = yasf::Position{1.0, 2.0, 3.0};  // NOLINT
         REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
     }
 }
@@ -34,9 +34,9 @@ TEST_CASE("position: set and get")
 
 TEST_CASE("position: modify vec in place")
 {
-    auto pos = yasf::Position{1.0, 2.0, 3.0};
-    REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});
+    auto pos = yasf::Position{1.0, 2.0, 3.0};  // NOLINT
+    REQUIRE(pos.get() == yasf::Vec3d{1.0, 2.0, 3.0});  // NOLINT
 
     pos.get() *= -1.0;
-    REQUIRE(pos.get() == yasf::Vec3d{-1.0, -2.0, -3.0});
+    REQUIRE(pos.get() == yasf::Vec3d{-1.0, -2.0, -3.0});  // NOLINT
 }
