@@ -16,7 +16,6 @@
 #include "yasf/entity_factory.hpp"
 #include "yasf/entity_service.hpp"
 #include "yasf/external_time_updater.hpp"
-#include "yasf/math.hpp"
 #include "yasf/mover.hpp"
 #include "yasf/object.hpp"
 #include "yasf/position.hpp"
@@ -122,9 +121,11 @@ auto make_sim() -> yasf::Simulation
         // ball
         auto entity = yasf::EntityFactory::build();
         auto* const pos = entity->get_component<yasf::Position>();
-        pos->set(yasf::Vec3d{400.0, 0.0, 0.0});
+        pos->get().x() = 400.0;
+        auto* const vel = entity->get_component<yasf::Velocity>();
+        vel->get().x() = 20.0;
         auto* const acc = entity->get_component<yasf::Acceleration>();
-        acc->set(yasf::Vec3d{0.0, 9.8, 0.0});
+        acc->get().y() = 9.8;
 
         svc->add_child(std::move(entity));
 
