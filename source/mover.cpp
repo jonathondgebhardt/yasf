@@ -1,5 +1,6 @@
 #include "yasf/mover.hpp"
 
+#include "yasf/acceleration.hpp"
 #include "yasf/clock.hpp"
 #include "yasf/ensure.hpp"
 #include "yasf/entity.hpp"
@@ -25,6 +26,11 @@ struct MoverVisitor : public yasf::ObjectVisitor
     {
         yasf::Ensure(m_clock != nullptr, "failed to access clock");
 
+        auto* const acc = entity->get_component<yasf::Acceleration>();
+        if (acc == nullptr) {
+            return;
+        }
+
         auto* const vel = entity->get_component<yasf::Velocity>();
         if (vel == nullptr || vel->get().is_zero()) {
             return;
@@ -36,11 +42,8 @@ struct MoverVisitor : public yasf::ObjectVisitor
         }
 
         auto const delta_time = m_clock->delta<yasf::time_seconds>();
-
-        auto pos_vec = pos->get();
-        auto const vel_vec = vel->get();
-        pos_vec += vel_vec * delta_time.count();
-        pos->set(pos_vec);
+        vel->get() += acc->get() * delta_time.count();
+        pos->get() += vel->get() * delta_time.count();
     }
 
     yasf::Clock* m_clock{};
