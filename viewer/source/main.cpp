@@ -148,37 +148,6 @@ auto make_sim(const std::size_t num_entities) -> yasf::Simulation
     return sim;
 }
 
-struct SimulationTimeDrawable : SceneManager::Drawable
-{
-    explicit SimulationTimeDrawable(yasf::Clock* clock)
-        : clock{clock}
-    {
-        auto text = std::make_unique<sf::Text>(font);
-        text->setFillColor(sf::Color::Red);
-        drawable = std::move(text);
-
-        render_bin = RenderBin::OVERLAY;
-    }
-
-    [[nodiscard]] auto clock_time_to_time_string() const -> std::string
-    {
-        const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
-        const auto hms = std::chrono::hh_mm_ss{seconds};
-        std::ostringstream oss;
-        oss << hms;
-        return oss.str();
-    }
-
-    auto update() -> void override
-    {
-        const auto text = dynamic_cast<sf::Text*>(drawable.get());
-        text->setString(clock_time_to_time_string());
-    }
-
-    yasf::Clock* clock{};
-    sf::Font font{"arial.ttf"};
-};
-
 struct EntityDrawable : SceneManager::Drawable
 {
     static auto color_from_index(int index)
@@ -395,8 +364,6 @@ auto main() -> int
             + yasf::time_microseconds{delta_time.asMicroseconds()});
 
         ImGui::SFML::Update(window, delta_time);
-
-        ImGui::ShowDemoWindow();
 
         ImGui::Begin("Simulation");
         const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
