@@ -150,91 +150,27 @@ auto make_sim() -> yasf::Simulation
     return sim;
 }
 
-struct EntityDrawable : yasf::viewer::Drawable
+struct EntityDrawable : yasf::viewer::SfDrawable<sf::CircleShape>
 {
-    static auto color_from_index(int index)
-    {
-        switch (index) {
-            case 0:
-                return sf::Color::Black;
-            case 1:
-                return sf::Color::White;
-            case 2:
-                return sf::Color::Red;
-            case 3:
-                return sf::Color::Green;
-            case 4:
-                return sf::Color::Blue;
-            case 5:
-                return sf::Color::Yellow;
-            case 6:
-                return sf::Color::Magenta;
-            case 7:
-            default:
-                return sf::Color::Cyan;
-        }
-    }
-
-    static auto get_random_color() -> sf::Color
-    {
-        const auto seed =
-            std::chrono::system_clock::now().time_since_epoch().count();
-
-        auto eng = std::mt19937{static_cast<unsigned int>(seed)};
-        auto dist = std::uniform_int_distribution{0, 7};
-        return color_from_index(dist(eng));
-    }
-
     explicit EntityDrawable(yasf::Entity* entity)
         : entity{entity}
         , previous_velocity{*entity->get_component<yasf::Velocity>()}
     {
-        circle->setFillColor(sf::Color::White);
-        circle->setOutlineThickness(2.f);
-        circle->setOutlineColor(sf::Color::White);
+        m_drawable.setRadius(10.0f);
+        m_drawable.setFillColor(sf::Color::White);
+        m_drawable.setOutlineThickness(2.f);
+        m_drawable.setOutlineColor(sf::Color::White);
 
         // Center the circle (origin is top-left by default)
-        circle->setOrigin({10.0f, 10.0f});
+        m_drawable.setOrigin({10.0f, 10.0f});
     }
 
     auto update() -> void override
     {
-        update_drawable_position();
-        update_drawable_color();
-    }
-
-    auto draw() -> void override
-    {
-        const auto window_handle =
-            yasf::viewer::GraphicsWindow::instance()->handle();
-        window_handle->draw(*circle);
-    }
-
-    auto update_drawable_position() const -> void
-    {
         const auto pos_vec = entity->get_component<yasf::Position>()->get();
         const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
                                       static_cast<float>(pos_vec.y())};
-        circle->setPosition(vec);
-    }
-
-    auto update_drawable_color() -> void
-    {
-        if (velocity_changed_sign()) {
-            color_index = (color_index + 1) % 8;
-            circle->setFillColor(color_from_index(color_index));
-        }
-
-        previous_velocity = *entity->get_component<yasf::Velocity>();
-    }
-
-    auto velocity_changed_sign() -> bool
-    {
-        auto current_velocity = *entity->get_component<yasf::Velocity>();
-        return (std::signbit(previous_velocity.get().x())
-                != std::signbit(current_velocity.get().x()))
-            || (std::signbit(previous_velocity.get().y())
-                != std::signbit(current_velocity.get().y()));
+        m_drawable.setPosition(vec);
     }
 
     struct EntityVisitor : yasf::ObjectVisitor
@@ -271,37 +207,26 @@ struct EntityDrawable : yasf::viewer::Drawable
         yasf::log::info("created {} entity drawables", visitor.entities.size());
     }
 
-    std::unique_ptr<sf::CircleShape> circle =
-        std::make_unique<sf::CircleShape>(10.0f);
     yasf::Entity* entity{};
     yasf::Velocity previous_velocity{};
     int color_index{};
 };
 
-struct GroundDrawable : yasf::viewer::Drawable
+struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
 {
     explicit GroundDrawable(yasf::Object* ground)
         : ground{ground}
     {
-        rect->setFillColor(sf::Color::Green);
-        rect->setSize({2000.0, 800.0});
+        m_drawable.setFillColor(sf::Color::Green);
+        m_drawable.setSize({2000.0, 800.0});
     }
 
-    auto update() -> void override { update_drawable_position(); }
-
-    auto draw() -> void override
-    {
-        const auto window_handle =
-            yasf::viewer::GraphicsWindow::instance()->handle();
-        window_handle->draw(*rect);
-    }
-
-    auto update_drawable_position() const -> void
+    auto update() -> void override
     {
         const auto pos_vec = ground->get_component<yasf::Position>()->get();
         const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
                                       static_cast<float>(pos_vec.y())};
-        rect->setPosition(vec);
+        m_drawable.setPosition(vec);
     }
 
     struct EntityVisitor : yasf::ObjectVisitor
@@ -326,8 +251,6 @@ struct GroundDrawable : yasf::viewer::Drawable
         yasf::log::info("created ground object");
     }
 
-    std::unique_ptr<sf::RectangleShape> rect =
-        std::make_unique<sf::RectangleShape>();
     yasf::Object* ground{};
 };
 
