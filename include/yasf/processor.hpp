@@ -4,6 +4,7 @@
 #include "yasf/entity_service.hpp"
 #include "yasf/object.hpp"
 #include "yasf/simulation.hpp"
+#include "yasf/yasf_export.hpp"
 
 namespace yasf
 {

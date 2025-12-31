@@ -5,6 +5,7 @@
 #include "yasf/event.hpp"
 #include "yasf/event_simulation.hpp"
 #include "yasf/object.hpp"
+#include "yasf/yasf_export.hpp"
 
 namespace yasf
 {

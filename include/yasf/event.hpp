@@ -4,6 +4,7 @@
 #include <limits>
 
 #include "yasf/types.hpp"
+#include "yasf/yasf_export.hpp"
 
 namespace yasf
 {
@@ -17,7 +18,7 @@ enum class EventType : std::uint16_t
     USER_END = std::numeric_limits<std::uint16_t>::max()
 };
 
-class Event
+class YASF_EXPORT Event
 {
 public:
     Event(yasf::time_microseconds time, EventType type)
