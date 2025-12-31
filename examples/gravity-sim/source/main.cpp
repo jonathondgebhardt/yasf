@@ -150,176 +150,186 @@ auto make_sim() -> yasf::Simulation
     return sim;
 }
 
-// struct EntityDrawable : SceneManager::Drawable
-//{
-//     static auto color_from_index(int index)
-//     {
-//         switch (index) {
-//             case 0:
-//                 return sf::Color::Black;
-//             case 1:
-//                 return sf::Color::White;
-//             case 2:
-//                 return sf::Color::Red;
-//             case 3:
-//                 return sf::Color::Green;
-//             case 4:
-//                 return sf::Color::Blue;
-//             case 5:
-//                 return sf::Color::Yellow;
-//             case 6:
-//                 return sf::Color::Magenta;
-//             case 7:
-//             default:
-//                 return sf::Color::Cyan;
-//         }
-//     }
-//
-//     static auto get_random_color() -> sf::Color
-//     {
-//         const auto seed =
-//             std::chrono::system_clock::now().time_since_epoch().count();
-//
-//         auto eng = std::mt19937{static_cast<unsigned int>(seed)};
-//         auto dist = std::uniform_int_distribution{0, 7};
-//         return color_from_index(dist(eng));
-//     }
-//
-//     explicit EntityDrawable(yasf::Entity* entity)
-//         : SceneManager::Drawable{std::make_unique<sf::CircleShape>(10.0f)}
-//         , entity{entity}
-//         , previous_velocity{*entity->get_component<yasf::Velocity>()}
-//     {
-//         const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
-//         circle->setFillColor(sf::Color::White);
-//         circle->setOutlineThickness(2.f);
-//         circle->setOutlineColor(sf::Color::White);
-//
-//         // Center the circle (origin is top-left by default)
-//         circle->setOrigin({10.0f, 10.0f});
-//     }
-//
-//     auto update() -> void override
-//     {
-//         update_drawable_position();
-//         update_drawable_color();
-//     }
-//
-//     auto update_drawable_position() const -> void
-//     {
-//         const auto pos_vec = entity->get_component<yasf::Position>()->get();
-//         const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
-//                                       static_cast<float>(pos_vec.y())};
-//         const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
-//         circle->setPosition(vec);
-//     }
-//
-//     auto update_drawable_color() -> void
-//     {
-//         if (velocity_changed_sign()) {
-//             const auto circle =
-//             dynamic_cast<sf::CircleShape*>(drawable.get()); color_index =
-//             (color_index + 1) % 8;
-//             circle->setFillColor(color_from_index(color_index));
-//         }
-//
-//         previous_velocity = *entity->get_component<yasf::Velocity>();
-//     }
-//
-//     auto velocity_changed_sign() -> bool
-//     {
-//         auto current_velocity = *entity->get_component<yasf::Velocity>();
-//         return (std::signbit(previous_velocity.get().x())
-//                 != std::signbit(current_velocity.get().x()))
-//             || (std::signbit(previous_velocity.get().y())
-//                 != std::signbit(current_velocity.get().y()));
-//     }
-//
-//     struct EntityVisitor : yasf::ObjectVisitor
-//     {
-//         auto visit(yasf::Object* obj) -> void override
-//         {
-//             if (obj == nullptr) {
-//                 return;
-//             }
-//
-//             const auto entity = dynamic_cast<yasf::Entity*>(obj);
-//             if (entity == nullptr) {
-//                 return;
-//             }
-//
-//             entities.push_back(entity);
-//         }
-//
-//         std::vector<yasf::Entity*> entities;
-//     };
-//
-//     static void BuildDrawables(yasf::Simulation& sim, SceneManager& manager)
-//     {
-//         auto visitor = EntityVisitor{};
-//         sim.accept(visitor);
-//         std::ranges::for_each(
-//             visitor.entities,
-//             [&](const auto entity)
-//             {
-//                 manager.add_drawable(std::make_unique<EntityDrawable>(entity));
-//             });
-//
-//         yasf::log::info("created {} entity drawables",
-//         visitor.entities.size());
-//     }
-//
-//     yasf::Entity* entity{};
-//     yasf::Velocity previous_velocity{};
-//     int color_index{};
-// };
-//
-// struct GroundDrawable : SceneManager::Drawable
-//{
-//     explicit GroundDrawable(yasf::Object* ground)
-//         : SceneManager::Drawable{std::make_unique<sf::RectangleShape>()}
-//         , ground{ground}
-//     {
-//         const auto rect = dynamic_cast<sf::RectangleShape*>(drawable.get());
-//         rect->setFillColor(sf::Color::Green);
-//         rect->setSize({2000.0, 800.0});
-//     }
-//
-//     auto update() -> void override { update_drawable_position(); }
-//
-//     auto update_drawable_position() const -> void
-//     {
-//         const auto pos_vec = ground->get_component<yasf::Position>()->get();
-//         const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
-//                                       static_cast<float>(pos_vec.y())};
-//         const auto rect = dynamic_cast<sf::RectangleShape*>(drawable.get());
-//         rect->setPosition(vec);
-//     }
-//
-//     struct EntityVisitor : yasf::ObjectVisitor
-//     {
-//         auto visit(yasf::Object* obj) -> void override
-//         {
-//             if (obj != nullptr && obj->display_name() == "ground") {
-//                 ground = obj;
-//             }
-//         }
-//
-//         yasf::Object* ground;
-//     };
-//
-//     static void BuildDrawables(yasf::Simulation& sim, SceneManager& manager)
-//     {
-//         auto visitor = EntityVisitor{};
-//         sim.accept(visitor);
-//         yasf::Ensure(visitor.ground != nullptr, "failed to find ground
-//         object");
-//         manager.add_drawable(std::make_unique<GroundDrawable>(visitor.ground));
-//         yasf::log::info("created ground object");
-//     }
-//
-//     yasf::Object* ground{};
-// };
+struct EntityDrawable : yasf::viewer::Drawable
+{
+    static auto color_from_index(int index)
+    {
+        switch (index) {
+            case 0:
+                return sf::Color::Black;
+            case 1:
+                return sf::Color::White;
+            case 2:
+                return sf::Color::Red;
+            case 3:
+                return sf::Color::Green;
+            case 4:
+                return sf::Color::Blue;
+            case 5:
+                return sf::Color::Yellow;
+            case 6:
+                return sf::Color::Magenta;
+            case 7:
+            default:
+                return sf::Color::Cyan;
+        }
+    }
+
+    static auto get_random_color() -> sf::Color
+    {
+        const auto seed =
+            std::chrono::system_clock::now().time_since_epoch().count();
+
+        auto eng = std::mt19937{static_cast<unsigned int>(seed)};
+        auto dist = std::uniform_int_distribution{0, 7};
+        return color_from_index(dist(eng));
+    }
+
+    explicit EntityDrawable(yasf::Entity* entity)
+        : entity{entity}
+        , previous_velocity{*entity->get_component<yasf::Velocity>()}
+    {
+        circle->setFillColor(sf::Color::White);
+        circle->setOutlineThickness(2.f);
+        circle->setOutlineColor(sf::Color::White);
+
+        // Center the circle (origin is top-left by default)
+        circle->setOrigin({10.0f, 10.0f});
+    }
+
+    auto update() -> void override
+    {
+        update_drawable_position();
+        update_drawable_color();
+    }
+
+    auto draw() -> void override
+    {
+        const auto window_handle =
+            yasf::viewer::GraphicsWindow::instance()->handle();
+        window_handle->draw(*circle);
+    }
+
+    auto update_drawable_position() const -> void
+    {
+        const auto pos_vec = entity->get_component<yasf::Position>()->get();
+        const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
+                                      static_cast<float>(pos_vec.y())};
+        circle->setPosition(vec);
+    }
+
+    auto update_drawable_color() -> void
+    {
+        if (velocity_changed_sign()) {
+            color_index = (color_index + 1) % 8;
+            circle->setFillColor(color_from_index(color_index));
+        }
+
+        previous_velocity = *entity->get_component<yasf::Velocity>();
+    }
+
+    auto velocity_changed_sign() -> bool
+    {
+        auto current_velocity = *entity->get_component<yasf::Velocity>();
+        return (std::signbit(previous_velocity.get().x())
+                != std::signbit(current_velocity.get().x()))
+            || (std::signbit(previous_velocity.get().y())
+                != std::signbit(current_velocity.get().y()));
+    }
+
+    struct EntityVisitor : yasf::ObjectVisitor
+    {
+        auto visit(yasf::Object* obj) -> void override
+        {
+            if (obj == nullptr) {
+                return;
+            }
+
+            const auto entity = dynamic_cast<yasf::Entity*>(obj);
+            if (entity == nullptr) {
+                return;
+            }
+
+            entities.push_back(entity);
+        }
+
+        std::vector<yasf::Entity*> entities;
+    };
+
+    static void build_drawables(yasf::Simulation& sim,
+                                yasf::viewer::SceneManager& manager)
+    {
+        auto visitor = EntityVisitor{};
+        sim.accept(visitor);
+        std::ranges::for_each(
+            visitor.entities,
+            [&](const auto entity)
+            {
+                manager.add_drawable(std::make_unique<EntityDrawable>(entity));
+            });
+
+        yasf::log::info("created {} entity drawables", visitor.entities.size());
+    }
+
+    std::unique_ptr<sf::CircleShape> circle =
+        std::make_unique<sf::CircleShape>(10.0f);
+    yasf::Entity* entity{};
+    yasf::Velocity previous_velocity{};
+    int color_index{};
+};
+
+struct GroundDrawable : yasf::viewer::Drawable
+{
+    explicit GroundDrawable(yasf::Object* ground)
+        : ground{ground}
+    {
+        rect->setFillColor(sf::Color::Green);
+        rect->setSize({2000.0, 800.0});
+    }
+
+    auto update() -> void override { update_drawable_position(); }
+
+    auto draw() -> void override
+    {
+        const auto window_handle =
+            yasf::viewer::GraphicsWindow::instance()->handle();
+        window_handle->draw(*rect);
+    }
+
+    auto update_drawable_position() const -> void
+    {
+        const auto pos_vec = ground->get_component<yasf::Position>()->get();
+        const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
+                                      static_cast<float>(pos_vec.y())};
+        rect->setPosition(vec);
+    }
+
+    struct EntityVisitor : yasf::ObjectVisitor
+    {
+        auto visit(yasf::Object* obj) -> void override
+        {
+            if (obj != nullptr && obj->display_name() == "ground") {
+                ground = obj;
+            }
+        }
+
+        yasf::Object* ground;
+    };
+
+    static auto build_drawables(yasf::Simulation& sim,
+                                yasf::viewer::SceneManager& manager) -> void
+    {
+        auto visitor = EntityVisitor{};
+        sim.accept(visitor);
+        yasf::Ensure(visitor.ground != nullptr, "failed to find ground object");
+        manager.add_drawable(std::make_unique<GroundDrawable>(visitor.ground));
+        yasf::log::info("created ground object");
+    }
+
+    std::unique_ptr<sf::RectangleShape> rect =
+        std::make_unique<sf::RectangleShape>();
+    yasf::Object* ground{};
+};
 
 struct ImGuiVisitor
 {
@@ -380,23 +390,20 @@ auto main() -> int
 {
     auto sim = make_sim();
 
-    // sf::RenderWindow window(sf::VideoMode({1024, 768}), "yasf Viewer");
+    yasf::viewer::GraphicsWindow::init(
+        {.window_width = 1024, .window_height = 768, .frame_limit = 60});
+    const auto window_handle =
+        yasf::viewer::GraphicsWindow::instance()->handle();
 
-    yasf::viewer::GraphicsWindow::init({.name = "yasf Viewer",
-                                        .window_height = 768,
-                                        .window_width = 1024,
-                                        .frame_limit = 60});
-    const auto& window = yasf::viewer::GraphicsWindow::instance();
-
-    if (!ImGui::SFML::Init(*window->handle())) {
+    if (!ImGui::SFML::Init(*window_handle)) {
         yasf::log::error("failed to initialize ImGui");
         return EXIT_FAILURE;
     }
 
     auto manager = yasf::viewer::SceneManager{};
 
-    // EntityDrawable::BuildDrawables(sim, manager);
-    // GroundDrawable::BuildDrawables(sim, manager);
+    EntityDrawable::build_drawables(sim, manager);
+    GroundDrawable::build_drawables(sim, manager);
     auto visitor = ImGuiVisitor{&sim};
 
     const auto clock = sim.get_clock();
@@ -408,15 +415,15 @@ auto main() -> int
 
     // run the program as long as the window is open
     sf::Clock delta_clock;
-    while (window->handle()->isOpen()) {
+    while (window_handle->isOpen()) {
         // check all the window's events that were triggered since the last
         // iteration of the loop
-        while (const auto event = window->handle()->pollEvent()) {
-            ImGui::SFML::ProcessEvent(*window->handle(), event.value());
+        while (const auto event = window_handle->pollEvent()) {
+            ImGui::SFML::ProcessEvent(*window_handle, event.value());
 
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>()) {
-                window->handle()->close();
+                window_handle->close();
             }
         }
 
@@ -425,7 +432,7 @@ auto main() -> int
             clock->time()
             + yasf::time_microseconds{delta_time.asMicroseconds()});
 
-        ImGui::SFML::Update(*window->handle(), delta_time);
+        ImGui::SFML::Update(*window_handle, delta_time);
 
         ImGui::Begin("Simulation");
         const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
@@ -444,10 +451,10 @@ auto main() -> int
 
         ImGui::End();
 
-        window->handle()->clear();
+        window_handle->clear();
         manager.draw();
-        ImGui::SFML::Render(*window->handle());
-        window->handle()->display();
+        ImGui::SFML::Render(*window_handle);
+        window_handle->display();
     }
 
     ImGui::SFML::Shutdown();
