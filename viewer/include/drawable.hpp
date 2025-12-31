@@ -1,5 +1,8 @@
 #pragma once
 
+#include <SFML/Graphics/Drawable.hpp>
+#include "graphics_window.hpp"
+
 namespace yasf::viewer
 {
 
@@ -31,6 +34,20 @@ public:
 
 protected:
     RenderBin m_render_bin = RenderBin::FOREGROUND;
+};
+
+template<typename T> requires std::is_base_of_v<sf::Drawable, T>
+class SfDrawable : public Drawable
+{
+public:
+    auto draw() -> void override
+    {
+        const auto window_handle =
+            yasf::viewer::GraphicsWindow::instance()->handle();
+        window_handle->draw(m_drawable);
+    }
+protected:
+    T m_drawable;
 };
 
 }  // namespace yasf::viewer
