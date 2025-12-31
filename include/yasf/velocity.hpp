@@ -27,7 +27,7 @@ public:
     {
     }
 
-    Velocity(double x, double y, double z)
+    Velocity(double x, double y, double z)  // NOLINT
         : Velocity(Vec3d{x, y, z})
     {
     }

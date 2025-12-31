@@ -27,7 +27,7 @@ public:
     {
     }
 
-    Position(double x, double y, double z)
+    Position(double x, double y, double z)  // NOLINT
         : Position(Vec3d{x, y, z})
     {
     }
