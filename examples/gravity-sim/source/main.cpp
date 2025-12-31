@@ -315,8 +315,7 @@ auto main() -> int
 
     yasf::viewer::GraphicsWindow::init(
         {.window_width = 1024, .window_height = 768, .frame_limit = 60});
-    const auto window_handle =
-        yasf::viewer::GraphicsWindow::instance()->handle();
+    auto* const window_handle = yasf::viewer::GraphicsWindow::instance();
 
     if (!ImGui::SFML::Init(*window_handle)) {
         yasf::log::error("failed to initialize ImGui");

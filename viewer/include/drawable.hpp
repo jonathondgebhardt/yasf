@@ -25,11 +25,7 @@ public:
         OVERLAY
     };
 
-    Drawable(const Drawable&) = default;
-    Drawable(Drawable&&) = delete;
     virtual ~Drawable() = default;
-    auto operator=(const Drawable&) -> Drawable& = default;
-    auto operator=(Drawable&&) -> Drawable& = delete;
 
     virtual auto update() -> void {}
 
@@ -53,8 +49,7 @@ class SfDrawable : public Drawable
 public:
     auto draw() -> void override
     {
-        auto* const window_handle =
-            yasf::viewer::GraphicsWindow::instance()->handle();
+        auto* const window_handle = yasf::viewer::GraphicsWindow::instance();
         window_handle->draw(m_drawable);
     }
 
