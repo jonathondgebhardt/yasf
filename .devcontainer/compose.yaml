@@ -1,17 +1,29 @@
 services:
   dev:
     image: yasf-ubuntu
+    working_dir: ${PROJECT_ROOT}
+
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
     volumes:
-      - ../:/workspace/yasf
-      - $VCPKG_ROOT:/opt/vcpkg
-      - $HOME/.cache/vcpkg/archives:/vcpkg-cache
+      - ${PROJECT_ROOT}:${PROJECT_ROOT}
+      - ${VCPKG_ROOT}:${VCPKG_ROOT}
+      - ${VCPKG_CACHE_HOST}:${VCPKG_CACHE_HOST}
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
     environment:
-      - VCPKG_ROOT=/opt/vcpkg
-      - VCPKG_DEFAULT_BINARY_CACHE=/vcpkg-cache
-    working_dir: /workspace/yasf
+      - VCPKG_ROOT=${VCPKG_ROOT}
+      - VCPKG_DEFAULT_BINARY_CACHE=${VCPKG_CACHE_HOST}
+      - DISPLAY=${DISPLAY}
+
     stdin_open: true
     tty: true
+
+    security_opt:
+      - label=disable
+
+    devices:
+      - /dev/dri:/dev/dri
 
