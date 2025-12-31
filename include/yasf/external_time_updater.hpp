@@ -21,17 +21,11 @@ public:
     {
     }
 
-    // clang-format-19 + gcc-14 doesn't like trailing return here.
-    // auto next_time() override -> time_usec;
-    // NOLINTBEGIN(modernize-use-trailing-return-type)
-
     /**
      * @brief
      * @return
      */
-    time_microseconds next_time() override { return m_next_time; }
-
-    // NOLINTEND(modernize-use-trailing-return-type)
+    auto next_time() -> time_microseconds override { return m_next_time; }
 
     template<time_type T>
     auto set_next_time(T next_time) -> void

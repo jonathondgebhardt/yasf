@@ -17,18 +17,12 @@ public:
     explicit FixedTimeUpdater(time_microseconds delta);
     explicit FixedTimeUpdater(time_seconds delta);
 
-    // clang-format-19 + gcc-14 doesn't like trailing return here.
-    // auto next_time() override -> time_usec;
-    // NOLINTBEGIN(modernize-use-trailing-return-type)
-
     /**
      * @brief Adds delta time to the parent clock's time.
      * Throws an exception if parent is not a clock.
      * @return The delta time plus the parent clock's time.
      */
-    time_microseconds next_time() override;
-
-    // NOLINTEND(modernize-use-trailing-return-type)
+    auto next_time() -> time_microseconds override;
 
     template<time_type T = time_microseconds>
     auto delta() const -> T
