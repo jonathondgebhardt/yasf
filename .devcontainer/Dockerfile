@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     g++-14 \
     gcc-14 \
+    gdb \
     git \
     libgl1 \
     libgl1-mesa-dev \
