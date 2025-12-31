@@ -1,11 +1,13 @@
 #include <memory>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <imgui-SFML.h>
 #include <imgui.h>
 
 #include "scene_manager.hpp"
+#include "yasf/acceleration.hpp"
 #include "yasf/clock_factory.hpp"
 #include "yasf/convert.hpp"
 #include "yasf/ensure.hpp"
@@ -13,7 +15,9 @@
 #include "yasf/entity_factory.hpp"
 #include "yasf/entity_service.hpp"
 #include "yasf/external_time_updater.hpp"
+#include "yasf/math.hpp"
 #include "yasf/mover.hpp"
+#include "yasf/object.hpp"
 #include "yasf/position.hpp"
 #include "yasf/processor_service.hpp"
 #include "yasf/simulation.hpp"
@@ -23,115 +27,108 @@
 namespace
 {
 
-struct EntityMover : yasf::Mover
+struct GroundCollisionProcessor : yasf::Processor
 {
-    using Bounds = std::pair<double, double>;
-
-    struct BorderPatrol : yasf::ObjectVisitor
+    struct FindGroundObjectVisitor : yasf::ObjectVisitor
     {
-        auto within_x_bounds(yasf::Position& pos) const -> bool
+        auto visit(yasf::Object* obj) -> void override
         {
-            const auto vec = pos.get();
-            return vec.x() >= x_bounds.first && vec.x() < x_bounds.second;
+            if (obj != nullptr && obj->display_name() == "ground") {
+                ground = obj;
+            }
         }
 
-        auto within_y_bounds(yasf::Position& pos) const -> bool
+        yasf::Object* ground{};
+    };
+
+    struct DetectCollisionsVisitor : yasf::ObjectVisitor
+    {
+        static auto overlap(const yasf::Vec3d lhs, const yasf::Vec3d rhs)
+            -> bool
         {
-            const auto vec = pos.get();
-            return vec.y() >= y_bounds.first && vec.y() < y_bounds.second;
+            // return yasf::math::double_eq(lhs.x(), rhs.x())
+            //     || yasf::math::double_eq(lhs.y(), rhs.y());
+            return lhs.y() >= rhs.y();
         }
 
         auto visit(yasf::Object* obj) -> void override
         {
-            if (obj == nullptr) {
+            if (obj == nullptr || obj == collider) {
                 return;
             }
 
-            const auto entity = dynamic_cast<yasf::Entity*>(obj);
-            if (entity == nullptr) {
+            auto* const pos_collidee = obj->get_component<yasf::Position>();
+            if (pos_collidee == nullptr) {
                 return;
             }
 
-            const auto pos = entity->get_component<yasf::Position>();
-            yasf::Ensure(pos != nullptr, "failed to get entity position");
-
-            const auto vel = entity->get_component<yasf::Velocity>();
-            yasf::Ensure(vel != nullptr, "failed to get entity velocity");
-
-            if (!within_x_bounds(*pos)) {
-                vel->get().x() *= -1.0;
+            auto* const pos_collider =
+                collider->get_component<yasf::Position>();
+            if (pos_collider == nullptr) {
+                return;
             }
 
-            if (!within_y_bounds(*pos)) {
-                vel->get().y() *= -1.0;
+            if (overlap(pos_collidee->get(), pos_collider->get())) {
+                collidees.push_back(obj);
             }
         }
 
-        // todo: don't hardcode this
-        Bounds x_bounds = {0.0, 800.0};
-        Bounds y_bounds = {0.0, 600.0};
+        yasf::Object* collider{};
+        std::vector<yasf::Object*> collidees;
     };
-
-    EntityMover()
-        : yasf::Mover("entity mover")
-    {
-    }
 
     auto update() -> void override
     {
-        yasf::Mover::update();
+        auto ground_visitor = FindGroundObjectVisitor{};
+        get_simulation()->accept(ground_visitor);
+        auto* const ground = ground_visitor.ground;
+        yasf::Ensure(ground != nullptr, "failed to find ground object");
 
-        const auto svc = get_entity_service();
-        yasf::Ensure(svc != nullptr, "failed to get entity service");
+        auto collision_visitor = DetectCollisionsVisitor{};
+        collision_visitor.collider = ground;
+        get_entity_service()->accept(collision_visitor);
 
-        svc->accept(visitor);
+        std::ranges::for_each(
+            collision_visitor.collidees,
+            [](yasf::Object* const obj)
+            {
+                if (auto* vel = obj->get_component<yasf::Velocity>()) {
+                    vel->get().zero();
+                }
+                if (auto* acc = obj->get_component<yasf::Acceleration>()) {
+                    acc->get().zero();
+                }
+            });
     }
-
-    BorderPatrol visitor;
 };
 
-auto make_sim(const std::size_t num_entities) -> yasf::Simulation
+auto make_ground_object() -> std::unique_ptr<yasf::Object>
 {
-    // todo: can i use a different time updater?
+    auto obj = std::make_unique<yasf::Object>();
+    obj->add_component<yasf::Position>(0.0, 500.0, 0.0);
+    obj->set_display_name("ground");
+
+    return obj;
+}
+
+auto make_sim() -> yasf::Simulation
+{
     auto sim = yasf::Simulation{yasf::ClockFactory::build_external_update()};
 
     {
         auto svc = std::make_unique<yasf::EntityService>();
 
-        const auto seed =
-            std::chrono::system_clock::now().time_since_epoch().count();
+        // ball
+        auto entity = yasf::EntityFactory::build();
+        auto* const pos = entity->get_component<yasf::Position>();
+        pos->set(yasf::Vec3d{400.0, 0.0, 0.0});
+        auto* const acc = entity->get_component<yasf::Acceleration>();
+        acc->set(yasf::Vec3d{0.0, 9.8, 0.0});
 
-        auto eng = std::mt19937{static_cast<unsigned int>(seed)};
+        svc->add_child(std::move(entity));
 
-        auto pos_dist = std::uniform_real_distribution{10.0, 500.0};
-        auto vel_dist = std::uniform_real_distribution{100.0, 300.0};
-        auto vel_sign_dist = std::uniform_real_distribution{0.0, 1.0};
-
-        for (auto i = 0u; i < num_entities; ++i) {
-            auto entity = yasf::EntityFactory::build();
-            const auto vel = entity->get_component<yasf::Velocity>();
-            const auto [vel_x, vel_y] = [&]() -> std::pair<double, double>
-            {
-                auto vel_x = vel_dist(eng);
-                auto vel_y = vel_x;
-
-                if (const auto sign = vel_sign_dist(eng); sign <= 0.5) {
-                    vel_x *= -1.0;
-                }
-
-                if (const auto sign = vel_sign_dist(eng); sign <= 0.5) {
-                    vel_y *= -1.0;
-                }
-
-                return {vel_x, vel_y};
-            }();
-            vel->set(yasf::Vec3d{vel_x, vel_y, 0.0});
-
-            const auto pos = entity->get_component<yasf::Position>();
-            pos->set(yasf::Vec3d{pos_dist(eng), pos_dist(eng), 0.0});
-
-            svc->add_child(std::move(entity));
-        }
+        // ground
+        svc->add_child(make_ground_object());
 
         sim.add_child(std::move(svc));
     }
@@ -139,8 +136,12 @@ auto make_sim(const std::size_t num_entities) -> yasf::Simulation
     {
         auto svc = std::make_unique<yasf::ProcessorService>();
 
-        auto mover = std::make_unique<EntityMover>();
+        // auto mover = std::make_unique<EntityMover>();
+        auto mover = std::make_unique<yasf::Mover>();
         svc->add_child(std::move(mover));
+
+        auto ground_collision = std::make_unique<GroundCollisionProcessor>();
+        svc->add_child(std::move(ground_collision));
 
         sim.add_child(std::move(svc));
     }
@@ -189,7 +190,7 @@ struct EntityDrawable : SceneManager::Drawable
         , previous_velocity{*entity->get_component<yasf::Velocity>()}
     {
         const auto circle = dynamic_cast<sf::CircleShape*>(drawable.get());
-        circle->setFillColor(get_random_color());
+        circle->setFillColor(sf::Color::White);
         circle->setOutlineThickness(2.f);
         circle->setOutlineColor(sf::Color::White);
 
@@ -270,6 +271,52 @@ struct EntityDrawable : SceneManager::Drawable
     int color_index{};
 };
 
+struct GroundDrawable : SceneManager::Drawable
+{
+    explicit GroundDrawable(yasf::Object* ground)
+        : SceneManager::Drawable{std::make_unique<sf::RectangleShape>()}
+        , ground{ground}
+    {
+        const auto rect = dynamic_cast<sf::RectangleShape*>(drawable.get());
+        rect->setFillColor(sf::Color::Green);
+        rect->setSize({2000.0, 800.0});
+    }
+
+    auto update() -> void override { update_drawable_position(); }
+
+    auto update_drawable_position() const -> void
+    {
+        const auto pos_vec = ground->get_component<yasf::Position>()->get();
+        const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
+                                      static_cast<float>(pos_vec.y())};
+        const auto rect = dynamic_cast<sf::RectangleShape*>(drawable.get());
+        rect->setPosition(vec);
+    }
+
+    struct EntityVisitor : yasf::ObjectVisitor
+    {
+        auto visit(yasf::Object* obj) -> void override
+        {
+            if (obj != nullptr && obj->display_name() == "ground") {
+                ground = obj;
+            }
+        }
+
+        yasf::Object* ground;
+    };
+
+    static void BuildDrawables(yasf::Simulation& sim, SceneManager& manager)
+    {
+        auto visitor = EntityVisitor{};
+        sim.accept(visitor);
+        yasf::Ensure(visitor.ground != nullptr, "failed to find ground object");
+        manager.add_drawable(std::make_unique<GroundDrawable>(visitor.ground));
+        yasf::log::info("created ground object");
+    }
+
+    yasf::Object* ground{};
+};
+
 struct ImGuiVisitor
 {
     explicit ImGuiVisitor(yasf::Simulation* sim)
@@ -304,14 +351,19 @@ struct ImGuiVisitor
     static auto draw_entity_components(const yasf::Object* obj) -> void
     {
         // todo: handle components
-        if (const auto pos = obj->get_component<yasf::Position>()) {
+        if (auto* const pos = obj->get_component<yasf::Position>()) {
             const auto vec = pos->get();
             ImGui::Text("position: %.2f %.2f", vec.x(), vec.y());
         }
 
-        if (const auto vel = obj->get_component<yasf::Velocity>()) {
+        if (auto* const vel = obj->get_component<yasf::Velocity>()) {
             const auto vec = vel->get();
             ImGui::Text("velocity: %.2f %.2f", vec.x(), vec.y());
+        }
+
+        if (auto* const acc = obj->get_component<yasf::Acceleration>()) {
+            const auto vec = acc->get();
+            ImGui::Text("acceleration: %.2f %.2f", vec.x(), vec.y());
         }
     }
 
@@ -322,7 +374,7 @@ struct ImGuiVisitor
 
 auto main() -> int
 {
-    auto sim = make_sim(10);
+    auto sim = make_sim();
 
     sf::RenderWindow window(sf::VideoMode({1024, 768}), "yasf Viewer");
     if (!ImGui::SFML::Init(window)) {
@@ -335,6 +387,7 @@ auto main() -> int
     window.setFramerateLimit(60);
 
     EntityDrawable::BuildDrawables(sim, manager);
+    GroundDrawable::BuildDrawables(sim, manager);
     auto visitor = ImGuiVisitor{&sim};
 
     const auto clock = sim.get_clock();
