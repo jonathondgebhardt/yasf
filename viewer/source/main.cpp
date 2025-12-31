@@ -313,7 +313,12 @@ struct ImGuiVisitor
         return std::format("{} ({})", obj->name(), obj->uuid().tail(4));
     }
 
-    auto draw() const -> void { draw_tree(sim); }
+    auto draw() const -> void
+    {
+        if (ImGui::CollapsingHeader("simulation tree")) {
+            std::ranges::for_each(sim->get_children(), &draw_tree);
+        }
+    }
 
     static auto draw_tree(const yasf::Object* obj) -> void
     {
@@ -321,7 +326,23 @@ struct ImGuiVisitor
             std::ranges::for_each(obj->get_children(),
                                   [](const auto child) { draw_tree(child); });
 
+            draw_entity_components(obj);
+
             ImGui::TreePop();
+        }
+    }
+
+    static auto draw_entity_components(const yasf::Object* obj) -> void
+    {
+        // todo: handle components
+        if (const auto pos = obj->get_component<yasf::Position>()) {
+            const auto vec = pos->get();
+            ImGui::Text("position: %.2f %.2f", vec.x(), vec.y());
+        }
+
+        if (const auto vel = obj->get_component<yasf::Velocity>()) {
+            const auto vec = vel->get();
+            ImGui::Text("velocity: %.2f %.2f", vec.x(), vec.y());
         }
     }
 
@@ -352,6 +373,8 @@ auto main() -> int
 
     yasf::log::info("starting simulation visualization");
 
+    auto simulation_paused = false;
+
     // run the program as long as the window is open
     sf::Clock delta_clock;
     while (window.isOpen()) {
@@ -370,7 +393,6 @@ auto main() -> int
         updater->set_next_time(
             clock->time()
             + yasf::time_microseconds{delta_time.asMicroseconds()});
-        sim.update();
 
         ImGui::SFML::Update(window, delta_time);
 
@@ -382,6 +404,12 @@ auto main() -> int
         std::ostringstream oss;
         oss << hms;
         ImGui::Text("time: %s", oss.str().c_str());
+        ImGui::Text("fps: %.1f", ImGui::GetIO().Framerate);
+
+        ImGui::Checkbox("pause simulation", &simulation_paused);
+        if (!simulation_paused) {
+            sim.update();
+        }
 
         visitor.draw();
 
