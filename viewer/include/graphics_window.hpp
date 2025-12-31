@@ -15,7 +15,7 @@ class GraphicsWindow
 public:
     struct Config
     {
-        std::string name;
+        std::string name{"yasf Viewer"};
         std::size_t window_height{};
         std::size_t window_width{};
         std::size_t frame_limit{};
