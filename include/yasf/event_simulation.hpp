@@ -43,7 +43,7 @@ private:
     YASF_SUPPRESS_C4251
     std::unique_ptr<Clock> m_clock;
 
-    struct event_comparator
+    struct EventComparator
     {
         auto operator()(const std::unique_ptr<Event>& lhs,
                         const std::unique_ptr<Event>& rhs) const -> bool
@@ -54,7 +54,7 @@ private:
 
     std::priority_queue<std::unique_ptr<Event>,
                         std::vector<std::unique_ptr<Event>>,
-                        event_comparator>
+                        EventComparator>
         m_events;
 };
 
