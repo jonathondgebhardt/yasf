@@ -2,28 +2,27 @@
 
 #include "scene_manager.hpp"
 
+#include "drawable.hpp"
+
 namespace
 {
 
 auto update_and_draw(
-    const std::vector<std::unique_ptr<SceneManager::Drawable>>& drawables,
-    sf::RenderWindow* window) -> void
+    const std::vector<std::unique_ptr<yasf::viewer::Drawable>>& drawables)
+    -> void
 {
-    for (auto* const drawable :
-         drawables
-             | std::views::filter(
-                 [](const std::unique_ptr<SceneManager::Drawable>& drawable)
-                 { return drawable->drawable != nullptr; })
-             | std::views::transform(
-                 [](const std::unique_ptr<SceneManager::Drawable>& drawable)
-                 { return drawable.get(); }))
-    {
-        drawable->update();
-        window->draw(*drawable->drawable);
-    }
+    std::ranges::for_each(drawables,
+                          [](const auto& drawable)
+                          {
+                              drawable->update();
+                              drawable->draw();
+                          });
 }
 
 }  // namespace
+
+namespace yasf::viewer
+{
 
 auto SceneManager::add_drawable(std::unique_ptr<Drawable> drawable) -> void
 {
@@ -31,18 +30,20 @@ auto SceneManager::add_drawable(std::unique_ptr<Drawable> drawable) -> void
         return;
     }
 
-    if (drawable->render_bin == Drawable::RenderBin::BACKGROUND) {
+    if (drawable->render_bin() == Drawable::RenderBin::BACKGROUND) {
         m_background_drawables.push_back(std::move(drawable));
-    } else if (drawable->render_bin == Drawable::RenderBin::FOREGROUND) {
+    } else if (drawable->render_bin() == Drawable::RenderBin::FOREGROUND) {
         m_foreground_drawables.push_back(std::move(drawable));
-    } else if (drawable->render_bin == Drawable::RenderBin::OVERLAY) {
+    } else if (drawable->render_bin() == Drawable::RenderBin::OVERLAY) {
         m_overlay_drawables.push_back(std::move(drawable));
     }
 }
 
 auto SceneManager::draw() -> void
 {
-    update_and_draw(m_background_drawables, m_window);
-    update_and_draw(m_foreground_drawables, m_window);
-    update_and_draw(m_overlay_drawables, m_window);
+    update_and_draw(m_background_drawables);
+    update_and_draw(m_foreground_drawables);
+    update_and_draw(m_overlay_drawables);
 }
+
+}  // namespace yasf::viewer
