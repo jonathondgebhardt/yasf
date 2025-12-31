@@ -28,4 +28,5 @@ auto EventProcessor::get_entity_service() const -> EntityService*
     auto* const sim = get_simulation();
     return sim->get_child<EntityService>();
 }
+
 }  // namespace yasf
