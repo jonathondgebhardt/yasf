@@ -1,57 +1,75 @@
 #pragma once
 
-#include <spdlog/spdlog.h>
+#include <cstdint>
+#include <filesystem>
+#include <format>
+#include <print>
+#include <source_location>
 
-// TODO: I don't think this is a proper encapsulation, but it works for now.
 namespace yasf::log
 {
 
-template<typename T>
-inline void info(const T& message)
-{
-    spdlog::info(message);
-}
+// todo: shamelessly stolen from
+// https://github.com/nathan-baggs/ufps/blob/main/src/utils/log.h
 
-template<typename... Args>
-inline void info(fmt::format_string<Args...> fmt, Args&&... args)
+enum class Level : std::uint8_t
 {
-    spdlog::info(fmt, std::forward<Args>(args)...);
-}
+    DEBUG,
+    INFO,
+    WARN,
+    ERROR,
+    CRITICAL
+};
 
-template<typename T>
-inline void warn(const T& message)
+template<Level L, class... Args>
+struct Print
 {
-    spdlog::warn(message);
-}
+    explicit Print(std::format_string<Args...> msg,
+                   Args&&... args,
+                   std::source_location loc = std::source_location::current())
+    {
+        auto log_level = '?';
+        if constexpr (L == Level::DEBUG) {
+            log_level = 'D';
+        } else if constexpr (L == Level::INFO) {
+            log_level = 'I';
+        } else if constexpr (L == Level::WARN) {
+            log_level = 'W';
+        } else if constexpr (L == Level::ERROR) {
+            log_level = 'E';
+        } else if constexpr (L == Level::CRITICAL) {
+            log_level = '!';
+        }
 
-template<typename... Args>
-inline void warn(fmt::format_string<Args...> fmt, Args&&... args)
-{
-    spdlog::warn(fmt, std::forward<Args>(args)...);
-}
+        const auto path = std::filesystem::path{loc.file_name()};
 
-template<typename T>
-inline void error(const T& message)
-{
-    spdlog::error(message);
-}
+        auto log_line =
+            std::format("[{}] {}:{} {}",
+                        log_level,
+                        path.filename().string(),
+                        loc.line(),
+                        std::format(msg, std::forward<Args>(args)...));
 
-template<typename... Args>
-inline void error(fmt::format_string<Args...> fmt, Args&&... args)
-{
-    spdlog::error(fmt, std::forward<Args>(args)...);
-}
+        std::print("{}", log_line);
+    }
+};
 
-template<typename T>
-inline void critical(const T& message)
-{
-    spdlog::critical(message);
-}
+template<Level L = {}, class... Args>
+Print(std::format_string<Args...>, Args&&...) -> Print<L, Args...>;
 
-template<typename... Args>
-inline void critical(fmt::format_string<Args...> fmt, Args&&... args)
-{
-    spdlog::critical(fmt, std::forward<Args>(args)...);
-}
+template<class... Args>
+using debug = Print<Level::DEBUG, Args...>;
+
+template<class... Args>
+using info = Print<Level::INFO, Args...>;
+
+template<class... Args>
+using warn = Print<Level::WARN, Args...>;
+
+template<class... Args>
+using error = Print<Level::ERROR, Args...>;
+
+template<class... Args>
+using critical = Print<Level::CRITICAL, Args...>;
 
 }  // namespace yasf::log
