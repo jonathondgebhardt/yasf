@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:25.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VCPKG_ROOT=/opt/vcpkg
@@ -16,8 +16,6 @@ RUN apt-get update && apt-get install -y \
     cmake \
     cppcheck \
     curl \
-    g++-14 \
-    gcc-14 \
     gdb \
     git \
     libgl1 \
@@ -42,9 +40,4 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     && rm -rf /var/lib/apt/lists/*
-
-RUN  update-alternatives --install \
-    /usr/bin/gcc gcc /usr/bin/gcc-14 180 \
-    && update-alternatives --install \
-    /usr/bin/g++ g++ /usr/bin/g++-14 180
 
