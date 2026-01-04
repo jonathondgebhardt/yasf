@@ -4,10 +4,10 @@
 
 TEST_CASE("throws if false", "[ensure]")
 {
-    REQUIRE_THROWS(yasf::Ensure(false, "failure message"));
+    REQUIRE_THROWS(yasf::ensure(false, "failure message"));
 }
 
 TEST_CASE("does not throw if true", "[ensure]")
 {
-    REQUIRE_NOTHROW(yasf::Ensure(true, "failure message"));
+    REQUIRE_NOTHROW(yasf::ensure(true, "failure message"));
 }

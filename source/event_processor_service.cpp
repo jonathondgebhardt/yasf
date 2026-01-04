@@ -49,7 +49,7 @@ auto EventProcessorService::get_simulation() const -> EventSimulation*
 auto EventProcessorService::get_clock() const -> Clock*
 {
     auto const* sim = get_simulation();
-    Ensure(sim != nullptr, "failed to get simulation");
+    ensure(sim != nullptr, "failed to get simulation");
     return sim->get_clock();
 }
 

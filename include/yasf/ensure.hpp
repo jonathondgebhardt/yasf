@@ -7,16 +7,14 @@
 namespace yasf
 {
 
-class Ensure
+template<class... Args>
+auto ensure(bool condition, std::format_string<Args...> msg, Args&&... args)
+    -> void
 {
-public:
-    Ensure(bool condition, const std::string& failure_message)
-    {
-        if (!condition) {
-            yasf::log::critical(failure_message);
-            throw std::runtime_error(failure_message);
-        }
+    if (!condition) {
+        yasf::log::critical(msg, std::forward<Args>(args)...);
+        // throw std::runtime_error(msg, std::forward<Args>(args)...);
     }
-};
+}
 
 }  // namespace yasf

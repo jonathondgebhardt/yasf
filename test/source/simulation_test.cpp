@@ -16,7 +16,7 @@ struct TimeCacheProcessor : public yasf::Processor
     void update() override
     {
         auto* const clock = get_clock();
-        yasf::Ensure(clock != nullptr, "failed to get clock");
+        yasf::ensure(clock != nullptr, "failed to get clock");
 
         m_update_time = clock->time();
     }

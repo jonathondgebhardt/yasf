@@ -82,7 +82,7 @@ struct GroundCollisionProcessor : yasf::Processor
         auto ground_visitor = FindGroundObjectVisitor{};
         get_simulation()->accept(ground_visitor);
         auto* const ground = ground_visitor.ground;
-        yasf::Ensure(ground != nullptr, "failed to find ground object");
+        yasf::ensure(ground != nullptr, "failed to find ground object");
 
         auto collision_visitor = DetectCollisionsVisitor{};
         collision_visitor.collider = ground;
@@ -247,7 +247,7 @@ struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
     {
         auto visitor = EntityVisitor{};
         sim.accept(visitor);
-        yasf::Ensure(visitor.ground != nullptr, "failed to find ground object");
+        yasf::ensure(visitor.ground != nullptr, "failed to find ground object");
         manager.add_drawable(std::make_unique<GroundDrawable>(visitor.ground));
         yasf::log::info("created ground object");
     }

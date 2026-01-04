@@ -24,7 +24,7 @@ struct MoverVisitor : public yasf::ObjectVisitor
 
     auto move_entity(yasf::Entity* entity) const -> void
     {
-        yasf::Ensure(m_clock != nullptr, "failed to access clock");
+        yasf::ensure(m_clock != nullptr, "failed to access clock");
 
         auto* const acc = entity->get_component<yasf::Acceleration>();
         if (acc == nullptr) {
@@ -57,7 +57,7 @@ namespace yasf
 auto Mover::update() -> void
 {
     auto* const esvc = get_entity_service();
-    Ensure(esvc != nullptr, "failed to get entity_service");
+    ensure(esvc != nullptr, "failed to get entity_service");
 
     auto* const clock = get_clock();
     auto visitor = MoverVisitor{};

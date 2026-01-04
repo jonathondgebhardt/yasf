@@ -33,7 +33,7 @@ auto EventSimulation::update() -> void
 
     // Advance simulation time.
     auto* updater = m_clock->get_component<ExternalTimeUpdater>();
-    yasf::Ensure(updater != nullptr, "failed to get updater");
+    yasf::ensure(updater != nullptr, "failed to get updater");
     updater->set_next_time(evt->time());
     m_clock->tick();
 

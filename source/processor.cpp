@@ -12,14 +12,14 @@ namespace yasf
 auto Processor::get_simulation() const -> Simulation*
 {
     auto* const service = dynamic_cast<ProcessorService*>(parent());
-    Ensure(service != nullptr, "failed to get processor_service");
+    ensure(service != nullptr, "failed to get processor_service");
     return dynamic_cast<Simulation*>(service->parent());
 }
 
 auto Processor::get_clock() const -> Clock*
 {
     auto* const service = dynamic_cast<ProcessorService*>(parent());
-    Ensure(service != nullptr, "failed to get processor_service");
+    ensure(service != nullptr, "failed to get processor_service");
     return service->get_clock();
 }
 
