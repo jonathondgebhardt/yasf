@@ -17,8 +17,7 @@ enum class Level : std::uint8_t
     DEBUG,
     INFO,
     WARN,
-    ERROR,
-    CRITICAL
+    ERROR
 };
 
 template<Level L, class... Args>
@@ -37,8 +36,6 @@ struct Print
             log_level = 'W';
         } else if constexpr (L == Level::ERROR) {
             log_level = 'E';
-        } else if constexpr (L == Level::CRITICAL) {
-            log_level = '!';
         }
 
         const auto path = std::filesystem::path{loc.file_name()};
@@ -68,8 +65,5 @@ using warn = Print<Level::WARN, Args...>;
 
 template<class... Args>
 using error = Print<Level::ERROR, Args...>;
-
-template<class... Args>
-using critical = Print<Level::CRITICAL, Args...>;
 
 }  // namespace yasf::log
