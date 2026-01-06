@@ -74,8 +74,7 @@ target_include_directories(
 target_compile_features(yasf_yasf PUBLIC cxx_std_23)
 
 find_package(Boost REQUIRED CONFIG COMPONENTS uuid)
-find_package(spdlog CONFIG REQUIRED)
-target_link_libraries(yasf_yasf PRIVATE Boost::uuid spdlog::spdlog)
+target_link_libraries(yasf_yasf PRIVATE Boost::uuid)
 
 # ---- Install rules ----
 
