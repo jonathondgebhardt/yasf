@@ -5,12 +5,14 @@
 #include <stdexcept>
 #include <string>
 
+#include "yasf/yasf_export.hpp"
+
 namespace yasf
 {
 
 // shamelessly stolen from:
 // https://github.com/nathan-baggs/ufps/blob/main/src/utils/exception.h
-class Exception : public std::runtime_error
+class YASF_EXPORT Exception : public std::runtime_error
 {
 public:
     template<class... Args>
