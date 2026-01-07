@@ -182,7 +182,7 @@ struct EntityDrawable : yasf::viewer::SfDrawable<sf::CircleShape>
                 return;
             }
 
-            const auto entity = dynamic_cast<yasf::Entity*>(obj);
+            auto* const entity = dynamic_cast<yasf::Entity*>(obj);
             if (entity == nullptr) {
                 return;
             }
@@ -209,7 +209,7 @@ struct EntityDrawable : yasf::viewer::SfDrawable<sf::CircleShape>
     }
 
     yasf::Entity* entity{};
-    yasf::Velocity previous_velocity{};
+    yasf::Velocity previous_velocity;
     int color_index{};
 };
 
@@ -239,7 +239,7 @@ struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
             }
         }
 
-        yasf::Object* ground;
+        yasf::Object* ground{};
     };
 
     static auto build_drawables(yasf::Simulation& sim,
@@ -318,7 +318,7 @@ struct SimTimeDrawable : yasf::viewer::Drawable
         ImGui::Text("time: %s", get_sim_time().c_str());
     }
 
-    yasf::Clock* clock;
+    yasf::Clock* clock{};
 };
 
 struct MetricsDrawable : yasf::viewer::Drawable
