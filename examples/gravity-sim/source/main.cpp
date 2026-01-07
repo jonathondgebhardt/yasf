@@ -118,17 +118,6 @@ auto make_sim() -> yasf::Simulation
     {
         auto svc = std::make_unique<yasf::EntityService>();
 
-        // ball
-        auto entity = yasf::EntityFactory::build();
-        auto* const pos = entity->get_component<yasf::Position>();
-        pos->get().x() = 400.0;
-        auto* const vel = entity->get_component<yasf::Velocity>();
-        vel->get().x() = 20.0;
-        auto* const acc = entity->get_component<yasf::Acceleration>();
-        acc->get().y() = 9.8;
-
-        svc->add_child(std::move(entity));
-
         // ground
         svc->add_child(make_ground_object());
 
@@ -210,7 +199,6 @@ struct EntityDrawable : yasf::viewer::SfDrawable<sf::CircleShape>
 
     yasf::Entity* entity{};
     yasf::Velocity previous_velocity;
-    int color_index{};
 };
 
 struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
@@ -329,6 +317,24 @@ struct MetricsDrawable : yasf::viewer::Drawable
     }
 };
 
+auto add_ball(yasf::Simulation& sim, yasf::Vec3d vec) -> yasf::Entity*
+{
+    auto* svc = sim.get_child<yasf::EntityService>();
+    yasf::Ensure(svc != nullptr, "failed to get entity service");
+
+    auto entity = yasf::EntityFactory::build();
+    const auto uuid = entity->uuid();
+    auto* pos = entity->get_component<yasf::Position>();
+    pos->set(vec);
+    auto* const acc = entity->get_component<yasf::Acceleration>();
+    acc->get().y() = 9.8;
+
+    svc->add_child(std::move(entity));
+    yasf::log::info("ball added at x={} y={}", vec.x(), vec.y());
+
+    return dynamic_cast<yasf::Entity*>(svc->get_child(uuid));
+}
+
 }  // namespace
 
 auto main() -> int
@@ -375,6 +381,18 @@ auto main() -> int
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>()) {
                 window_handle->close();
+            } else if (const auto* mouse_clicked =
+                           event->getIf<sf::Event::MouseButtonPressed>())
+            {
+                if (mouse_clicked->button == sf::Mouse::Button::Left) {
+                    const auto pos = yasf::Vec3d{
+                        static_cast<double>(mouse_clicked->position.x),
+                        static_cast<double>(mouse_clicked->position.y),
+                        {}};
+                    auto* entity = add_ball(sim, pos);
+                    manager.add_drawable(
+                        std::make_unique<EntityDrawable>(entity));
+                }
             }
         }
 
