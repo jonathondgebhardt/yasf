@@ -50,7 +50,16 @@ jobs:
       uses: friendlyanon/setup-vcpkg@v1
       with: { committish: "${{ env.VCPKG_COMMIT }}" }
 
+    - name: Install compiler
+      id: install_cc
+      uses: rlalik/setup-cpp-compiler@master
+      with:
+        compiler: gcc-latest # Specifies the desired compiler
+
     - name: Configure
+      env:
+        CC: ${{ steps.install_cc.outputs.cc }}
+        CXX: ${{ steps.install_cc.outputs.cxx }}
       run: cmake --preset=ci-coverage
 
     - name: Build
