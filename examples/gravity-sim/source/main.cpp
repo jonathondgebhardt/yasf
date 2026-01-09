@@ -1,106 +1,38 @@
+#include <cstdlib>
 #include <memory>
+#include <utility>
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <imgui-SFML.h>
 #include <imgui.h>
 
+#include "ball_factory.hpp"
+#include "entity_drawable.hpp"
 #include "graphics_window.hpp"
+#include "ground_collision_processor.hpp"
+#include "ground_drawable.hpp"
+#include "metrics_drawable.hpp"
 #include "scene_manager.hpp"
+#include "sim_time_drawable.hpp"
+#include "tree_drawable.hpp"
 #include "yasf/acceleration.hpp"
+#include "yasf/clock.hpp"
 #include "yasf/clock_factory.hpp"
-#include "yasf/convert.hpp"
 #include "yasf/ensure.hpp"
 #include "yasf/entity.hpp"
-#include "yasf/entity_factory.hpp"
 #include "yasf/entity_service.hpp"
 #include "yasf/external_time_updater.hpp"
+#include "yasf/logger.hpp"
 #include "yasf/mover.hpp"
 #include "yasf/object.hpp"
 #include "yasf/position.hpp"
 #include "yasf/processor_service.hpp"
 #include "yasf/simulation.hpp"
 #include "yasf/vec3d.hpp"
-#include "yasf/velocity.hpp"
 
 namespace
 {
-
-struct GroundCollisionProcessor : yasf::Processor
-{
-    struct FindGroundObjectVisitor : yasf::ObjectVisitor
-    {
-        auto visit(yasf::Object* obj) -> void override
-        {
-            if (obj != nullptr && obj->display_name() == "ground") {
-                ground = obj;
-            }
-        }
-
-        yasf::Object* ground{};
-    };
-
-    struct DetectCollisionsVisitor : yasf::ObjectVisitor
-    {
-        static auto overlap(const yasf::Vec3d lhs, const yasf::Vec3d rhs)
-            -> bool
-        {
-            // return yasf::math::double_eq(lhs.x(), rhs.x())
-            //     || yasf::math::double_eq(lhs.y(), rhs.y());
-            return lhs.y() >= rhs.y();
-        }
-
-        auto visit(yasf::Object* obj) -> void override
-        {
-            if (obj == nullptr || obj == collider) {
-                return;
-            }
-
-            auto* const pos_collidee = obj->get_component<yasf::Position>();
-            if (pos_collidee == nullptr) {
-                return;
-            }
-
-            auto* const pos_collider =
-                collider->get_component<yasf::Position>();
-            if (pos_collider == nullptr) {
-                return;
-            }
-
-            if (overlap(pos_collidee->get(), pos_collider->get())) {
-                collidees.push_back(obj);
-            }
-        }
-
-        yasf::Object* collider{};
-        std::vector<yasf::Object*> collidees;
-    };
-
-    auto update() -> void override
-    {
-        auto ground_visitor = FindGroundObjectVisitor{};
-        get_simulation()->accept(ground_visitor);
-        auto* const ground = ground_visitor.ground;
-        yasf::Ensure(ground != nullptr, "failed to find ground object");
-
-        auto collision_visitor = DetectCollisionsVisitor{};
-        collision_visitor.collider = ground;
-        get_entity_service()->accept(collision_visitor);
-
-        std::ranges::for_each(
-            collision_visitor.collidees,
-            [](yasf::Object* const obj)
-            {
-                if (auto* vel = obj->get_component<yasf::Velocity>()) {
-                    vel->get().zero();
-                }
-                if (auto* acc = obj->get_component<yasf::Acceleration>()) {
-                    acc->get().zero();
-                }
-            });
-    }
-};
 
 auto make_ground_object() -> std::unique_ptr<yasf::Object>
 {
@@ -140,198 +72,22 @@ auto make_sim() -> yasf::Simulation
     return sim;
 }
 
-struct EntityDrawable : yasf::viewer::SfDrawable<sf::CircleShape>
-{
-    explicit EntityDrawable(yasf::Entity* entity)
-        : entity{entity}
-        , previous_velocity{*entity->get_component<yasf::Velocity>()}
-    {
-        m_drawable.setRadius(10.0f);
-        m_drawable.setFillColor(sf::Color::White);
-        m_drawable.setOutlineThickness(2.f);
-        m_drawable.setOutlineColor(sf::Color::White);
-
-        // Center the circle (origin is top-left by default)
-        m_drawable.setOrigin({10.0f, 10.0f});
-    }
-
-    auto update() -> void override
-    {
-        const auto pos_vec = entity->get_component<yasf::Position>()->get();
-        const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
-                                      static_cast<float>(pos_vec.y())};
-        m_drawable.setPosition(vec);
-    }
-
-    struct EntityVisitor : yasf::ObjectVisitor
-    {
-        auto visit(yasf::Object* obj) -> void override
-        {
-            if (obj == nullptr) {
-                return;
-            }
-
-            auto* const entity = dynamic_cast<yasf::Entity*>(obj);
-            if (entity == nullptr) {
-                return;
-            }
-
-            entities.push_back(entity);
-        }
-
-        std::vector<yasf::Entity*> entities;
-    };
-
-    static void build_drawables(yasf::Simulation& sim,
-                                yasf::viewer::SceneManager& manager)
-    {
-        auto visitor = EntityVisitor{};
-        sim.accept(visitor);
-        std::ranges::for_each(
-            visitor.entities,
-            [&](const auto entity)
-            {
-                manager.add_drawable(std::make_unique<EntityDrawable>(entity));
-            });
-
-        yasf::log::info("created {} entity drawables", visitor.entities.size());
-    }
-
-    yasf::Entity* entity{};
-    yasf::Velocity previous_velocity;
-};
-
-struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
-{
-    explicit GroundDrawable(yasf::Object* ground)
-        : ground{ground}
-    {
-        m_drawable.setFillColor(sf::Color::Green);
-        m_drawable.setSize({2000.0, 800.0});
-    }
-
-    auto update() -> void override
-    {
-        const auto pos_vec = ground->get_component<yasf::Position>()->get();
-        const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
-                                      static_cast<float>(pos_vec.y())};
-        m_drawable.setPosition(vec);
-    }
-
-    struct EntityVisitor : yasf::ObjectVisitor
-    {
-        auto visit(yasf::Object* obj) -> void override
-        {
-            if (obj != nullptr && obj->display_name() == "ground") {
-                ground = obj;
-            }
-        }
-
-        yasf::Object* ground{};
-    };
-
-    static auto build_drawables(yasf::Simulation& sim,
-                                yasf::viewer::SceneManager& manager) -> void
-    {
-        auto visitor = EntityVisitor{};
-        sim.accept(visitor);
-        yasf::Ensure(visitor.ground != nullptr, "failed to find ground object");
-        manager.add_drawable(std::make_unique<GroundDrawable>(visitor.ground));
-        yasf::log::info("created ground object");
-    }
-
-    yasf::Object* ground{};
-};
-
-struct TreeDrawable : yasf::viewer::Drawable
-{
-    auto draw() -> void override
-    {
-        if (ImGui::CollapsingHeader("simulation tree")) {
-            std::ranges::for_each(sim->get_children(), &draw_tree);
-        }
-    }
-
-    static auto get_id(const yasf::Object* obj) -> std::string
-    {
-        return std::format("{} ({})", obj->name(), obj->uuid().tail(4));
-    }
-
-    static auto draw_tree(const yasf::Object* obj) -> void
-    {
-        if (ImGui::TreeNode(get_id(obj).c_str())) {
-            std::ranges::for_each(obj->get_children(),
-                                  [](const auto child) { draw_tree(child); });
-
-            draw_entity_components(obj);
-
-            ImGui::TreePop();
-        }
-    }
-
-    static auto draw_entity_components(const yasf::Object* obj) -> void
-    {
-        if (auto* const pos = obj->get_component<yasf::Position>()) {
-            const auto vec = pos->get();
-            ImGui::Text("position: %.2f %.2f", vec.x(), vec.y());
-        }
-
-        if (auto* const vel = obj->get_component<yasf::Velocity>()) {
-            const auto vec = vel->get();
-            ImGui::Text("velocity: %.2f %.2f", vec.x(), vec.y());
-        }
-
-        if (auto* const acc = obj->get_component<yasf::Acceleration>()) {
-            const auto vec = acc->get();
-            ImGui::Text("acceleration: %.2f %.2f", vec.x(), vec.y());
-        }
-    }
-
-    yasf::Simulation* sim{};
-};
-
-struct SimTimeDrawable : yasf::viewer::Drawable
-{
-    auto get_sim_time() const -> std::string
-    {
-        const auto seconds = yasf::convert::useconds_to_seconds(clock->time());
-        const auto hms = std::chrono::hh_mm_ss{seconds};
-        std::ostringstream oss;
-        oss << hms;
-        return oss.str();
-    }
-
-    auto draw() -> void override
-    {
-        ImGui::Text("time: %s", get_sim_time().c_str());
-    }
-
-    yasf::Clock* clock{};
-};
-
-struct MetricsDrawable : yasf::viewer::Drawable
-{
-    auto draw() -> void override
-    {
-        ImGui::Text("fps: %.1f", ImGui::GetIO().Framerate);
-    }
-};
-
 auto add_ball(yasf::Simulation& sim, yasf::Vec3d vec) -> yasf::Entity*
 {
     auto* svc = sim.get_child<yasf::EntityService>();
     yasf::Ensure(svc != nullptr, "failed to get entity service");
 
-    auto entity = yasf::EntityFactory::build();
-    const auto uuid = entity->uuid();
-    auto* pos = entity->get_component<yasf::Position>();
+    auto ball = build_ball();
+    const auto uuid = ball->uuid();
+    auto* pos = ball->get_component<yasf::Position>();
     pos->set(vec);
-    auto* const acc = entity->get_component<yasf::Acceleration>();
+    auto* const acc = ball->get_component<yasf::Acceleration>();
     acc->get().y() = 9.8;
 
-    svc->add_child(std::move(entity));
+    svc->add_child(std::move(ball));
     yasf::log::info("ball added at x={} y={}", vec.x(), vec.y());
 
+    // todo: not a huge fan of this
     return dynamic_cast<yasf::Entity*>(svc->get_child(uuid));
 }
 
@@ -352,7 +108,6 @@ auto main() -> int
 
     auto manager = yasf::viewer::SceneManager{};
 
-    EntityDrawable::build_drawables(sim, manager);
     GroundDrawable::build_drawables(sim, manager);
 
     auto* const clock = sim.get_clock();
@@ -375,6 +130,8 @@ auto main() -> int
     while (window_handle->isOpen()) {
         // check all the window's events that were triggered since the last
         // iteration of the loop
+
+        std::optional<yasf::Vec3d> mouse_click_pos;
         while (const auto event = window_handle->pollEvent()) {
             ImGui::SFML::ProcessEvent(*window_handle, event.value());
 
@@ -385,13 +142,10 @@ auto main() -> int
                            event->getIf<sf::Event::MouseButtonPressed>())
             {
                 if (mouse_clicked->button == sf::Mouse::Button::Left) {
-                    const auto pos = yasf::Vec3d{
+                    mouse_click_pos = yasf::Vec3d{
                         static_cast<double>(mouse_clicked->position.x),
                         static_cast<double>(mouse_clicked->position.y),
                         {}};
-                    auto* entity = add_ball(sim, pos);
-                    manager.add_drawable(
-                        std::make_unique<EntityDrawable>(entity));
                 }
             }
         }
@@ -410,6 +164,11 @@ auto main() -> int
         ImGui::Checkbox("pause simulation", &simulation_paused);
         if (!simulation_paused) {
             sim.update();
+        }
+
+        if (mouse_click_pos.has_value() && !ImGui::IsWindowHovered()) {
+            auto* entity = add_ball(sim, mouse_click_pos.value());
+            manager.add_drawable(std::make_unique<EntityDrawable>(entity));
         }
 
         manager.draw();
