@@ -3,6 +3,7 @@
 #include <utility>
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/View.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <imgui-SFML.h>
 #include <imgui.h>
@@ -147,6 +148,14 @@ auto main() -> int
                         static_cast<double>(mouse_clicked->position.y),
                         {}};
                 }
+            } else if (const auto* resized = event->getIf<sf::Event::Resized>())
+            {
+                const auto rect =
+                    sf::FloatRect{{0.0f, 0.0f},
+                                  {static_cast<float>(resized->size.x),
+                                   static_cast<float>(resized->size.y)}};
+                const auto view = sf::View{rect};
+                window_handle->setView(view);
             }
         }
 
