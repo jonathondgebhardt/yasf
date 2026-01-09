@@ -1,8 +1,10 @@
 #pragma once
 
+#include <any>
 #include <memory>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 #include "yasf/component.hpp"
@@ -155,12 +157,25 @@ public:
     auto accept(ObjectVisitor& visitor) -> void;
     auto accept(ComponentVisitor& visitor) -> void;
 
+    template<typename T>
+    auto meta_data(std::string_view key) -> std::optional<T>
+    {
+        if (!m_meta_data.contains(key)) {
+            return {};
+        }
+
+        return std::any_cast<T>(m_meta_data[key]);
+    }
+
+    auto set_meta_data(std::string_view key, std::any meta_data) -> void;
+
 protected:
     explicit Object(std::string name);
 
 private:
     YASF_SUPPRESS_C4251
     Object* m_parent{nullptr};
+    std::unordered_map<std::string_view, std::any> m_meta_data;
     std::vector<std::unique_ptr<Object>> m_children;
     std::vector<std::unique_ptr<Component>> m_components;
     yasf::Uuid m_uuid;

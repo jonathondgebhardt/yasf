@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <any>
 #include <cstdlib>
 #include <memory>
 #include <ranges>
@@ -123,6 +124,11 @@ auto Object::accept(ComponentVisitor& visitor) -> void
 
     std::ranges::for_each(m_children,
                           [&](auto&& child) { child->accept(visitor); });
+}
+
+auto Object::set_meta_data(std::string_view key, std::any meta_data) -> void
+{
+    m_meta_data[key] = std::move(meta_data);
 }
 
 }  // namespace yasf
