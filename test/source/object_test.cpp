@@ -147,3 +147,33 @@ TEST_CASE("object: remove_component", "[library]")
         REQUIRE(obj.remove_component<yasf::Component>());
     }
 }
+
+TEST_CASE("object: meta_data", "[library]")
+{
+    auto obj = yasf::Object{};
+
+    SECTION("no data")
+    {
+        auto meta_data = obj.meta_data<int>("foo");
+        REQUIRE(!meta_data.has_value());
+    }
+
+    SECTION("set and get")
+    {
+        obj.set_meta_data("int", 1337);  // NOLINT
+        auto meta_data = obj.meta_data<int>("int");
+        REQUIRE(meta_data.has_value());
+    }
+
+    SECTION("wrong data type")
+    {
+        obj.set_meta_data("int", 1337);  // NOLINT
+        REQUIRE_THROWS(obj.meta_data<float>("int"));
+    }
+
+    SECTION("overwrite with different data type")
+    {
+        obj.set_meta_data("int", 1337);  // NOLINT
+        REQUIRE_NOTHROW(obj.set_meta_data("int", 1337.0f));  // NOLINT
+    }
+}
