@@ -69,14 +69,6 @@ auto Object::get_child(const std::size_t index) const -> Object*
     return m_children[index].get();
 }
 
-auto Object::get_children() const -> std::vector<Object*>
-{
-    return m_children
-        | std::views::transform([](const std::unique_ptr<Object>& child)
-                                { return child.get(); })
-        | std::ranges::to<std::vector>();
-}
-
 auto Object::remove_child(std::string_view name) -> bool
 {
     auto& container = m_children;

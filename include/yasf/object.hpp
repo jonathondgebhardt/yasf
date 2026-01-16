@@ -95,9 +95,7 @@ public:
 
     auto get_child(std::size_t index) const -> Object*;
 
-    auto get_children() const -> std::vector<Object*>;
-
-    auto get_children_span() -> std::span<std::unique_ptr<Object>>
+    auto get_children() const -> std::span<const std::unique_ptr<Object>>
     {
         return m_children;
     }

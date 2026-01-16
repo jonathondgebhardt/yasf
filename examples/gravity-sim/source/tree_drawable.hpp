@@ -18,16 +18,15 @@ struct TreeDrawable : yasf::viewer::Drawable
         }
     }
 
-    static auto get_id(const yasf::Object* obj) -> std::string
+    static auto get_id(const std::unique_ptr<yasf::Object>& obj) -> std::string
     {
         return std::format("{} ({})", obj->name(), obj->uuid().tail(4));
     }
 
-    static auto draw_tree(const yasf::Object* obj) -> void
+    static auto draw_tree(const std::unique_ptr<yasf::Object>& obj) -> void
     {
         if (ImGui::TreeNode(get_id(obj).c_str())) {
-            std::ranges::for_each(obj->get_children(),
-                                  [](const auto child) { draw_tree(child); });
+            std::ranges::for_each(obj->get_children(), &draw_tree);
 
             draw_entity_components(obj);
 
@@ -35,7 +34,8 @@ struct TreeDrawable : yasf::viewer::Drawable
         }
     }
 
-    static auto draw_entity_components(const yasf::Object* obj) -> void
+    static auto draw_entity_components(const std::unique_ptr<yasf::Object>& obj)
+        -> void
     {
         if (auto* const pos = obj->get_component<yasf::Position>()) {
             const auto vec = pos->get();
