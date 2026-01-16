@@ -10,7 +10,7 @@ struct SimTimeDrawable : yasf::viewer::Drawable
 {
     auto get_sim_time() const -> std::string
     {
-        const auto seconds = clock->time<yasf::time_seconds>();
+        const auto seconds = clock->time<yasf::Seconds>();
         const auto hms = std::chrono::hh_mm_ss{seconds};
         std::ostringstream oss;
         oss << hms;

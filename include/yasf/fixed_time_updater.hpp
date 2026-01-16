@@ -14,31 +14,31 @@ class YASF_EXPORT FixedTimeUpdater : public TimeUpdater
 public:
     FixedTimeUpdater() = delete;
 
-    explicit FixedTimeUpdater(time_microseconds delta);
-    explicit FixedTimeUpdater(time_seconds delta);
+    explicit FixedTimeUpdater(Microseconds delta);
+    explicit FixedTimeUpdater(Seconds delta);
 
     /**
      * @brief Adds delta time to the parent clock's time.
      * Throws an exception if parent is not a clock.
      * @return The delta time plus the parent clock's time.
      */
-    auto next_time() -> time_microseconds override;
+    auto next_time() -> Microseconds override;
 
-    template<time_type T = time_microseconds>
+    template<TimeType T = Microseconds>
     auto delta() const -> T
     {
-        return std::chrono::duration_cast<time_microseconds>(m_delta);
+        return std::chrono::duration_cast<Microseconds>(m_delta);
     }
 
-    template<time_type T = time_microseconds>
+    template<TimeType T = Microseconds>
     auto set_delta(T delta) -> void
     {
-        m_delta = std::chrono::duration_cast<time_microseconds>(delta);
+        m_delta = std::chrono::duration_cast<Microseconds>(delta);
     }
 
 private:
     YASF_SUPPRESS_C4251
-    time_microseconds m_delta{};
+    Microseconds m_delta{};
 };
 
 }  // namespace yasf

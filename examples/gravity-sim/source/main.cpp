@@ -162,7 +162,7 @@ auto main() -> int
         const auto delta_time = delta_clock.restart();
         updater->set_next_time(
             clock->time()
-            + yasf::time_microseconds{delta_time.asMicroseconds()});
+            + yasf::Microseconds{delta_time.asMicroseconds()});
 
         ImGui::SFML::Update(*window_handle, delta_time);
 

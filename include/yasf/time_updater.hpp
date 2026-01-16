@@ -10,7 +10,7 @@ namespace yasf
 class YASF_EXPORT TimeUpdater : public Component
 {
 public:
-    virtual auto next_time() -> time_microseconds = 0;
+    virtual auto next_time() -> Microseconds = 0;
 
 protected:
     explicit TimeUpdater(std::string name)

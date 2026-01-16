@@ -25,16 +25,16 @@ public:
      * @brief
      * @return
      */
-    auto next_time() -> time_microseconds override { return m_next_time; }
+    auto next_time() -> Microseconds override { return m_next_time; }
 
-    template<time_type T>
+    template<TimeType T>
     auto set_next_time(T next_time) -> void
     {
-        m_next_time = std::chrono::duration_cast<time_microseconds>(next_time);
+        m_next_time = std::chrono::duration_cast<Microseconds>(next_time);
     }
 
 private:
-    time_microseconds m_next_time{};
+    Microseconds m_next_time{};
 };
 
 }  // namespace yasf

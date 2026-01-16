@@ -21,7 +21,7 @@ struct TimeCacheProcessor : public yasf::Processor
         m_update_time = clock->time();
     }
 
-    yasf::time_microseconds m_update_time{};
+    yasf::Microseconds m_update_time{};
 };
 
 TEST_CASE("simulation: name is simulation", "[simulation]")
@@ -32,7 +32,7 @@ TEST_CASE("simulation: name is simulation", "[simulation]")
 
 TEST_CASE("simulation: zero frame", "[simulation]")
 {
-    constexpr auto delta_time = yasf::time_seconds{1.0};
+    constexpr auto delta_time = yasf::Seconds{1.0};
     auto sim =
         yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
 
@@ -46,20 +46,20 @@ TEST_CASE("simulation: zero frame", "[simulation]")
 
     REQUIRE_NOTHROW(sim.update());
 
-    CHECK(proc->m_update_time == yasf::time_microseconds{0});
+    CHECK(proc->m_update_time == yasf::Microseconds{0});
 }
 
 TEST_CASE("simulation: update advances sim time", "[simulation]")
 {
-    constexpr auto delta_time = yasf::time_seconds{1.0};
+    constexpr auto delta_time = yasf::Seconds{1.0};
     auto sim =
         yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
 
     auto* const clock = sim.get_clock();
     REQUIRE(clock != nullptr);
 
-    REQUIRE(clock->time() == yasf::time_seconds{0.0});
-    REQUIRE(clock->delta() == yasf::time_seconds{0.0});
+    REQUIRE(clock->time() == yasf::Seconds{0.0});
+    REQUIRE(clock->delta() == yasf::Seconds{0.0});
 
     REQUIRE_NOTHROW(sim.update());
     CHECK(clock->time() == delta_time);
@@ -75,7 +75,7 @@ TEST_CASE("simulation: update advances sim time with processors",
         void update() override {}
     };
 
-    constexpr auto delta_time = yasf::time_seconds{1.0};
+    constexpr auto delta_time = yasf::Seconds{1.0};
     auto sim =
         yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
 
@@ -88,8 +88,8 @@ TEST_CASE("simulation: update advances sim time with processors",
 
     REQUIRE(psvc->add_child<ConcreteProcessor>());
 
-    REQUIRE(clock->time() == yasf::time_seconds{0.0});
-    REQUIRE(clock->delta() == yasf::time_seconds{0.0});
+    REQUIRE(clock->time() == yasf::Seconds{0.0});
+    REQUIRE(clock->delta() == yasf::Seconds{0.0});
 
     REQUIRE_NOTHROW(sim.update());
     CHECK(clock->time() == delta_time);

@@ -21,7 +21,7 @@ enum class EventType : std::uint16_t
 class YASF_EXPORT Event
 {
 public:
-    Event(yasf::time_microseconds time, EventType type)
+    Event(yasf::Microseconds time, EventType type)
         : m_time{time}
         , m_type{type}
     {
@@ -37,7 +37,7 @@ public:
 
     auto type() const -> EventType { return m_type; }
 
-    auto time() const -> time_microseconds { return m_time; }
+    auto time() const -> Microseconds { return m_time; }
 
     auto operator<(const Event& other) const -> bool
     {
@@ -50,7 +50,7 @@ public:
     }
 
 private:
-    yasf::time_microseconds m_time;
+    yasf::Microseconds m_time;
     EventType m_type{};
 };
 

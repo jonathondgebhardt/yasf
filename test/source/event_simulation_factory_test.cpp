@@ -54,8 +54,8 @@ TEST_CASE("event_simulation: queue", "[simulation]")
             m_clock_time = get_clock()->time();
         }
 
-        yasf::time_microseconds m_event_time{};
-        yasf::time_microseconds m_clock_time{};
+        yasf::Microseconds m_event_time{};
+        yasf::Microseconds m_clock_time{};
     };
 
     auto sim = yasf::EventSimulationFactory::build();
@@ -69,14 +69,13 @@ TEST_CASE("event_simulation: queue", "[simulation]")
 
     // Insert out of order.
     sim->queue(std::make_unique<yasf::Event>(
-        yasf::convert::time_cast<yasf::time_microseconds>(
-            yasf::time_seconds{3.0}),
+        yasf::convert::time_cast<yasf::Microseconds>(yasf::Seconds{3.0}),
         yasf::EventType::USER));
-    sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{0},
+    sim->queue(std::make_unique<yasf::Event>(yasf::Microseconds{0},
                                              yasf::EventType::USER));
-    sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{4},
+    sim->queue(std::make_unique<yasf::Event>(yasf::Microseconds{4},
                                              yasf::EventType::USER));
-    sim->queue(std::make_unique<yasf::Event>(yasf::time_microseconds{2},
+    sim->queue(std::make_unique<yasf::Event>(yasf::Microseconds{2},
                                              yasf::EventType::USER));
 
     REQUIRE(sim->num_events() == std::size_t{4});
@@ -84,27 +83,25 @@ TEST_CASE("event_simulation: queue", "[simulation]")
     // TODO: add a benchmark
 
     REQUIRE_NOTHROW(sim->update());
-    CHECK(processor->m_event_time == yasf::time_microseconds{0});
-    CHECK(processor->m_clock_time == yasf::time_microseconds{0});
+    CHECK(processor->m_event_time == yasf::Microseconds{0});
+    CHECK(processor->m_clock_time == yasf::Microseconds{0});
     CHECK(sim->num_events() == std::size_t{3});
 
     REQUIRE_NOTHROW(sim->update());
-    CHECK(processor->m_event_time == yasf::time_microseconds{2});
-    CHECK(processor->m_clock_time == yasf::time_microseconds{2});
+    CHECK(processor->m_event_time == yasf::Microseconds{2});
+    CHECK(processor->m_clock_time == yasf::Microseconds{2});
     CHECK(sim->num_events() == std::size_t{2});
 
     REQUIRE_NOTHROW(sim->update());
-    CHECK(processor->m_event_time == yasf::time_microseconds{4});
-    CHECK(processor->m_clock_time == yasf::time_microseconds{4});
+    CHECK(processor->m_event_time == yasf::Microseconds{4});
+    CHECK(processor->m_clock_time == yasf::Microseconds{4});
     CHECK(sim->num_events() == std::size_t{1});
 
     REQUIRE_NOTHROW(sim->update());
     CHECK(processor->m_event_time
-          == yasf::convert::time_cast<yasf::time_microseconds>(
-              yasf::time_seconds{3.0}));
+          == yasf::convert::time_cast<yasf::Microseconds>(yasf::Seconds{3.0}));
     CHECK(processor->m_clock_time
-          == yasf::convert::time_cast<yasf::time_microseconds>(
-              yasf::time_seconds{3.0}));
+          == yasf::convert::time_cast<yasf::Microseconds>(yasf::Seconds{3.0}));
     CHECK(!sim->has_events());
 }
 

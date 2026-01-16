@@ -41,7 +41,7 @@ struct MoverFixture
     std::unique_ptr<yasf::Simulation> m_sim;
     yasf::Mover* m_mover{};
     yasf::Entity* m_entity{};
-    yasf::time_seconds m_delta_time{1.0};
+    yasf::Seconds m_delta_time{1.0};
 };
 
 TEST_CASE_METHOD(MoverFixture, "mover: no movement", "[processor]")
