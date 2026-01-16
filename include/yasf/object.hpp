@@ -91,7 +91,22 @@ public:
                                         : nullptr;
     }
 
+    auto num_children() const -> std::size_t { return m_children.size(); }
+
+    auto get_child(std::size_t index) const -> Object*;
+
     auto get_children() const -> std::vector<Object*>;
+
+    auto get_children_span() -> std::span<std::unique_ptr<Object>>
+    {
+        return m_children;
+    }
+
+    using ChildIterator = std::vector<std::unique_ptr<Object>>::const_iterator;
+
+    auto children_begin() const -> ChildIterator { return m_children.begin(); }
+
+    auto children_end() const -> ChildIterator { return m_children.end(); }
 
     auto remove_child(std::string_view name) -> bool;
 

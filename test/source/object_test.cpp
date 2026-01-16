@@ -3,6 +3,7 @@
 
 #include "yasf/object.hpp"
 
+#include <catch2/benchmark/catch_benchmark.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include "yasf/component.hpp"
@@ -176,4 +177,55 @@ TEST_CASE("object: meta_data", "[library]")
         obj.set_meta_data("int", 1337);  // NOLINT
         REQUIRE_NOTHROW(obj.set_meta_data("int", 1337.0f));  // NOLINT
     }
+}
+
+TEST_CASE("object: iterate children", "[benchmark]")
+{
+    auto obj = yasf::Object{};
+    constexpr auto num_children = 100'000u;
+    for (auto i = 0u; i < num_children; ++i) {
+        REQUIRE(obj.add_child<yasf::Object>());
+    }
+
+    BENCHMARK("get_children")
+    {
+        for (const auto& child : obj.get_children()) {
+            REQUIRE_FALSE(child->name().empty());
+        }
+    };
+
+    BENCHMARK("get_children_span")
+    {
+        for (auto& child : obj.get_children_span()) {
+            REQUIRE_FALSE(child->name().empty());
+        }
+    };
+
+    BENCHMARK("visitor")
+    {
+        struct TestVisitor : yasf::ObjectVisitor
+        {
+            void visit(yasf::Object* child) override
+            {
+                REQUIRE_FALSE(child->name().empty());
+            }
+        };
+
+        auto visitor = TestVisitor{};
+        obj.accept(visitor);
+    };
+
+    BENCHMARK("get_child")
+    {
+        for (auto i = 0u; i < obj.num_children(); ++i) {
+            REQUIRE_FALSE(obj.get_child(i)->name().empty());
+        }
+    };
+
+    BENCHMARK("iterator")
+    {
+        for (auto it = obj.children_begin(); it != obj.children_end(); ++it) {
+            REQUIRE_FALSE(it->get()->name().empty());
+        }
+    };
 }

@@ -60,6 +60,15 @@ auto Object::get_child(const yasf::Uuid& uid) const -> Object*
     return found != container.end() ? found->get() : nullptr;
 }
 
+auto Object::get_child(const std::size_t index) const -> Object*
+{
+    if (index > m_children.size()) {
+        return {};
+    }
+
+    return m_children[index].get();
+}
+
 auto Object::get_children() const -> std::vector<Object*>
 {
     return m_children
@@ -113,8 +122,22 @@ auto Object::accept(ObjectVisitor& visitor) -> void
 {
     visitor.visit(this);
 
-    std::ranges::for_each(m_children,
-                          [&](auto&& child) { child->accept(visitor); });
+    // ~5.41 s
+    // std::ranges::for_each(m_children,
+    //                       [&](auto&& child) { child->accept(visitor); });
+
+    // ~2.89 ms
+    for (auto i = 0u; i < num_children(); ++i) {
+        get_child(i)->accept(visitor);
+    }
+
+    // ~12.4 s
+    // for (auto* child : m_children
+    //         | std::views::transform([](const std::unique_ptr<Object>& child)
+    //                                 { return child.get(); }))
+    //{
+    //    child->accept(visitor);
+    //}
 }
 
 auto Object::accept(ComponentVisitor& visitor) -> void
