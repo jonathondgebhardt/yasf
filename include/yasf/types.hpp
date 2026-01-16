@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-namespace yasf
+namespace yasf::time
 {
 
 /**
@@ -23,7 +23,12 @@ template<typename T, typename... U>
 concept is_any_of = (std::same_as<T, U> || ...);
 
 template<typename T>
-concept TimeType =
-    is_any_of<T, Microseconds, Milliseconds, Seconds, Minutes, Hours, Days>;
+concept TimeType = is_any_of<T,
+                             yasf::time::Microseconds,
+                             Milliseconds,
+                             Seconds,
+                             Minutes,
+                             Hours,
+                             Days>;
 
-}  // namespace yasf
+}  // namespace yasf::time

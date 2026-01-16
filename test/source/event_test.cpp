@@ -6,7 +6,7 @@
 
 TEST_CASE("event: getters", "[event]")
 {
-    constexpr auto time = yasf::Microseconds{1};
+    constexpr auto time = yasf::time::Microseconds{1};
     constexpr auto type = yasf::EventType::SIMULATION_START;
 
     auto const evt = yasf::Event{time, type};

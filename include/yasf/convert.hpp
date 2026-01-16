@@ -7,50 +7,50 @@
 namespace yasf::convert
 {
 
-template<TimeType T, TimeType U>
+template<yasf::time::TimeType T, yasf::time::TimeType U>
 constexpr auto time_cast(U time) -> T
 {
     return std::chrono::duration_cast<T>(time);
 }
 
-constexpr auto seconds_to_useconds(Seconds seconds) -> Microseconds
+constexpr auto seconds_to_useconds(time::Seconds seconds) -> time::Microseconds
 {
-    return std::chrono::duration_cast<Microseconds>(seconds);
+    return std::chrono::duration_cast<time::Microseconds>(seconds);
 }
 
-constexpr auto useconds_to_seconds(Microseconds useconds) -> Seconds
+constexpr auto useconds_to_seconds(time::Microseconds useconds) -> time::Seconds
 {
-    return std::chrono::duration_cast<Seconds>(useconds);
+    return std::chrono::duration_cast<time::Seconds>(useconds);
 }
 
-constexpr auto minutes_to_seconds(Minutes minutes) -> Seconds
+constexpr auto minutes_to_seconds(time::Minutes minutes) -> time::Seconds
 {
-    return std::chrono::duration_cast<Seconds>(minutes);
+    return std::chrono::duration_cast<time::Seconds>(minutes);
 }
 
-constexpr auto seconds_to_minutes(Seconds seconds) -> Minutes
+constexpr auto seconds_to_minutes(yasf::time::Seconds seconds) -> time::Minutes
 {
-    return std::chrono::duration_cast<Minutes>(seconds);
+    return std::chrono::duration_cast<time::Minutes>(seconds);
 }
 
-constexpr auto hours_to_minutes(Hours hours) -> Minutes
+constexpr auto hours_to_minutes(time::Hours hours) -> time::Minutes
 {
-    return std::chrono::duration_cast<Minutes>(hours);
+    return std::chrono::duration_cast<time::Minutes>(hours);
 }
 
-constexpr auto minutes_to_hours(Minutes minutes) -> Hours
+constexpr auto minutes_to_hours(time::Minutes minutes) -> time::Hours
 {
-    return std::chrono::duration_cast<Hours>(minutes);
+    return std::chrono::duration_cast<time::Hours>(minutes);
 }
 
-constexpr auto days_to_hours(Days days) -> Hours
+constexpr auto days_to_hours(time::Days days) -> time::Hours
 {
-    return std::chrono::duration_cast<Hours>(days);
+    return std::chrono::duration_cast<time::Hours>(days);
 }
 
-constexpr auto hours_to_days(Hours hours) -> Days
+constexpr auto hours_to_days(time::Hours hours) -> time::Days
 {
-    return std::chrono::duration_cast<Days>(hours);
+    return std::chrono::duration_cast<time::Days>(hours);
 }
 
 }  // namespace yasf::convert

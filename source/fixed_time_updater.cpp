@@ -9,18 +9,18 @@
 namespace yasf
 {
 
-FixedTimeUpdater::FixedTimeUpdater(Microseconds delta)
+FixedTimeUpdater::FixedTimeUpdater(time::Microseconds delta)
     : TimeUpdater("fixed_time_updater")
     , m_delta(delta)
 {
 }
 
-FixedTimeUpdater::FixedTimeUpdater(Seconds delta)
+FixedTimeUpdater::FixedTimeUpdater(time::Seconds delta)
     : FixedTimeUpdater(convert::seconds_to_useconds(delta))
 {
 }
 
-auto FixedTimeUpdater::next_time() -> Microseconds
+auto FixedTimeUpdater::next_time() -> time::Microseconds
 {
     auto const* parent_clock = dynamic_cast<Clock*>(parent());
     yasf::Ensure(parent_clock != nullptr,

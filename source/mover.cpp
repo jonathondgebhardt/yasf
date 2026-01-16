@@ -41,7 +41,7 @@ struct MoverVisitor : public yasf::ObjectVisitor
             return;
         }
 
-        auto const delta_time = m_clock->delta<yasf::Seconds>();
+        auto const delta_time = m_clock->delta<yasf::time::Seconds>();
         vel->get() += acc->get() * delta_time.count();
         pos->get() += vel->get() * delta_time.count();
     }

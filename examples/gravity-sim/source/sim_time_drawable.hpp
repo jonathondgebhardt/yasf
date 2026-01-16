@@ -4,13 +4,12 @@
 
 #include "drawable.hpp"
 #include "yasf/clock.hpp"
-#include "yasf/convert.hpp"
 
 struct SimTimeDrawable : yasf::viewer::Drawable
 {
     auto get_sim_time() const -> std::string
     {
-        const auto seconds = clock->time<yasf::Seconds>();
+        const auto seconds = clock->time<yasf::time::Seconds>();
         const auto hms = std::chrono::hh_mm_ss{seconds};
         std::ostringstream oss;
         oss << hms;
