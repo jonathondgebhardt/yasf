@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::ensure class | yasf</title>
+  <title>yasf::ObjectVisitor class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,8 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>ensure <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="ensure_8hpp.html">&lt;yasf/ensure.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>ObjectVisitor <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="visitor_8hpp.html">&lt;yasf/visitor.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -60,6 +60,7 @@
               Reference
               <ul>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
@@ -67,9 +68,37 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a5a7c6dfbedf03d294eee61840c593f4a">
-              <span class="m-doc-wrap-bumper"><a href="#a5a7c6dfbedf03d294eee61840c593f4a" class="m-doc-self">ensure</a>(</span><span class="m-doc-wrap">bool condition,
-              const std::string&amp; failure_message)</span>
+            <dt id="a003614466b4ab0cb7e0f6e1aa75e3e86">
+              <span class="m-doc-wrap-bumper"><a href="#a003614466b4ab0cb7e0f6e1aa75e3e86" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aed4fea839e00e3e5df98f3dcae0fa9a9">
+              <span class="m-doc-wrap-bumper"><a href="#aed4fea839e00e3e5df98f3dcae0fa9a9" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9652177a02dd544c1b9c966bec939143">
+              <span class="m-doc-wrap-bumper"><a href="#a9652177a02dd544c1b9c966bec939143" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="adc8fbd0704e3def31007be618c726cde">
+              <span class="m-doc-wrap-bumper"><a href="#adc8fbd0704e3def31007be618c726cde" class="m-doc-self">~ObjectVisitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a5f481443070ccc04fe888b939113eeeb">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5f481443070ccc04fe888b939113eeeb" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;) -&gt; ObjectVisitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7b3fa487abb006aed3f04a41d355ffe9">
+              <span class="m-doc-wrap-bumper">auto <a href="#a7b3fa487abb006aed3f04a41d355ffe9" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;&amp;) noexcept -&gt; ObjectVisitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae8fcc599865f6c13e64f62003134e598">
+              <span class="m-doc-wrap-bumper">auto <a href="#ae8fcc599865f6c13e64f62003134e598" class="m-doc-self">visit</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Object.html" class="m-doc">Object</a>*) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>

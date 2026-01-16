@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::clock_factory class | yasf</title>
+  <title>yasf::Velocity class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,8 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>clock_factory <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="clock__factory_8hpp.html">&lt;yasf/clock_factory.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>Velocity <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="velocity_8hpp.html">&lt;yasf/velocity.hpp&gt;</a></div>
         </h1>
         <p>Reports the name of the library.</p>
         <nav class="m-block m-default">
@@ -59,20 +59,50 @@
             <li>
               Reference
               <ul>
-                <li><a href="#pub-static-methods">Public static functions</a></li>
+                <li><a href="#base-classes">Base classes</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-        <section id="pub-static-methods">
-          <h2><a href="#pub-static-methods">Public static functions</a></h2>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
-            <dt id="afa13626ab18db397528d3da82c62b61b">
-              <span class="m-doc-wrap-bumper">static auto <a href="#afa13626ab18db397528d3da82c62b61b" class="m-doc-self">build_fixed_update</a>(</span><span class="m-doc-wrap">time_seconds delta) -&gt; std::unique_ptr&lt; clock &gt; -&gt; auto</span>
+            <dt>
+              class <a href="classyasf_1_1Component.html" class="m-doc">Component</a>
+            </dt>
+            <dd>Provides behaviors or capabilities to objects.</dd>
+          </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a398da34bb1bd9e82461568ed9d61bf26">
+              <span class="m-doc-wrap-bumper"><a href="#a398da34bb1bd9e82461568ed9d61bf26" class="m-doc-self">Velocity</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Initializes the name field to the name of the project.</dd>
+            <dt id="a97d5c082c12f4c83653c299be9e90591">
+              <span class="m-doc-wrap-bumper"><a href="#a97d5c082c12f4c83653c299be9e90591" class="m-doc-self">Velocity</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Vec3d.html" class="m-doc">Vec3d</a> vec) <span class="m-label m-flat m-info">explicit</span> </span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a0450198ee0dc5694e4dfaacfe09e7afc">
-              <span class="m-doc-wrap-bumper">static auto <a href="#a0450198ee0dc5694e4dfaacfe09e7afc" class="m-doc-self">build_fixed_update</a>(</span><span class="m-doc-wrap">time_microseconds delta) -&gt; std::unique_ptr&lt; clock &gt; -&gt; auto</span>
+            <dt id="ab9005e7d6ddc49ab92b0e48087ca3cbb">
+              <span class="m-doc-wrap-bumper"><a href="#ab9005e7d6ddc49ab92b0e48087ca3cbb" class="m-doc-self">Velocity</a>(</span><span class="m-doc-wrap">double x,
+              double y,
+              double z)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="accf427169862c1e1b7e4e6431b0b53bc">
+              <span class="m-doc-wrap-bumper">auto <a href="#accf427169862c1e1b7e4e6431b0b53bc" class="m-doc-self">get</a>(</span><span class="m-doc-wrap">) -&gt; Vec3d &amp; -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a27d2851200bc248c5eb98943f6c10bd6">
+              <span class="m-doc-wrap-bumper">auto <a href="#a27d2851200bc248c5eb98943f6c10bd6" class="m-doc-self">set</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Vec3d.html" class="m-doc">Vec3d</a> vec) -&gt; void -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>

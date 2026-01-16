@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::processor class | yasf</title>
+  <title>yasf::FixedTimeUpdater class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,8 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>processor <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="processor_8hpp.html">&lt;yasf/processor.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>FixedTimeUpdater <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="fixed__time__updater_8hpp.html">&lt;yasf/fixed_time_updater.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -60,7 +60,6 @@
               Reference
               <ul>
                 <li><a href="#base-classes">Base classes</a></li>
-                <li><a href="#derived-classes">Derived classes</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
                 <li><a href="#pub-methods">Public functions</a></li>
               </ul>
@@ -71,16 +70,7 @@
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1object.html" class="m-doc">object</a>
-            </dt>
-            <dd>The basic building block of a simulation.</dd>
-          </dl>
-        </section>
-        <section id="derived-classes">
-          <h2><a href="#derived-classes">Derived classes</a></h2>
-          <dl class="m-doc">
-            <dt>
-              class <a href="classyasf_1_1mover.html" class="m-doc">mover</a>
+              class <a href="classyasf_1_1TimeUpdater.html" class="m-doc">TimeUpdater</a>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -88,12 +78,16 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a05b64d0f5a8b0b3b57da0e05d6e220b7">
-              <span class="m-doc-wrap-bumper"><a href="#a05b64d0f5a8b0b3b57da0e05d6e220b7" class="m-doc-self">processor</a>(</span><span class="m-doc-wrap">)</span>
+            <dt id="a60cd4e2be0f0ce16b71f05057f35aa82">
+              <span class="m-doc-wrap-bumper"><a href="#a60cd4e2be0f0ce16b71f05057f35aa82" class="m-doc-self">FixedTimeUpdater</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-danger">deleted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="ab57dfbbc995aea4c2389b4e4769f0a04">
-              <span class="m-doc-wrap-bumper"><a href="#ab57dfbbc995aea4c2389b4e4769f0a04" class="m-doc-self">processor</a>(</span><span class="m-doc-wrap">std::string name) <span class="m-label m-flat m-warning">protected</span> <span class="m-label m-flat m-info">explicit</span> </span>
+            <dt id="a6c14898a2c797d7da5b263054930c580">
+              <span class="m-doc-wrap-bumper"><a href="#a6c14898a2c797d7da5b263054930c580" class="m-doc-self">FixedTimeUpdater</a>(</span><span class="m-doc-wrap">time::Microseconds delta) <span class="m-label m-flat m-info">explicit</span> </span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af86ffbfc637ad4619d00ebc66686f87a">
+              <span class="m-doc-wrap-bumper"><a href="#af86ffbfc637ad4619d00ebc66686f87a" class="m-doc-self">FixedTimeUpdater</a>(</span><span class="m-doc-wrap">time::Seconds delta) <span class="m-label m-flat m-info">explicit</span> </span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -101,23 +95,38 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a191f88527d11d3f289942fc94ea4fe6b">
-              <span class="m-doc-wrap-bumper">auto <a href="#a191f88527d11d3f289942fc94ea4fe6b" class="m-doc-self">update</a>(</span><span class="m-doc-wrap">) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2a4581876419779844348bbf8a18d3a7" class="m-doc">next_time</a>(</span><span class="m-doc-wrap">) -&gt; time::Microseconds -&gt; auto <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd>Adds delta time to the parent clock&#x27;s time. Throws an exception if parent is not a clock.</dd>
+            <dt id="a13fd1679d5839b39b35d5c974de74592">
+              <div class="m-doc-template">template&lt;time::TimeType T = time::Microseconds&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a13fd1679d5839b39b35d5c974de74592" class="m-doc-self">delta</a>(</span><span class="m-doc-wrap">) const -&gt; T -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a087a838deda967f65c29ee98c881ed1e">
-              <span class="m-doc-wrap-bumper">auto <a href="#a087a838deda967f65c29ee98c881ed1e" class="m-doc-self">get_simulation</a>(</span><span class="m-doc-wrap">) const -&gt; simulation * -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a3faaec05af6d434d2164b9343f27786f">
-              <span class="m-doc-wrap-bumper">auto <a href="#a3faaec05af6d434d2164b9343f27786f" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; clock * -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a01a59bcd47aa835439494715b06f32ad">
-              <span class="m-doc-wrap-bumper">auto <a href="#a01a59bcd47aa835439494715b06f32ad" class="m-doc-self">get_entity_service</a>(</span><span class="m-doc-wrap">) const -&gt; entity_service * -&gt; auto</span>
+            <dt id="a2920f22343d0931d3380c558cebf19ae">
+              <div class="m-doc-template">template&lt;time::TimeType T = time::Microseconds&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2920f22343d0931d3380c558cebf19ae" class="m-doc-self">set_delta</a>(</span><span class="m-doc-wrap">T delta) -&gt; void -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a2a4581876419779844348bbf8a18d3a7"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">auto yasf::<wbr />FixedTimeUpdater::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2a4581876419779844348bbf8a18d3a7" class="m-doc-self">next_time</a>(</span><span class="m-doc-wrap">) -&gt; time::Microseconds <span class="m-label m-warning">override</span></span></span>
+            </h3>
+            <p>Adds delta time to the parent clock&#x27;s time. Throws an exception if parent is not a clock.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>The delta time plus the parent clock&#x27;s time.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
         </section>
       </div>
     </div>

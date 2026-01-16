@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::velocity class | yasf</title>
+  <title>yasf::EventProcessorService class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,10 +49,10 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>velocity <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="velocity_8hpp.html">&lt;yasf/velocity.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>EventProcessorService <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="event__processor__service_8hpp.html">&lt;yasf/event_processor_service.hpp&gt;</a></div>
         </h1>
-        <p>Reports the name of the library.</p>
+        <p>The root of all processors.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -70,20 +70,16 @@
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1component.html" class="m-doc">component</a>
+              class <a href="classyasf_1_1Object.html" class="m-doc">Object</a>
             </dt>
-            <dd>Provides behaviors or capabilities to objects.</dd>
+            <dd>The basic building block of a simulation.</dd>
           </dl>
         </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="ab4f090c547f042c887ce834ff051284b">
-              <span class="m-doc-wrap-bumper"><a href="#ab4f090c547f042c887ce834ff051284b" class="m-doc-self">velocity</a>(</span><span class="m-doc-wrap">)</span>
-            </dt>
-            <dd>Initializes the name field to the name of the project.</dd>
-            <dt id="ae5220a0f21bc12213e7c3418c2e6e0d4">
-              <span class="m-doc-wrap-bumper"><a href="#ae5220a0f21bc12213e7c3418c2e6e0d4" class="m-doc-self">velocity</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1vec3d.html" class="m-doc">vec3d</a> vec) <span class="m-label m-flat m-info">explicit</span> </span>
+            <dt id="a2904faa78fac16dab97558e9e865ca64">
+              <span class="m-doc-wrap-bumper"><a href="#a2904faa78fac16dab97558e9e865ca64" class="m-doc-self">EventProcessorService</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -91,12 +87,16 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a774a9707b336be3fbf3c5383a8f3e04f">
-              <span class="m-doc-wrap-bumper">auto <a href="#a774a9707b336be3fbf3c5383a8f3e04f" class="m-doc-self">get</a>(</span><span class="m-doc-wrap">) const -&gt; vec3d -&gt; auto</span>
+            <dt id="ad0fad5838f137ae6ba792cc5cfb8e10f">
+              <span class="m-doc-wrap-bumper">auto <a href="#ad0fad5838f137ae6ba792cc5cfb8e10f" class="m-doc-self">on_event</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Event.html" class="m-doc">Event</a>* evt) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd>Updates all child processors.</dd>
+            <dt id="a01815eb58480a6812aa2e215b0ca2c40">
+              <span class="m-doc-wrap-bumper">auto <a href="#a01815eb58480a6812aa2e215b0ca2c40" class="m-doc-self">get_simulation</a>(</span><span class="m-doc-wrap">) const -&gt; EventSimulation * -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="ad69a7f10e204b76d3f30e21475fa812d">
-              <span class="m-doc-wrap-bumper">auto <a href="#ad69a7f10e204b76d3f30e21475fa812d" class="m-doc-self">set</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1vec3d.html" class="m-doc">vec3d</a> vec) -&gt; void -&gt; auto</span>
+            <dt id="a6980531cf4b0a0b584562127af008732">
+              <span class="m-doc-wrap-bumper">auto <a href="#a6980531cf4b0a0b584562127af008732" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; Clock * -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::event_processor class | yasf</title>
+  <title>yasf::Processor class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,8 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>event_processor <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="event__processor_8hpp.html">&lt;yasf/event_processor.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>Processor <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="processor_8hpp.html">&lt;yasf/processor.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -60,6 +60,7 @@
               Reference
               <ul>
                 <li><a href="#base-classes">Base classes</a></li>
+                <li><a href="#derived-classes">Derived classes</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
                 <li><a href="#pub-methods">Public functions</a></li>
               </ul>
@@ -70,16 +71,29 @@
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1object.html" class="m-doc">object</a>
+              class <a href="classyasf_1_1Object.html" class="m-doc">Object</a>
             </dt>
             <dd>The basic building block of a simulation.</dd>
+          </dl>
+        </section>
+        <section id="derived-classes">
+          <h2><a href="#derived-classes">Derived classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a href="classyasf_1_1Mover.html" class="m-doc">Mover</a>
+            </dt>
+            <dd><span></span></dd>
           </dl>
         </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a4c1763fa9b796e281f5a7380b8f74e07">
-              <span class="m-doc-wrap-bumper"><a href="#a4c1763fa9b796e281f5a7380b8f74e07" class="m-doc-self">event_processor</a>(</span><span class="m-doc-wrap">)</span>
+            <dt id="aba3c0f30a51b478a30f150b3b4f00198">
+              <span class="m-doc-wrap-bumper"><a href="#aba3c0f30a51b478a30f150b3b4f00198" class="m-doc-self">Processor</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1ea972841fd0da132967ee76aafaf5d9">
+              <span class="m-doc-wrap-bumper"><a href="#a1ea972841fd0da132967ee76aafaf5d9" class="m-doc-self">Processor</a>(</span><span class="m-doc-wrap">std::string name) <span class="m-label m-flat m-warning">protected</span> <span class="m-label m-flat m-info">explicit</span> </span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -87,20 +101,20 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a171e6479541d742c447494dd1f8df1ff">
-              <span class="m-doc-wrap-bumper">auto <a href="#a171e6479541d742c447494dd1f8df1ff" class="m-doc-self">on_event</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1event.html" class="m-doc">event</a>* evt) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
+            <dt id="a7895f4ab77b4a69101cecad6aa3e53b0">
+              <span class="m-doc-wrap-bumper">auto <a href="#a7895f4ab77b4a69101cecad6aa3e53b0" class="m-doc-self">update</a>(</span><span class="m-doc-wrap">) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a4e10612dbdfe57cc50a8df14ba503db3">
-              <span class="m-doc-wrap-bumper">auto <a href="#a4e10612dbdfe57cc50a8df14ba503db3" class="m-doc-self">get_simulation</a>(</span><span class="m-doc-wrap">) const -&gt; event_simulation * -&gt; auto</span>
+            <dt id="a33cf466f6e574601cd5fbaead0fc6bfa">
+              <span class="m-doc-wrap-bumper">auto <a href="#a33cf466f6e574601cd5fbaead0fc6bfa" class="m-doc-self">get_simulation</a>(</span><span class="m-doc-wrap">) const -&gt; Simulation * -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a5df887ceb252fd8abaf268f2d29e362d">
-              <span class="m-doc-wrap-bumper">auto <a href="#a5df887ceb252fd8abaf268f2d29e362d" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; clock * -&gt; auto</span>
+            <dt id="aed5ed79b147aec8558636cfc0765181d">
+              <span class="m-doc-wrap-bumper">auto <a href="#aed5ed79b147aec8558636cfc0765181d" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; Clock * -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="ab28795445afe0717bbfdc984d817abb0">
-              <span class="m-doc-wrap-bumper">auto <a href="#ab28795445afe0717bbfdc984d817abb0" class="m-doc-self">get_entity_service</a>(</span><span class="m-doc-wrap">) const -&gt; entity_service * -&gt; auto</span>
+            <dt id="a44439e813d62aa7326c1f5ed56ec68c0">
+              <span class="m-doc-wrap-bumper">auto <a href="#a44439e813d62aa7326c1f5ed56ec68c0" class="m-doc-self">get_entity_service</a>(</span><span class="m-doc-wrap">) const -&gt; EntityService * -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>

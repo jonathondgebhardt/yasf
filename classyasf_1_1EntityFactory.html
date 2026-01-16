@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::fixed_time_updater class | yasf</title>
+  <title>yasf::EntityFactory class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,84 +49,29 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>fixed_time_updater <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="fixed__time__updater_8hpp.html">&lt;yasf/fixed_time_updater.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>EntityFactory <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="entity__factory_8hpp.html">&lt;yasf/entity_factory.hpp&gt;</a></div>
         </h1>
-        <p><span></span></p>
+        <p>Reports the name of the library.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li>
               Reference
               <ul>
-                <li><a href="#base-classes">Base classes</a></li>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
+                <li><a href="#pub-static-methods">Public static functions</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-        <section id="base-classes">
-          <h2><a href="#base-classes">Base classes</a></h2>
+        <section id="pub-static-methods">
+          <h2><a href="#pub-static-methods">Public static functions</a></h2>
           <dl class="m-doc">
-            <dt>
-              class <a href="classyasf_1_1time__updater.html" class="m-doc">time_updater</a>
+            <dt id="a05af234dba69582b578688d45e2d055d">
+              <span class="m-doc-wrap-bumper">static auto <a href="#a05af234dba69582b578688d45e2d055d" class="m-doc-self">build</a>(</span><span class="m-doc-wrap">) -&gt; std::unique_ptr&lt; Entity &gt; -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>
-        </section>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
-          <dl class="m-doc">
-            <dt id="ae8a0bea6ed547f2c70c7128d6c7dedd5">
-              <span class="m-doc-wrap-bumper"><a href="#ae8a0bea6ed547f2c70c7128d6c7dedd5" class="m-doc-self">fixed_time_updater</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="aedad512e6537df23d6d27c3df89bd256">
-              <span class="m-doc-wrap-bumper"><a href="#aedad512e6537df23d6d27c3df89bd256" class="m-doc-self">fixed_time_updater</a>(</span><span class="m-doc-wrap">time_microseconds delta) <span class="m-label m-flat m-info">explicit</span> </span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="af0d0755ab319052d0d87101e1cb8e5e5">
-              <span class="m-doc-wrap-bumper"><a href="#af0d0755ab319052d0d87101e1cb8e5e5" class="m-doc-self">fixed_time_updater</a>(</span><span class="m-doc-wrap">time_seconds delta) <span class="m-label m-flat m-info">explicit</span> </span>
-            </dt>
-            <dd><span></span></dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#a7568f09b078834bf4862b48a9567c73e" class="m-doc">next_time</a>(</span><span class="m-doc-wrap">) -&gt; time_microseconds <span class="m-label m-flat m-warning">override</span></span>
-            </dt>
-            <dd>Adds delta time to the parent clock&#x27;s time. Throws an exception if parent is not a clock.</dd>
-            <dt id="a264426dd6ec12f43002f04db7b395e64">
-              <div class="m-doc-template">template&lt;time_type T = time_microseconds&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a264426dd6ec12f43002f04db7b395e64" class="m-doc-self">delta</a>(</span><span class="m-doc-wrap">) const -&gt; T -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a99c57ecc6e948e8b14d07d5520d0e600">
-              <div class="m-doc-template">template&lt;time_type T = time_microseconds&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a99c57ecc6e948e8b14d07d5520d0e600" class="m-doc-self">set_delta</a>(</span><span class="m-doc-wrap">T delta) -&gt; void -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Function documentation</h2>
-          <section class="m-doc-details" id="a7568f09b078834bf4862b48a9567c73e"><div>
-            <h3>
-              <span class="m-doc-wrap-bumper">time_microseconds yasf::<wbr />fixed_time_updater::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7568f09b078834bf4862b48a9567c73e" class="m-doc-self">next_time</a>(</span><span class="m-doc-wrap">) <span class="m-label m-warning">override</span></span></span>
-            </h3>
-            <p>Adds delta time to the parent clock&#x27;s time. Throws an exception if parent is not a clock.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <tfoot>
-                <tr>
-                  <th style="width: 1%">Returns</th>
-                  <td>The delta time plus the parent clock&#x27;s time.</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div></section>
         </section>
       </div>
     </div>

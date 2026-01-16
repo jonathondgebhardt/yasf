@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::mover class | yasf</title>
+  <title>yasf::EventSimulation class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,10 +49,10 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>mover <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="mover_8hpp.html">&lt;yasf/mover.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>EventSimulation <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="event__simulation_8hpp.html">&lt;yasf/event_simulation.hpp&gt;</a></div>
         </h1>
-        <p><span></span></p>
+        <p>The root of the simulation.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -66,20 +66,21 @@
             </li>
           </ul>
         </nav>
+<p>This class owns the simulation clock, the entity_service, and the processor_service.</p>
         <section id="base-classes">
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1processor.html" class="m-doc">processor</a>
+              class <a href="classyasf_1_1Object.html" class="m-doc">Object</a>
             </dt>
-            <dd><span></span></dd>
+            <dd>The basic building block of a simulation.</dd>
           </dl>
         </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="ae9a972cbe4e8e1f0aa31fd252a8ed8b1">
-              <span class="m-doc-wrap-bumper"><a href="#ae9a972cbe4e8e1f0aa31fd252a8ed8b1" class="m-doc-self">mover</a>(</span><span class="m-doc-wrap">)</span>
+            <dt id="aedf1df0a467795244840879b13585ab2">
+              <span class="m-doc-wrap-bumper"><a href="#aedf1df0a467795244840879b13585ab2" class="m-doc-self">EventSimulation</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Clock.html" class="m-doc">Clock</a>&gt; clock) <span class="m-label m-flat m-info">explicit</span> </span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -87,8 +88,24 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="ae874da2afbab2f186b92d332c0c62cd9">
-              <span class="m-doc-wrap-bumper">void <a href="#ae874da2afbab2f186b92d332c0c62cd9" class="m-doc-self">update</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-warning">override</span></span>
+            <dt id="ab54a952aaa5e202babaf05f5b3f049e8">
+              <span class="m-doc-wrap-bumper">auto <a href="#ab54a952aaa5e202babaf05f5b3f049e8" class="m-doc-self">update</a>(</span><span class="m-doc-wrap">) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a465a003a5c41410097d8c89d55d7c9a3">
+              <span class="m-doc-wrap-bumper">auto <a href="#a465a003a5c41410097d8c89d55d7c9a3" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; Clock * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="afc4411792a1daa9f1ef7c1012ae07ff4">
+              <span class="m-doc-wrap-bumper">auto <a href="#afc4411792a1daa9f1ef7c1012ae07ff4" class="m-doc-self">queue</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Event.html" class="m-doc">Event</a>&gt; evt) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a367e67047e163b7efc479a288c8304ec">
+              <span class="m-doc-wrap-bumper">auto <a href="#a367e67047e163b7efc479a288c8304ec" class="m-doc-self">has_events</a>(</span><span class="m-doc-wrap">) const -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac68a461c9da7158635ffb54318e679a1">
+              <span class="m-doc-wrap-bumper">auto <a href="#ac68a461c9da7158635ffb54318e679a1" class="m-doc-self">num_events</a>(</span><span class="m-doc-wrap">) const -&gt; std::size_t -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>

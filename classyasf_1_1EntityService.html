@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::event_simulation class | yasf</title>
+  <title>yasf::EntityService class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,10 +49,10 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>event_simulation <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="event__simulation_8hpp.html">&lt;yasf/event_simulation.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>EntityService <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="entity__service_8hpp.html">&lt;yasf/entity_service.hpp&gt;</a></div>
         </h1>
-        <p>The root of the simulation.</p>
+        <p>The root of all entities.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -61,17 +61,15 @@
               <ul>
                 <li><a href="#base-classes">Base classes</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-<p>This class owns the simulation clock, the <a href="classyasf_1_1entity__service.html" class="m-doc">entity_<wbr />service</a>, and the <a href="classyasf_1_1processor__service.html" class="m-doc">processor_<wbr />service</a>.</p>
         <section id="base-classes">
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1object.html" class="m-doc">object</a>
+              class <a href="classyasf_1_1Object.html" class="m-doc">Object</a>
             </dt>
             <dd>The basic building block of a simulation.</dd>
           </dl>
@@ -79,33 +77,8 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="ad9fab92d7db4bb44ff0a1715df03c0b0">
-              <span class="m-doc-wrap-bumper"><a href="#ad9fab92d7db4bb44ff0a1715df03c0b0" class="m-doc-self">event_simulation</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1clock.html" class="m-doc">clock</a>&gt; clock) <span class="m-label m-flat m-info">explicit</span> </span>
-            </dt>
-            <dd><span></span></dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt id="aae2b5ca9e2ef675f9852974f1ab2468b">
-              <span class="m-doc-wrap-bumper">auto <a href="#aae2b5ca9e2ef675f9852974f1ab2468b" class="m-doc-self">update</a>(</span><span class="m-doc-wrap">) -&gt; void -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a737831b5d774c99fcf1acc945bb14388">
-              <span class="m-doc-wrap-bumper">auto <a href="#a737831b5d774c99fcf1acc945bb14388" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; clock * -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="afe00470cf04d82f9ea06ce63e2e0dab9">
-              <span class="m-doc-wrap-bumper">auto <a href="#afe00470cf04d82f9ea06ce63e2e0dab9" class="m-doc-self">queue</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1event.html" class="m-doc">event</a>&gt; evt) -&gt; void -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="aa4999f1632baed3a03db2ae675660d2d">
-              <span class="m-doc-wrap-bumper">auto <a href="#aa4999f1632baed3a03db2ae675660d2d" class="m-doc-self">has_events</a>(</span><span class="m-doc-wrap">) const -&gt; bool -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="aaad009acf39d81817ac26d81ce547d5a">
-              <span class="m-doc-wrap-bumper">auto <a href="#aaad009acf39d81817ac26d81ce547d5a" class="m-doc-self">num_events</a>(</span><span class="m-doc-wrap">) const -&gt; std::size_t -&gt; auto</span>
+            <dt id="afd0bceef1eccadc74b20e2c709c990c0">
+              <span class="m-doc-wrap-bumper"><a href="#afd0bceef1eccadc74b20e2c709c990c0" class="m-doc-self">EntityService</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
             <dd><span></span></dd>
           </dl>

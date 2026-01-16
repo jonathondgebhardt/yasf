@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::entity_factory class | yasf</title>
+  <title>yasf::Uuid class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,8 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>entity_factory <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="entity__factory_8hpp.html">&lt;yasf/entity_factory.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>Uuid <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="uuid_8hpp.html">&lt;yasf/uuid.hpp&gt;</a></div>
         </h1>
         <p>Reports the name of the library.</p>
         <nav class="m-block m-default">
@@ -59,16 +59,38 @@
             <li>
               Reference
               <ul>
-                <li><a href="#pub-static-methods">Public static functions</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-        <section id="pub-static-methods">
-          <h2><a href="#pub-static-methods">Public static functions</a></h2>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a1a50c8d7741fd1f6de500425cd485214">
-              <span class="m-doc-wrap-bumper">static auto <a href="#a1a50c8d7741fd1f6de500425cd485214" class="m-doc-self">build</a>(</span><span class="m-doc-wrap">) -&gt; std::unique_ptr&lt; entity &gt; -&gt; auto</span>
+            <dt id="ab14c7a1de42bfb3e23323610ca9f7d92">
+              <span class="m-doc-wrap-bumper"><a href="#ab14c7a1de42bfb3e23323610ca9f7d92" class="m-doc-self">Uuid</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a2aa6acccec681e180d98a70aff226765">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2aa6acccec681e180d98a70aff226765" class="m-doc-self">operator==</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1Uuid.html" class="m-doc">Uuid</a>&amp; other) const -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="acc42f5908ce996e0fa2200e6729c5fd0">
+              <span class="m-doc-wrap-bumper">auto <a href="#acc42f5908ce996e0fa2200e6729c5fd0" class="m-doc-self">get</a>(</span><span class="m-doc-wrap">) const -&gt; std::string_view -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7a7bd4cfda1db52de2d48b97b70f8acb">
+              <span class="m-doc-wrap-bumper">auto <a href="#a7a7bd4cfda1db52de2d48b97b70f8acb" class="m-doc-self">tail</a>(</span><span class="m-doc-wrap">std::uint8_t len) const -&gt; std::string_view -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aad253f443beb84e2e2db8fe7d79d3ad7">
+              <span class="m-doc-wrap-bumper">auto <a href="#aad253f443beb84e2e2db8fe7d79d3ad7" class="m-doc-self">empty</a>(</span><span class="m-doc-wrap">) const -&gt; bool -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>

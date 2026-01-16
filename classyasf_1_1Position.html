@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::external_time_updater class | yasf</title>
+  <title>yasf::Position class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,10 +49,10 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>external_time_updater <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="external__time__updater_8hpp.html">&lt;yasf/external_time_updater.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>Position <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="position_8hpp.html">&lt;yasf/position.hpp&gt;</a></div>
         </h1>
-        <p>Used for event-based simulations.</p>
+        <p>Reports the name of the library.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -70,16 +70,26 @@
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1time__updater.html" class="m-doc">time_updater</a>
+              class <a href="classyasf_1_1Component.html" class="m-doc">Component</a>
             </dt>
-            <dd><span></span></dd>
+            <dd>Provides behaviors or capabilities to objects.</dd>
           </dl>
         </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a33a9be410e9212b6554997971c96f416">
-              <span class="m-doc-wrap-bumper"><a href="#a33a9be410e9212b6554997971c96f416" class="m-doc-self">external_time_updater</a>(</span><span class="m-doc-wrap">)</span>
+            <dt id="ac72eff415dc2c7beff03f64beff3afa4">
+              <span class="m-doc-wrap-bumper"><a href="#ac72eff415dc2c7beff03f64beff3afa4" class="m-doc-self">Position</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Initializes the name field to the name of the project.</dd>
+            <dt id="ae366602d82a1abe15d3e33a2ffbcb5f2">
+              <span class="m-doc-wrap-bumper"><a href="#ae366602d82a1abe15d3e33a2ffbcb5f2" class="m-doc-self">Position</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Vec3d.html" class="m-doc">Vec3d</a> vec) <span class="m-label m-flat m-info">explicit</span> </span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a20a8384961776d940769cb776417214a">
+              <span class="m-doc-wrap-bumper"><a href="#a20a8384961776d940769cb776417214a" class="m-doc-self">Position</a>(</span><span class="m-doc-wrap">double x,
+              double y,
+              double z)</span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -87,9 +97,12 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a4b866255090449a620c48a371d68908c">
-              <div class="m-doc-template">template&lt;time_type T&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a4b866255090449a620c48a371d68908c" class="m-doc-self">set_next_time</a>(</span><span class="m-doc-wrap">T next_time) -&gt; void -&gt; auto</span>
+            <dt id="a365e45a428456efdd92329dad76e6682">
+              <span class="m-doc-wrap-bumper">auto <a href="#a365e45a428456efdd92329dad76e6682" class="m-doc-self">get</a>(</span><span class="m-doc-wrap">) -&gt; Vec3d &amp; -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a570fdb91c4edb4a392ee6f43ea2ab905">
+              <span class="m-doc-wrap-bumper">auto <a href="#a570fdb91c4edb4a392ee6f43ea2ab905" class="m-doc-self">set</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Vec3d.html" class="m-doc">Vec3d</a> vec) -&gt; void -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>

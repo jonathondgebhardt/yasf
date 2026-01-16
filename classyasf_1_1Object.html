@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>yasf::Object class | yasf</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">yasf</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="about.html">About</a></li>
+              </ol>
+            </li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>Object <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="object_8hpp.html">&lt;yasf/object.hpp&gt;</a></div>
+        </h1>
+        <p>The basic building block of a simulation.</p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#derived-classes">Derived classes</a></li>
+                <li><a href="#pub-types">Public types</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+<p>An object can have child objects and components.</p>
+        <section id="derived-classes">
+          <h2><a href="#derived-classes">Derived classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a href="classyasf_1_1Clock.html" class="m-doc">Clock</a>
+            </dt>
+            <dd>The simulation clock. Time is measured in microseconds.</dd>
+            <dt>
+              class <a href="classyasf_1_1Entity.html" class="m-doc">Entity</a>
+            </dt>
+            <dd>An object that takes part in a simulation.</dd>
+            <dt>
+              class <a href="classyasf_1_1EntityService.html" class="m-doc">EntityService</a>
+            </dt>
+            <dd>The root of all entities.</dd>
+            <dt>
+              class <a href="classyasf_1_1EventProcessor.html" class="m-doc">EventProcessor</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              class <a href="classyasf_1_1EventProcessorService.html" class="m-doc">EventProcessorService</a>
+            </dt>
+            <dd>The root of all processors.</dd>
+            <dt>
+              class <a href="classyasf_1_1EventSimulation.html" class="m-doc">EventSimulation</a>
+            </dt>
+            <dd>The root of the simulation.</dd>
+            <dt>
+              class <a href="classyasf_1_1Processor.html" class="m-doc">Processor</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              class <a href="classyasf_1_1ProcessorService.html" class="m-doc">ProcessorService</a>
+            </dt>
+            <dd>The root of all processors.</dd>
+            <dt>
+              class <a href="classyasf_1_1Simulation.html" class="m-doc">Simulation</a>
+            </dt>
+            <dd>The root of the simulation.</dd>
+          </dl>
+        </section>
+        <section id="pub-types">
+          <h2><a href="#pub-types">Public types</a></h2>
+          <dl class="m-doc">
+            <dt id="a336ff40aefac16c96516f2d35da6a107">
+              using <a href="#a336ff40aefac16c96516f2d35da6a107" class="m-doc-self">ChildIterator</a> = std::vector&lt;std::unique_ptr&lt;<a href="classyasf_1_1Object.html" class="m-doc">Object</a>&gt;&gt;::const_iterator
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="ab9aa2ca3a119e85a4371d875100e3a7b">
+              <span class="m-doc-wrap-bumper"><a href="#ab9aa2ca3a119e85a4371d875100e3a7b" class="m-doc-self">Object</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Sets name.</dd>
+            <dt id="a8a4d823094c8e5bb9d85a18bf2001562">
+              <span class="m-doc-wrap-bumper"><a href="#a8a4d823094c8e5bb9d85a18bf2001562" class="m-doc-self">Object</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1Object.html" class="m-doc">Object</a>&amp;) <span class="m-label m-flat m-danger">deleted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aacf6c37c758b9d372abf3058380f80e2">
+              <span class="m-doc-wrap-bumper"><a href="#aacf6c37c758b9d372abf3058380f80e2" class="m-doc-self">Object</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Object.html" class="m-doc">Object</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa979f2643b82f458e5f0295111ac4e20">
+              <span class="m-doc-wrap-bumper"><a href="#aa979f2643b82f458e5f0295111ac4e20" class="m-doc-self">~Object</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0db9bb591c90aadcd04fa500c6070423">
+              <span class="m-doc-wrap-bumper"><a href="#a0db9bb591c90aadcd04fa500c6070423" class="m-doc-self">Object</a>(</span><span class="m-doc-wrap">std::string name) <span class="m-label m-flat m-warning">protected</span> <span class="m-label m-flat m-info">explicit</span> </span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="ac7089de3b66203cec957c930a5044638">
+              <span class="m-doc-wrap-bumper">auto <a href="#ac7089de3b66203cec957c930a5044638" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1Object.html" class="m-doc">Object</a>&amp;) -&gt; Object &amp; -&gt; auto <span class="m-label m-flat m-danger">deleted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a68117c8e3a3fd0f8a2da9949ac7b9276">
+              <span class="m-doc-wrap-bumper">auto <a href="#a68117c8e3a3fd0f8a2da9949ac7b9276" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Object.html" class="m-doc">Object</a>&amp;&amp;) noexcept -&gt; Object &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4084aee16e42fabead558f9163232ca3">
+              <span class="m-doc-wrap-bumper">auto <a href="#a4084aee16e42fabead558f9163232ca3" class="m-doc-self">name</a>(</span><span class="m-doc-wrap">) const -&gt; std::string_view -&gt; auto</span>
+            </dt>
+            <dd>Returns the name of this object.</dd>
+            <dt id="aaaaf29820a288c9da74ce7b2edd017d0">
+              <span class="m-doc-wrap-bumper">auto <a href="#aaaaf29820a288c9da74ce7b2edd017d0" class="m-doc-self">display_name</a>(</span><span class="m-doc-wrap">) const -&gt; std::string_view -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1ab7b2d70aa62d9bb6ecbc51db6cf11a">
+              <span class="m-doc-wrap-bumper">auto <a href="#a1ab7b2d70aa62d9bb6ecbc51db6cf11a" class="m-doc-self">set_display_name</a>(</span><span class="m-doc-wrap">std::string display_name) -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8fb2f9a03dfbbc1b78ab65ce3726a53b">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8fb2f9a03dfbbc1b78ab65ce3726a53b" class="m-doc-self">uuid</a>(</span><span class="m-doc-wrap">) const -&gt; Uuid -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2f8abbc79c69f8d01c8e6d8756ee03a9">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2f8abbc79c69f8d01c8e6d8756ee03a9" class="m-doc-self">parent</a>(</span><span class="m-doc-wrap">) const -&gt; Object * -&gt; auto</span>
+            </dt>
+            <dd>Gets the parent of this object. If this object is not a child of another object, parent will be null.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a77b9c193bf9b547acbc82e06a900be00" class="m-doc">add_child</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Object.html" class="m-doc">Object</a>&gt; child) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd>Adds the child to this object. If child is null, this function returns false. If the child already has a parent, this function returns null.</dd>
+            <dt id="ab6b6d04b3d74413dcedf5a246a045741">
+              <div class="m-doc-template">template&lt;typename T, typename... Args&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab6b6d04b3d74413dcedf5a246a045741" class="m-doc-self">add_child</a>(</span><span class="m-doc-wrap">Args &amp;&amp; ... args) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aeed2c34c69328ec17d0534b8a748a576">
+              <span class="m-doc-wrap-bumper">auto <a href="#aeed2c34c69328ec17d0534b8a748a576" class="m-doc-self">get_child</a>(</span><span class="m-doc-wrap">std::string_view name) const -&gt; Object * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="afa7f0ec7c4a51553bdb67413fb58b22a">
+              <span class="m-doc-wrap-bumper">auto <a href="#afa7f0ec7c4a51553bdb67413fb58b22a" class="m-doc-self">get_child</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1Uuid.html" class="m-doc">yasf::<wbr />Uuid</a>&amp; uid) const -&gt; Object * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae335690c42532ae214d5f8613bc86253">
+              <div class="m-doc-template">template&lt;typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae335690c42532ae214d5f8613bc86253" class="m-doc-self">get_child</a>(</span><span class="m-doc-wrap">) const -&gt; T * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a13f815f5764d311ed533530eb9c9c861">
+              <span class="m-doc-wrap-bumper">auto <a href="#a13f815f5764d311ed533530eb9c9c861" class="m-doc-self">num_children</a>(</span><span class="m-doc-wrap">) const -&gt; std::size_t -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a59295790ab6853981bb9f3592b54cd04">
+              <span class="m-doc-wrap-bumper">auto <a href="#a59295790ab6853981bb9f3592b54cd04" class="m-doc-self">get_child</a>(</span><span class="m-doc-wrap">std::size_t index) const -&gt; Object * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a59bbe85ac7d490d44fd565583af95941">
+              <span class="m-doc-wrap-bumper">auto <a href="#a59bbe85ac7d490d44fd565583af95941" class="m-doc-self">get_children</a>(</span><span class="m-doc-wrap">) const -&gt; std::span&lt; const std::unique_ptr&lt; Object &gt; &gt; -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae11fb6b5fad4a0470b661d054c7fec01">
+              <span class="m-doc-wrap-bumper">auto <a href="#ae11fb6b5fad4a0470b661d054c7fec01" class="m-doc-self">children_begin</a>(</span><span class="m-doc-wrap">) const -&gt; ChildIterator -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1f9f88709c61033dd58c401f0d692357">
+              <span class="m-doc-wrap-bumper">auto <a href="#a1f9f88709c61033dd58c401f0d692357" class="m-doc-self">children_end</a>(</span><span class="m-doc-wrap">) const -&gt; ChildIterator -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5161ae7b299b9429fe3886feede4d19f">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5161ae7b299b9429fe3886feede4d19f" class="m-doc-self">remove_child</a>(</span><span class="m-doc-wrap">std::string_view name) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab0c48b7d8500e52cb757b4471eb21884">
+              <div class="m-doc-template">template&lt;typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab0c48b7d8500e52cb757b4471eb21884" class="m-doc-self">remove_child</a>(</span><span class="m-doc-wrap">) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a43e0018f736a10cbc596584ab32cf3f6" class="m-doc">add_component</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Component.html" class="m-doc">Component</a>&gt; component) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd>Adds the component to this object. If component is null, this function returns false. If the component already has a parent, this function returns null.</dd>
+            <dt id="a4c3653a9a74e9511420e6bd27eacac44">
+              <div class="m-doc-template">template&lt;typename T, typename... Args&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a4c3653a9a74e9511420e6bd27eacac44" class="m-doc-self">add_component</a>(</span><span class="m-doc-wrap">Args &amp;&amp; ... args) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a554ee293744c7d59cd2396c39c189574">
+              <span class="m-doc-wrap-bumper">auto <a href="#a554ee293744c7d59cd2396c39c189574" class="m-doc-self">get_component</a>(</span><span class="m-doc-wrap">std::string_view name) const -&gt; Component * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2cea2af0b3587be8adf41fef11db2b18">
+              <div class="m-doc-template">template&lt;typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2cea2af0b3587be8adf41fef11db2b18" class="m-doc-self">get_component</a>(</span><span class="m-doc-wrap">) const -&gt; T * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2029251b9dfbbc3f48f9c50fc094f4b3">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2029251b9dfbbc3f48f9c50fc094f4b3" class="m-doc-self">remove_component</a>(</span><span class="m-doc-wrap">std::string_view name) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4c2426a95ccda461afb258ebe6fd36a2">
+              <div class="m-doc-template">template&lt;typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a4c2426a95ccda461afb258ebe6fd36a2" class="m-doc-self">remove_component</a>(</span><span class="m-doc-wrap">) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a71b07ce55c343cbdd0998c0046551c64">
+              <span class="m-doc-wrap-bumper">auto <a href="#a71b07ce55c343cbdd0998c0046551c64" class="m-doc-self">accept</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp; visitor) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a6ba82979d655ad158b3bcddfa06baa48">
+              <span class="m-doc-wrap-bumper">auto <a href="#a6ba82979d655ad158b3bcddfa06baa48" class="m-doc-self">accept</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ComponentVisitor.html" class="m-doc">ComponentVisitor</a>&amp; visitor) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9eec41024a27833fbac81acd10c20229">
+              <div class="m-doc-template">template&lt;typename T&gt;</div>
+              <span class="m-doc-wrap-bumper">auto <a href="#a9eec41024a27833fbac81acd10c20229" class="m-doc-self">meta_data</a>(</span><span class="m-doc-wrap">std::string_view key) -&gt; std::optional&lt; T &gt; -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a138dd4fd7b7ebda83f68352de7a722df">
+              <span class="m-doc-wrap-bumper">auto <a href="#a138dd4fd7b7ebda83f68352de7a722df" class="m-doc-self">set_meta_data</a>(</span><span class="m-doc-wrap">std::string_view key,
+              std::any meta_data) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a77b9c193bf9b547acbc82e06a900be00"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">auto yasf::<wbr />Object::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a77b9c193bf9b547acbc82e06a900be00" class="m-doc-self">add_child</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Object.html" class="m-doc">Object</a>&gt; child) -&gt; bool</span></span>
+            </h3>
+            <p>Adds the child to this object. If child is null, this function returns false. If the child already has a parent, this function returns null.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">child</td>
+                  <td>The child to add.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>Whether the child was added.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a43e0018f736a10cbc596584ab32cf3f6"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">auto yasf::<wbr />Object::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a43e0018f736a10cbc596584ab32cf3f6" class="m-doc-self">add_component</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Component.html" class="m-doc">Component</a>&gt; component) -&gt; bool</span></span>
+            </h3>
+            <p>Adds the component to this object. If component is null, this function returns false. If the component already has a parent, this function returns null.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">component</td>
+                  <td>The component to add.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>Whether the component was added.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>yasf. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.8 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

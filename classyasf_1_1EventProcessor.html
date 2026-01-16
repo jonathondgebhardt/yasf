@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::clock class | yasf</title>
+  <title>yasf::EventProcessor class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,10 +49,10 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>clock <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="clock_8hpp.html">&lt;yasf/clock.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>EventProcessor <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="event__processor_8hpp.html">&lt;yasf/event_processor.hpp&gt;</a></div>
         </h1>
-        <p>The simulation clock. Time is measured in microseconds.</p>
+        <p><span></span></p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -70,7 +70,7 @@
           <h2><a href="#base-classes">Base classes</a></h2>
           <dl class="m-doc">
             <dt>
-              class <a href="classyasf_1_1object.html" class="m-doc">object</a>
+              class <a href="classyasf_1_1Object.html" class="m-doc">Object</a>
             </dt>
             <dd>The basic building block of a simulation.</dd>
           </dl>
@@ -78,67 +78,32 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a7701efdd685e5ee1301f66bbb4a431e4">
-              <span class="m-doc-wrap-bumper"><a href="#a7701efdd685e5ee1301f66bbb4a431e4" class="m-doc-self">clock</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">explicit</span> </span>
+            <dt id="ac802888e5d53d77a3cedc3861c281d24">
+              <span class="m-doc-wrap-bumper"><a href="#ac802888e5d53d77a3cedc3861c281d24" class="m-doc-self">EventProcessor</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
-            <dd>Sets name to &#x27;clock&#x27;.</dd>
+            <dd><span></span></dd>
           </dl>
         </section>
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a4ebcd88f9d5282066d76cd8a65e139a0">
-              <span class="m-doc-wrap-bumper">auto <a href="#a4ebcd88f9d5282066d76cd8a65e139a0" class="m-doc-self">tick</a>(</span><span class="m-doc-wrap">) -&gt; void -&gt; auto</span>
+            <dt id="abe07cbd7df37041ee7202f0457e7013f">
+              <span class="m-doc-wrap-bumper">auto <a href="#abe07cbd7df37041ee7202f0457e7013f" class="m-doc-self">on_event</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1Event.html" class="m-doc">Event</a>* evt) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">pure virtual</span></span>
             </dt>
-            <dd>Updates the simulation time. How the time is updated depends on the <code><a href="classyasf_1_1time__updater.html" class="m-doc">time_<wbr />updater</a></code> component.</dd>
-            <dt>
-              <div class="m-doc-template">template&lt;time_type T = time_microseconds&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#ac3bd157cc4ff127aac26ebd1bed3ae1a" class="m-doc">time</a>(</span><span class="m-doc-wrap">) const -&gt; T -&gt; auto</span>
+            <dd><span></span></dd>
+            <dt id="a69ee34ab96003397f5d0d1e9b4f7650f">
+              <span class="m-doc-wrap-bumper">auto <a href="#a69ee34ab96003397f5d0d1e9b4f7650f" class="m-doc-self">get_simulation</a>(</span><span class="m-doc-wrap">) const -&gt; EventSimulation * -&gt; auto</span>
             </dt>
-            <dd>Get the current simulation time.</dd>
-            <dt>
-              <div class="m-doc-template">template&lt;time_type T = time_microseconds&gt;</div>
-              <span class="m-doc-wrap-bumper">auto <a href="#a4f18ea4d7148bd67a4f51b91ec30da36" class="m-doc">delta</a>(</span><span class="m-doc-wrap">) const -&gt; T -&gt; auto</span>
+            <dd><span></span></dd>
+            <dt id="a06a265a891908a306820abb07b634147">
+              <span class="m-doc-wrap-bumper">auto <a href="#a06a265a891908a306820abb07b634147" class="m-doc-self">get_clock</a>(</span><span class="m-doc-wrap">) const -&gt; Clock * -&gt; auto</span>
             </dt>
-            <dd>Get the amount of elapsed simulation time since the last tick.</dd>
+            <dd><span></span></dd>
+            <dt id="aaf91afd85f37219e95e839c0855771e6">
+              <span class="m-doc-wrap-bumper">auto <a href="#aaf91afd85f37219e95e839c0855771e6" class="m-doc-self">get_entity_service</a>(</span><span class="m-doc-wrap">) const -&gt; EntityService * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
           </dl>
-        </section>
-        <section>
-          <h2>Function documentation</h2>
-          <section class="m-doc-details" id="ac3bd157cc4ff127aac26ebd1bed3ae1a"><div>
-            <h3>
-              <div class="m-doc-template">
-                template&lt;time_type T = time_microseconds&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">auto yasf::<wbr />clock::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac3bd157cc4ff127aac26ebd1bed3ae1a" class="m-doc-self">time</a>(</span><span class="m-doc-wrap">) const -&gt; T</span></span>
-            </h3>
-            <p>Get the current simulation time.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <tfoot>
-                <tr>
-                  <th style="width: 1%">Returns</th>
-                  <td>The current simulation time in the requested representation.</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div></section>
-          <section class="m-doc-details" id="a4f18ea4d7148bd67a4f51b91ec30da36"><div>
-            <h3>
-              <div class="m-doc-template">
-                template&lt;time_type T = time_microseconds&gt;
-              </div>
-              <span class="m-doc-wrap-bumper">auto yasf::<wbr />clock::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a4f18ea4d7148bd67a4f51b91ec30da36" class="m-doc-self">delta</a>(</span><span class="m-doc-wrap">) const -&gt; T</span></span>
-            </h3>
-            <p>Get the amount of elapsed simulation time since the last tick.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <tfoot>
-                <tr>
-                  <th style="width: 1%">Returns</th>
-                  <td>The amount of elapsed simulation time since the last tick in the requested representation.</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div></section>
         </section>
       </div>
     </div>

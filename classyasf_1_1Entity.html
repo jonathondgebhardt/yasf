@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::event class | yasf</title>
+  <title>yasf::Entity class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,69 +49,36 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>event <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="event_8hpp.html">&lt;yasf/event.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>Entity <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="entity_8hpp.html">&lt;yasf/entity.hpp&gt;</a></div>
         </h1>
-        <p><span></span></p>
+        <p>An object that takes part in a simulation.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li>
               Reference
               <ul>
+                <li><a href="#base-classes">Base classes</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
               </ul>
             </li>
           </ul>
         </nav>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a href="classyasf_1_1Object.html" class="m-doc">Object</a>
+            </dt>
+            <dd>The basic building block of a simulation.</dd>
+          </dl>
+        </section>
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a70ef7881c630926ba313d97a821207e1">
-              <span class="m-doc-wrap-bumper"><a href="#a70ef7881c630926ba313d97a821207e1" class="m-doc-self">event</a>(</span><span class="m-doc-wrap">yasf::time_microseconds time,
-              <a href="namespaceyasf.html#a27990320d895fd239849f910823516c4" class="m-doc">event_<wbr />type</a> type)</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a721ba0344a90464777d16ec6be9eac5f">
-              <span class="m-doc-wrap-bumper"><a href="#a721ba0344a90464777d16ec6be9eac5f" class="m-doc-self">event</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1event.html" class="m-doc">event</a>&amp;) <span class="m-label m-flat m-info">defaulted</span></span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="af4239ab4f58532c9347fe59f843d95b8">
-              <span class="m-doc-wrap-bumper"><a href="#af4239ab4f58532c9347fe59f843d95b8" class="m-doc-self">event</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1event.html" class="m-doc">event</a>&amp;&amp;) <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a20c4b5868c67ef378cf69073719a1130">
-              <span class="m-doc-wrap-bumper"><a href="#a20c4b5868c67ef378cf69073719a1130" class="m-doc-self">~event</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
-            </dt>
-            <dd><span></span></dd>
-          </dl>
-        </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
-          <dl class="m-doc">
-            <dt id="a51e3b321d33d979f0117b5f20ee5ba2b">
-              <span class="m-doc-wrap-bumper">auto <a href="#a51e3b321d33d979f0117b5f20ee5ba2b" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1event.html" class="m-doc">event</a>&amp;) -&gt; event &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span></span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="ae386c9753a4d1de1452e9b03b56a92a1">
-              <span class="m-doc-wrap-bumper">auto <a href="#ae386c9753a4d1de1452e9b03b56a92a1" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1event.html" class="m-doc">event</a>&amp;&amp;) -&gt; event &amp; -&gt; auto <span class="m-label m-flat m-danger">deleted</span></span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="ace2b0ed4964a19f89d4e8d6c458bbb4b">
-              <span class="m-doc-wrap-bumper">auto <a href="#ace2b0ed4964a19f89d4e8d6c458bbb4b" class="m-doc-self">type</a>(</span><span class="m-doc-wrap">) const -&gt; event_type -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a9c29e03f9fc6ce9226d858462f86b44c">
-              <span class="m-doc-wrap-bumper">auto <a href="#a9c29e03f9fc6ce9226d858462f86b44c" class="m-doc-self">time</a>(</span><span class="m-doc-wrap">) const -&gt; time_microseconds -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a6fafa047830063adfcad844c4c153d12">
-              <span class="m-doc-wrap-bumper">auto <a href="#a6fafa047830063adfcad844c4c153d12" class="m-doc-self">operator&lt;</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1event.html" class="m-doc">event</a>&amp; other) const -&gt; bool -&gt; auto</span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="a58e13a69687289aaff9acb6b83e79fa6">
-              <span class="m-doc-wrap-bumper">auto <a href="#a58e13a69687289aaff9acb6b83e79fa6" class="m-doc-self">operator&gt;</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1event.html" class="m-doc">event</a>&amp; other) const -&gt; bool -&gt; auto</span>
+            <dt id="a639bd41a3ca010ea01def6ca1f9cd20e">
+              <span class="m-doc-wrap-bumper"><a href="#a639bd41a3ca010ea01def6ca1f9cd20e" class="m-doc-self">Entity</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
             <dd><span></span></dd>
           </dl>
