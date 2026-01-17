@@ -43,13 +43,6 @@ public:
      */
     auto name() const -> std::string_view { return m_name; }
 
-    auto display_name() const -> std::string_view { return m_display_name; }
-
-    auto set_display_name(std::string display_name)
-    {
-        m_display_name = std::move(display_name);
-    }
-
     auto uuid() const -> Uuid { return m_uuid; }
 
     /**
@@ -204,7 +197,6 @@ private:
     std::vector<std::unique_ptr<Component>> m_components;
     yasf::Uuid m_uuid;
     std::string m_name;
-    std::string m_display_name;
 };
 
 }  // namespace yasf

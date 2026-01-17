@@ -39,7 +39,7 @@ auto make_ground_object() -> std::unique_ptr<yasf::Object>
 {
     auto obj = std::make_unique<yasf::Object>();
     obj->add_component<yasf::Position>(0.0, 500.0, 0.0);
-    obj->set_display_name("ground");
+    obj->set_meta_data("display_name", std::string{"ground"});
 
     return obj;
 }
@@ -160,9 +160,9 @@ auto main() -> int
         }
 
         const auto delta_time = delta_clock.restart();
-        updater->set_next_time(clock->time()
-                               + yasf::time::Microseconds{
-                                   delta_time.asMicroseconds()});
+        updater->set_next_time(
+            clock->time()
+            + yasf::time::Microseconds{delta_time.asMicroseconds()});
 
         ImGui::SFML::Update(*window_handle, delta_time);
 

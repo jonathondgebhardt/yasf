@@ -13,7 +13,11 @@ struct GroundCollisionProcessor : yasf::Processor
     {
         auto visit(yasf::Object* obj) -> void override
         {
-            if (obj != nullptr && obj->display_name() == "ground") {
+            if (obj != nullptr
+                && obj->meta_data<std::string>("display_name")
+                        .value_or(std::string{})
+                    == "ground")
+            {
                 ground = obj;
             }
         }
