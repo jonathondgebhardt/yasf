@@ -6,7 +6,6 @@ ENV PATH="$VCPKG_ROOT:$PATH"
 
 WORKDIR /workspace/yasf
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     clang \
@@ -16,8 +15,8 @@ RUN apt-get update && apt-get install -y \
     cmake \
     cppcheck \
     curl \
-    g++-14 \
-    gcc-14 \
+    g++-13 \
+    gcc-13 \
     gdb \
     git \
     libgl1 \
@@ -42,9 +41,4 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     && rm -rf /var/lib/apt/lists/*
-
-RUN  update-alternatives --install \
-    /usr/bin/gcc gcc /usr/bin/gcc-14 180 \
-    && update-alternatives --install \
-    /usr/bin/g++ g++ /usr/bin/g++-14 180
 
