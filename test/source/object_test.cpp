@@ -168,7 +168,7 @@ TEST_CASE("object: meta_data", "[library]")
     SECTION("wrong data type")
     {
         obj.set_meta_data("int", 1337);  // NOLINT
-        REQUIRE_THROWS(obj.meta_data<float>("int"));
+        REQUIRE_NOTHROW(obj.meta_data<float>("int"));
     }
 
     SECTION("overwrite with different data type")

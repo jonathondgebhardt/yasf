@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "yasf/component.hpp"
+#include "yasf/logger.hpp"
 #include "yasf/uuid.hpp"
 #include "yasf/visitor.hpp"
 #include "yasf/yasf_export.hpp"
@@ -178,7 +179,16 @@ public:
             return {};
         }
 
-        return std::any_cast<T>(m_meta_data[key]);
+        try {
+            return std::any_cast<T>(m_meta_data[key]);
+        } catch (const std::bad_any_cast& err) {
+            yasf::log::error("cannot convert {} to requested type {}: {}",
+                             key,
+                             typeid(T).name(),
+                             err.what());
+        }
+
+        return {};
     }
 
     auto set_meta_data(std::string_view key, std::any meta_data) -> void;
