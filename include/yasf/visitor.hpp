@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include "yasf/yasf_export.hpp"
 
 // TODO:
@@ -14,7 +16,7 @@ class Object;
 class YASF_EXPORT ObjectVisitor
 {
 public:
-    enum class TraversalMode
+    enum class TraversalMode : std::uint8_t
     {
         NONE,
         PARENTS,
@@ -23,7 +25,7 @@ public:
 
     ObjectVisitor() = default;
 
-    ObjectVisitor(TraversalMode traversal_mode)
+    explicit ObjectVisitor(TraversalMode traversal_mode)
         : m_traversal_mode{traversal_mode}
     {
     }

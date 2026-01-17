@@ -1,3 +1,5 @@
+#include "yasf/visitor.hpp"
+
 #include "yasf/object.hpp"
 
 namespace yasf

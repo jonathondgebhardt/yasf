@@ -1,4 +1,5 @@
-#include <cstdint>
+#include <cstddef>
+#include <optional>
 
 #include "yasf/visitor.hpp"
 
@@ -105,6 +106,7 @@ TEST_CASE("object_visitor: traverse children", "[visitor]")
     }
 }
 
+// NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("object_visitor: traverse parents", "[visitor]")
 {
     auto obj = yasf::Object{};
@@ -179,3 +181,5 @@ TEST_CASE("object_visitor: traverse parents", "[visitor]")
         CHECK(visitor.count == 2);
     }
 }
+
+// NOLINTEND(readability-function-cognitive-complexity)
