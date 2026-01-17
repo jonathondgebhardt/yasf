@@ -1,5 +1,4 @@
 #include <cstddef>
-#include <optional>
 
 #include "yasf/visitor.hpp"
 
@@ -20,17 +19,10 @@ struct ObjectCountingVisitor : yasf::ObjectVisitor
     void apply(yasf::Object& obj) override
     {
         ++count;
-
-        // if maximum_depth is not set, continue traversing.
-        // this is kind of sneaky and probably should be in its own class, but
-        // i'm lazy.
-        if (count < maximum_depth.value_or(count + 1)) {
-            traverse(obj);
-        }
+        traverse(obj);
     }
 
     std::size_t count{};
-    std::optional<std::size_t> maximum_depth;
 };
 
 }  // namespace
@@ -83,18 +75,6 @@ TEST_CASE("object_visitor: traverse children", "[visitor]")
 
         obj.accept(visitor);
         CHECK(visitor.count == 4);
-    }
-
-    SECTION("deeply nested, stop early")
-    {
-        // object
-        // - object
-        //	  - object
-        // - object
-        visitor.maximum_depth = 2;
-
-        obj.accept(visitor);
-        CHECK(visitor.count == 2);
     }
 
     SECTION("visit child of root")
@@ -167,18 +147,6 @@ TEST_CASE("object_visitor: traverse parents", "[visitor]")
 
         child->get_child<yasf::Object>()->accept(visitor);
         CHECK(visitor.count == 3);
-    }
-
-    SECTION("deeply nested, stop early")
-    {
-        // object
-        // - object
-        //	  - object
-        // - object
-        visitor.maximum_depth = 2;
-
-        child->get_child<yasf::Object>()->accept(visitor);
-        CHECK(visitor.count == 2);
     }
 }
 
