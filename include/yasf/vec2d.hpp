@@ -184,8 +184,8 @@ public:
             && yasf::math::double_eq(m_data[1], 0.0);
     }
 
-    friend auto operator<<(std::ostream& stream, const Vec2d& vec)
-        -> std::ostream&
+    friend auto operator<<(std::ostream& stream,
+                           const Vec2d& vec) -> std::ostream&
     {
         stream << '{' << vec.x() << "}, {" << vec.y() << '}';
         return stream;
