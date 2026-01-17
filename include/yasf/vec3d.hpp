@@ -40,14 +40,14 @@ public:
     {
         return yasf::math::double_eq(m_data[0], data[0])
             && yasf::math::double_eq(m_data[1], data[1])
-            && yasf::math::double_eq(m_data[1], data[1]);
+            && yasf::math::double_eq(m_data[2], data[2]);
     }
 
     constexpr auto operator!=(VecType data) const -> bool
     {
         return yasf::math::double_ne(m_data[0], data[0])
             && yasf::math::double_ne(m_data[1], data[1])
-            && yasf::math::double_ne(m_data[1], data[1]);
+            && yasf::math::double_ne(m_data[2], data[2]);
     }
 
     constexpr auto x() const -> double { return m_data[0]; }
