@@ -12,22 +12,26 @@
 namespace
 {
 
-struct ProcessorVisitor : public yasf::ObjectVisitor
+struct ProcessorVisitor : yasf::ObjectVisitor
 {
     explicit ProcessorVisitor(yasf::Event* evt)
-        : m_event{evt}
+        : event{evt}
     {
     }
 
-    void visit(yasf::Object* obj) override
+    void apply(yasf::Object& obj) override
     {
-        if (auto* proc = dynamic_cast<yasf::EventProcessor*>(obj)) {
+        if (auto* proc = dynamic_cast<yasf::EventProcessor*>(&obj);
+            proc != nullptr)
+        {
             yasf::log::info("updating {}", proc->name());
-            proc->on_event(m_event);
+            proc->on_event(event);
         }
+
+        traverse(obj);
     }
 
-    yasf::Event* m_event{};
+    yasf::Event* event{};
 };
 
 }  // namespace

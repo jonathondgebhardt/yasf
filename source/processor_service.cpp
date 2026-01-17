@@ -10,13 +10,16 @@
 namespace
 {
 
-struct ProcessorVisitor : public yasf::ObjectVisitor
+struct ProcessorVisitor : yasf::ObjectVisitor
 {
-    void visit(yasf::Object* obj) override
+    void apply(yasf::Object& obj) override
     {
-        if (auto* proc = dynamic_cast<yasf::Processor*>(obj)) {
+        if (auto* proc = dynamic_cast<yasf::Processor*>(&obj); proc != nullptr)
+        {
             proc->update();
         }
+
+        traverse(obj);
     }
 };
 

@@ -111,24 +111,27 @@ auto Object::remove_component(std::string_view name) -> bool
 
 auto Object::accept(ObjectVisitor& visitor) -> void
 {
-    visitor.visit(this);
+    // visitor.visit(this);
 
-    // ~5.41 s
-    // std::ranges::for_each(m_children,
-    //                       [&](auto&& child) { child->accept(visitor); });
+    // for (auto i = 0u; i < num_children(); ++i) {
+    //     get_child(i)->accept(visitor);
+    // }
 
-    // ~2.89 ms
+    visitor.apply(*this);
+}
+
+auto Object::traverse(ObjectVisitor& visitor) const -> void
+{
     for (auto i = 0u; i < num_children(); ++i) {
         get_child(i)->accept(visitor);
     }
+}
 
-    // ~12.4 s
-    // for (auto* child : m_children
-    //         | std::views::transform([](const std::unique_ptr<Object>& child)
-    //                                 { return child.get(); }))
-    //{
-    //    child->accept(visitor);
-    //}
+auto Object::ascend(ObjectVisitor& visitor) const -> void
+{
+    if (m_parent != nullptr) {
+        m_parent->accept(visitor);
+    }
 }
 
 auto Object::set_meta_data(std::string_view key, std::any meta_data) -> void

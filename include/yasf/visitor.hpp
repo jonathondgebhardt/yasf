@@ -14,14 +14,32 @@ class Object;
 class YASF_EXPORT ObjectVisitor
 {
 public:
+    enum class TraversalMode
+    {
+        NONE,
+        PARENTS,
+        CHILDREN
+    };
+
     ObjectVisitor() = default;
+
+    ObjectVisitor(TraversalMode traversal_mode)
+        : m_traversal_mode{traversal_mode}
+    {
+    }
+
     ObjectVisitor(const ObjectVisitor&) = default;
     ObjectVisitor(ObjectVisitor&&) noexcept = default;
     virtual ~ObjectVisitor() = default;
     auto operator=(const ObjectVisitor&) -> ObjectVisitor& = default;
     auto operator=(ObjectVisitor&&) noexcept -> ObjectVisitor& = default;
 
-    virtual auto visit(Object*) -> void = 0;
+    auto traverse(Object& obj) -> void;
+
+    virtual auto apply(Object& obj) -> void { traverse(obj); }
+
+private:
+    TraversalMode m_traversal_mode = TraversalMode::CHILDREN;
 };
 
 }  // namespace yasf

@@ -12,19 +12,20 @@
 namespace
 {
 
-struct MoverVisitor : public yasf::ObjectVisitor
+struct MoverVisitor : yasf::ObjectVisitor
 {
-    void visit(yasf::Object* obj) override
+    void apply(yasf::Object& obj) override
     {
-        auto* ent = dynamic_cast<yasf::Entity*>(obj);
-        if (ent != nullptr) {
+        if (auto* ent = dynamic_cast<yasf::Entity*>(&obj); ent != nullptr) {
             move_entity(ent);
         }
+
+        traverse(obj);
     }
 
-    auto move_entity(yasf::Entity* entity) const -> void
+    auto move_entity(const yasf::Entity* entity) const -> void
     {
-        yasf::Ensure(m_clock != nullptr, "failed to access clock");
+        yasf::Ensure(clock != nullptr, "failed to access clock");
 
         auto* const acc = entity->get_component<yasf::Acceleration>();
         if (acc == nullptr) {
@@ -41,12 +42,12 @@ struct MoverVisitor : public yasf::ObjectVisitor
             return;
         }
 
-        auto const delta_time = m_clock->delta<yasf::time::Seconds>();
+        auto const delta_time = clock->delta<yasf::time::Seconds>();
         vel->get() += acc->get() * delta_time.count();
         pos->get() += vel->get() * delta_time.count();
     }
 
-    yasf::Clock* m_clock{};
+    yasf::Clock* clock{};
 };
 
 }  // namespace
@@ -56,17 +57,15 @@ namespace yasf
 
 auto Mover::update() -> void
 {
-    auto* const esvc = get_entity_service();
-    Ensure(esvc != nullptr, "failed to get entity_service");
+    auto* const svc = get_entity_service();
+    Ensure(svc != nullptr, "failed to get entity_service");
 
     auto* const clock = get_clock();
     auto visitor = MoverVisitor{};
-
-    // TODO: used designated initializer
-    visitor.m_clock = clock;
+    visitor.clock = clock;
 
     // TODO: how do i know which entities to get? should they be tagged somehow?
-    esvc->accept(visitor);
+    svc->accept(visitor);
 }
 
 }  // namespace yasf

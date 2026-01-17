@@ -9,25 +9,42 @@
 namespace
 {
 
-struct ObjectCountingVisitor : public yasf::ObjectVisitor
+struct ObjectCountingVisitor : yasf::ObjectVisitor
 {
-    void visit([[maybe_unused]] yasf::Object* obj) override { ++m_count; }
+    explicit ObjectCountingVisitor(const TraversalMode traversal_mode)
+        : ObjectVisitor{traversal_mode}
+    {
+    }
 
-    std::uint64_t m_count{};
+    void apply(yasf::Object& obj) override
+    {
+        ++count;
+
+        // if maximum_depth is not set, continue traversing.
+        // this is kind of sneaky and probably should be in its own class, but
+        // i'm lazy.
+        if (count < maximum_depth.value_or(count + 1)) {
+            traverse(obj);
+        }
+    }
+
+    std::size_t count{};
+    std::optional<std::size_t> maximum_depth;
 };
 
 }  // namespace
 
-TEST_CASE("object_visitor", "[visitor]")
+TEST_CASE("object_visitor: traverse children", "[visitor]")
 {
     auto obj = yasf::Object{};
-    auto visitor = ObjectCountingVisitor{};
+    auto visitor =
+        ObjectCountingVisitor{yasf::ObjectVisitor::TraversalMode::CHILDREN};
 
     SECTION("single object")
     {
         // object
         obj.accept(visitor);
-        CHECK(visitor.m_count == 1);
+        CHECK(visitor.count == 1);
     }
 
     REQUIRE(obj.add_child<yasf::Object>());
@@ -37,7 +54,7 @@ TEST_CASE("object_visitor", "[visitor]")
         // object
         // - object
         obj.accept(visitor);
-        CHECK(visitor.m_count == 2);
+        CHECK(visitor.count == 2);
     }
 
     REQUIRE(obj.add_child<yasf::Object>());
@@ -49,7 +66,7 @@ TEST_CASE("object_visitor", "[visitor]")
         // - object
 
         obj.accept(visitor);
-        CHECK(visitor.m_count == 3);
+        CHECK(visitor.count == 3);
     }
 
     auto* child = obj.get_child<yasf::Object>();
@@ -64,7 +81,19 @@ TEST_CASE("object_visitor", "[visitor]")
         // - object
 
         obj.accept(visitor);
-        CHECK(visitor.m_count == 4);
+        CHECK(visitor.count == 4);
+    }
+
+    SECTION("deeply nested, stop early")
+    {
+        // object
+        // - object
+        //	  - object
+        // - object
+        visitor.maximum_depth = 2;
+
+        obj.accept(visitor);
+        CHECK(visitor.count == 2);
     }
 
     SECTION("visit child of root")
@@ -72,6 +101,81 @@ TEST_CASE("object_visitor", "[visitor]")
         // object
         // - object
         child->accept(visitor);
-        CHECK(visitor.m_count == 2);
+        CHECK(visitor.count == 2);
+    }
+}
+
+TEST_CASE("object_visitor: traverse parents", "[visitor]")
+{
+    auto obj = yasf::Object{};
+    auto visitor =
+        ObjectCountingVisitor{yasf::ObjectVisitor::TraversalMode::PARENTS};
+
+    SECTION("single object")
+    {
+        // object
+        obj.accept(visitor);
+        CHECK(visitor.count == 1);
+    }
+
+    REQUIRE(obj.add_child<yasf::Object>());
+
+    SECTION("nested object, traverse from root")
+    {
+        // object
+        // - object
+        obj.accept(visitor);
+        CHECK(visitor.count == 1);
+    }
+
+    SECTION("nested object, traverse from leaf")
+    {
+        // object
+        // - object
+        obj.get_child<yasf::Object>()->accept(visitor);
+        CHECK(visitor.count == 2);
+    }
+
+    REQUIRE(obj.add_child<yasf::Object>());
+
+    SECTION("nested siblings")
+    {
+        // object
+        // - object
+        // - object
+
+        for (const auto& child : obj.get_children()) {
+            child->accept(visitor);
+            CHECK(visitor.count == 2);
+
+            visitor.count = 0;
+        }
+    }
+
+    auto* child = obj.get_child<yasf::Object>();
+    REQUIRE(child != nullptr);
+    REQUIRE(child->add_child<yasf::Object>());
+
+    SECTION("deeply nested")
+    {
+        // object
+        // - object
+        //	  - object
+        // - object
+
+        child->get_child<yasf::Object>()->accept(visitor);
+        CHECK(visitor.count == 3);
+    }
+
+    SECTION("deeply nested, stop early")
+    {
+        // object
+        // - object
+        //	  - object
+        // - object
+        visitor.maximum_depth = 2;
+
+        child->get_child<yasf::Object>()->accept(visitor);
+        CHECK(visitor.count == 2);
     }
 }
