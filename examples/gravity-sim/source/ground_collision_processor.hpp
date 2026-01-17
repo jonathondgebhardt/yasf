@@ -11,15 +11,17 @@ struct GroundCollisionProcessor : yasf::Processor
 {
     struct FindGroundObjectVisitor : yasf::ObjectVisitor
     {
-        auto visit(yasf::Object* obj) -> void override
+        auto apply(yasf::Object& obj) -> void override
         {
-            if (obj != nullptr
-                && obj->meta_data<std::string>("display_name")
-                        .value_or(std::string{})
-                    == "ground")
+            if (obj.meta_data<std::string>("display_name")
+                    .value_or(std::string{})
+                != "ground")
             {
-                ground = obj;
+                traverse(obj);
+                return;
             }
+
+            ground = &obj;
         }
 
         yasf::Object* ground{};
@@ -35,26 +37,31 @@ struct GroundCollisionProcessor : yasf::Processor
             return lhs.y() >= rhs.y();
         }
 
-        auto visit(yasf::Object* obj) -> void override
+        auto apply(yasf::Object& obj) -> void override
         {
-            if (obj == nullptr || obj == collider) {
+            if (&obj == collider) {
+                traverse(obj);
                 return;
             }
 
-            auto* const pos_collidee = obj->get_component<yasf::Position>();
+            auto* const pos_collidee = obj.get_component<yasf::Position>();
             if (pos_collidee == nullptr) {
+                traverse(obj);
                 return;
             }
 
             auto* const pos_collider =
                 collider->get_component<yasf::Position>();
             if (pos_collider == nullptr) {
+                traverse(obj);
                 return;
             }
 
             if (overlap(pos_collidee->get(), pos_collider->get())) {
-                collidees.push_back(obj);
+                collidees.push_back(&obj);
             }
+
+            traverse(obj);
         }
 
         yasf::Object* collider{};

@@ -21,7 +21,7 @@ struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
 
     auto update() -> void override
     {
-        const auto pos_vec = ground->get_component<yasf::Position>()->get();
+        const auto& pos_vec = ground->get_component<yasf::Position>()->get();
         const auto vec = sf::Vector2f{static_cast<float>(pos_vec.x()),
                                       static_cast<float>(pos_vec.y())};
         m_drawable.setPosition(vec);
@@ -29,15 +29,17 @@ struct GroundDrawable : yasf::viewer::SfDrawable<sf::RectangleShape>
 
     struct EntityVisitor : yasf::ObjectVisitor
     {
-        auto visit(yasf::Object* obj) -> void override
+        auto apply(yasf::Object& obj) -> void override
         {
-            if (obj != nullptr
-                && obj->meta_data<std::string>("display_name")
-                        .value_or(std::string{})
-                    == "ground")
+            if (obj.meta_data<std::string>("display_name")
+                    .value_or(std::string{})
+                != "ground")
             {
-                ground = obj;
+                traverse(obj);
+                return;
             }
+
+            ground = &obj;
         }
 
         yasf::Object* ground{};
