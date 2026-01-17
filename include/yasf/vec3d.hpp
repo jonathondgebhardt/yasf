@@ -14,6 +14,8 @@ namespace yasf
 class YASF_EXPORT Vec3d
 {
 public:
+    using VecType = std::array<double, 3>;
+
     constexpr Vec3d() = default;
 
     explicit constexpr Vec3d(double scalar)  // NOLINT
@@ -26,7 +28,7 @@ public:
     {
     }
 
-    explicit constexpr Vec3d(std::array<double, 3> data)
+    explicit constexpr Vec3d(VecType data)
         : m_data{data}
     {
     }
@@ -34,14 +36,14 @@ public:
     constexpr auto operator==(const Vec3d&) const -> bool = default;
     constexpr auto operator!=(const Vec3d&) const -> bool = default;
 
-    constexpr auto operator==(std::array<double, 3> data) const -> bool
+    constexpr auto operator==(VecType data) const -> bool
     {
         return yasf::math::double_eq(m_data[0], data[0])
             && yasf::math::double_eq(m_data[1], data[1])
             && yasf::math::double_eq(m_data[1], data[1]);
     }
 
-    constexpr auto operator!=(std::array<double, 3> data) const -> bool
+    constexpr auto operator!=(VecType data) const -> bool
     {
         return yasf::math::double_ne(m_data[0], data[0])
             && yasf::math::double_ne(m_data[1], data[1])
@@ -205,7 +207,7 @@ public:
 
 private:
     YASF_SUPPRESS_C4251
-    std::array<double, 3> m_data{};
+    VecType m_data{};
 };
 
 }  // namespace yasf
