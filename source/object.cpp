@@ -111,12 +111,6 @@ auto Object::remove_component(std::string_view name) -> bool
 
 auto Object::accept(ObjectVisitor& visitor) -> void
 {
-    // visitor.visit(this);
-
-    // for (auto i = 0u; i < num_children(); ++i) {
-    //     get_child(i)->accept(visitor);
-    // }
-
     visitor.apply(*this);
 }
 
