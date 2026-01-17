@@ -163,7 +163,6 @@ public:
     }
 
     auto accept(ObjectVisitor& visitor) -> void;
-    auto accept(ComponentVisitor& visitor) -> void;
 
     template<typename T>
     auto meta_data(std::string_view key) -> std::optional<T>

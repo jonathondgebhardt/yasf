@@ -47,8 +47,6 @@ public:
      */
     auto parent() const -> Object* { return m_parent; }
 
-    auto accept(ComponentVisitor& visitor) -> void;
-
 protected:
     /**
      * @brief Initializes the name of this component.

@@ -131,15 +131,6 @@ auto Object::accept(ObjectVisitor& visitor) -> void
     //}
 }
 
-auto Object::accept(ComponentVisitor& visitor) -> void
-{
-    std::ranges::for_each(
-        m_components, [&](auto&& component) { component->accept(visitor); });
-
-    std::ranges::for_each(m_children,
-                          [&](auto&& child) { child->accept(visitor); });
-}
-
 auto Object::set_meta_data(std::string_view key, std::any meta_data) -> void
 {
     m_meta_data[key] = std::move(meta_data);

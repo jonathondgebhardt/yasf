@@ -24,19 +24,4 @@ public:
     virtual auto visit(Object*) -> void = 0;
 };
 
-class Component;
-
-class YASF_EXPORT ComponentVisitor
-{
-public:
-    ComponentVisitor() = default;
-    ComponentVisitor(const ComponentVisitor&) = default;
-    ComponentVisitor(ComponentVisitor&&) noexcept = default;
-    virtual ~ComponentVisitor() = default;
-    auto operator=(const ComponentVisitor&) -> ComponentVisitor& = default;
-    auto operator=(ComponentVisitor&&) noexcept -> ComponentVisitor& = default;
-
-    virtual auto visit(Component*) -> void = 0;
-};
-
 }  // namespace yasf
