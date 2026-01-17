@@ -216,7 +216,7 @@ TEST_CASE("vec3d: zero")
 {
     auto vec = yasf::Vec3d{1.0, 2.0, 3.0};  // NOLINT
     vec.zero();
-    REQUIRE(vec == yasf::Vec3d{0.0});
+    REQUIRE(vec == yasf::Vec3d{});
 }
 
 TEST_CASE("vec3d: is_zero")
@@ -224,5 +224,5 @@ TEST_CASE("vec3d: is_zero")
     auto vec = yasf::Vec3d{1.0, 2.0, 3.0};  // NOLINT
     REQUIRE_FALSE(vec.is_zero());
     vec.zero();
-    REQUIRE(vec == yasf::Vec3d{0.0});
+    REQUIRE(vec == yasf::Vec3d{});
 }
