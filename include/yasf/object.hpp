@@ -54,7 +54,7 @@ public:
     /**
      * @brief Adds the child to this object.
      * If child is null, this function returns false. If the child already has a
-     * parent, this function returns null.
+     * parent, this function returns false.
      * @param child The child to add.
      * @return Whether the child was added.
      */
