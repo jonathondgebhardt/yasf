@@ -22,7 +22,21 @@ public:
     explicit CompositeNode(CompositeNodeType type)
         : m_type{type}
     {
-        set_name("composite_node");
+    }
+
+    auto node_type() const -> std::string_view override
+    {
+        switch (m_type) {
+            using enum CompositeNodeType;
+            case SEQUENCE:
+                return "composite_node: sequence";
+            case SELECTOR:
+                return "composite_node: selector";
+            case UNKNOWN:
+                return "composite_node: unknown";
+        }
+
+        return BehaviorTree::Node::node_type();
     }
 
     // todo: should probably return a pair of NodeStatus and Node so

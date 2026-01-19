@@ -2,8 +2,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("leaf node: name", "[library][behavior_tree]")
+TEST_CASE("leaf node: node_type", "[library][behavior_tree]")
 {
     const auto node = yasf::LeafNode{};
-    REQUIRE(node.name() == "leaf_node");
+    REQUIRE(node.node_type() == "leaf_node");
 }

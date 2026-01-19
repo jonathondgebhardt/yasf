@@ -37,6 +37,8 @@ public:
 
         virtual auto evaluate() -> NodeStatus = 0;
 
+        virtual auto node_type() const -> std::string_view { return "unknown"; }
+
         auto set_name(std::string name) -> void { m_name = std::move(name); }
 
         auto name() const -> std::string_view { return m_name; }

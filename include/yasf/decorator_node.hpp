@@ -12,7 +12,10 @@ namespace yasf
 class DecoratorNode : public BehaviorTree::Node
 {
 public:
-    DecoratorNode() { set_name("decorator_node"); }
+    auto node_type() const -> std::string_view override
+    {
+        return "decorator_node";
+    }
 
     auto evaluate() -> BehaviorTree::NodeStatus override;
 

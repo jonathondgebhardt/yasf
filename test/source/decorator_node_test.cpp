@@ -2,8 +2,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("decorator node: name", "[library][behavior_tree]")
+TEST_CASE("decorator node: node_type", "[library][behavior_tree]")
 {
     const auto node = yasf::DecoratorNode{};
-    REQUIRE(node.name() == "decorator_node");
+    REQUIRE(node.node_type() == "decorator_node");
 }

@@ -8,7 +8,7 @@ namespace yasf
 class LeafNode : public BehaviorTree::Node
 {
 public:
-    LeafNode() { set_name("leaf_node"); }
+    auto node_type() const -> std::string_view override { return "leaf_node"; }
 
     auto evaluate() -> BehaviorTree::NodeStatus override;
 

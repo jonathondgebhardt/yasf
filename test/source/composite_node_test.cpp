@@ -7,11 +7,21 @@
 #include "yasf/behavior_tree.hpp"
 #include "yasf/leaf_node.hpp"
 
-TEST_CASE("composite node: name", "[library][behavior_tree]")
+TEST_CASE("composite node: node_type", "[library][behavior_tree]")
 {
-    const auto node =
-        yasf::CompositeNode{yasf::CompositeNode::CompositeNodeType::SEQUENCE};
-    REQUIRE(node.name() == "composite_node");
+    SECTION("sequence")
+    {
+        const auto node = yasf::CompositeNode{
+            yasf::CompositeNode::CompositeNodeType::SEQUENCE};
+        REQUIRE(node.node_type() == "composite_node: sequence");
+    }
+
+    SECTION("selector")
+    {
+        const auto node = yasf::CompositeNode{
+            yasf::CompositeNode::CompositeNodeType::SELECTOR};
+        REQUIRE(node.node_type() == "composite_node: selector");
+    }
 }
 
 struct FailingLeafNode : yasf::LeafNode
