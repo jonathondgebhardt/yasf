@@ -44,12 +44,26 @@ public:
     // i think the idea is that a running node would continue evaluating on the
     // next tick until it returns SUCCESS or FAILURE, but how do i go back to
     // that node in the tree to resume evaluation?
+
+    /*
+     * \brief Evaluates children nodes depending on CompositeNodeType.
+     * \return Aggregated NodeStatus of children nodes.
+     */
     auto evaluate() -> BehaviorTree::NodeStatus override;
 
     auto add_node(std::unique_ptr<BehaviorTree::Node> node) -> void;
 
 private:
+    /*
+     * \brief Requires that all nodes return SUCCESS.
+     * \return Aggregated NodeStatus of children nodes.
+     */
     auto evaluate_sequence() -> BehaviorTree::NodeStatus;
+
+    /*
+     * \brief Requires that at least one node returns SUCCESS.
+     * \return Aggregated NodeStatus of children nodes.
+     */
     auto evaluate_selector() -> BehaviorTree::NodeStatus;
 
     YASF_SUPPRESS_C4251

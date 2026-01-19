@@ -8,8 +8,6 @@
 #include "yasf/component.hpp"
 #include "yasf/yasf_export.hpp"
 
-// leaf
-
 namespace yasf
 {
 
