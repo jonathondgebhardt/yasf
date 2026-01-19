@@ -17,9 +17,12 @@ include(cmake/variables.cmake)
 
 add_library(
 	yasf_yasf
+	source/behavior_tree.cpp
 	source/clock.cpp
 	source/clock_factory.cpp
 	source/component.cpp
+	source/composite_node.cpp
+	source/decorator_node.cpp
 	source/entity.cpp
 	source/entity_factory.cpp
 	source/event_processor.cpp
@@ -27,6 +30,7 @@ add_library(
 	source/event_simulation.cpp
 	source/event_simulation_factory.cpp
 	source/fixed_time_updater.cpp
+	source/leaf_node.cpp
 	source/mover.cpp
 	source/object.cpp
 	source/object_factory.cpp

@@ -19,10 +19,13 @@ include(Catch)
 
 add_executable(
 	yasf_test
+	source/behavior_tree_test.cpp
 	source/clock_factory_test.cpp
 	source/clock_test.cpp
 	source/component_test.cpp
+	source/composite_node_test.cpp
 	source/convert_test.cpp
+	source/decorator_node_test.cpp
 	source/ensure_test.cpp
 	source/entity_factory_test.cpp
 	source/entity_service_test.cpp
@@ -34,6 +37,7 @@ add_executable(
 	source/event_test.cpp
 	source/external_time_updater_test.cpp
 	source/fixed_time_updater_test.cpp
+	source/leaf_node_test.cpp
 	source/mover_test.cpp
 	source/object_factory_test.cpp
 	source/object_test.cpp
