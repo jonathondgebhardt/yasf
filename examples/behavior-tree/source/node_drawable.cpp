@@ -6,14 +6,22 @@
 
 #include "drawable.hpp"
 #include "yasf/behavior_tree.hpp"
+#include "yasf/composite_node.hpp"
+#include "yasf/decorator_node.hpp"
+#include "yasf/leaf_node.hpp"
 
 NodeDrawable::NodeDrawable(yasf::BehaviorTree::Node* node, sf::Font font)
     : Drawable{}
     , m_rectangle{{200.0f, 100.0f}}
     , m_font{std::move(font)}
-    , m_text{m_font}
+    , m_text{m_font, "unknown"}
     , m_node{node}
 {
+    m_rectangle.setFillColor(sf::Color::Blue);
+    m_rectangle.setPosition({300.0f, 250.0f});
+
+    m_text.setCharacterSize(24);
+    m_text.setFillColor(sf::Color::White);
 }
 
 auto NodeDrawable::draw() -> void
@@ -27,17 +35,34 @@ auto NodeDrawable::draw() -> void
     window_handle->draw(m_text);
 }
 
+auto NodeDrawable::set_position(sf::Vector2f position) -> void
+{
+    m_rectangle.setPosition(position);
+}
+
+auto NodeDrawable::set_character_size(unsigned int size) -> void
+{
+    m_text.setCharacterSize(size);
+}
+
 auto NodeDrawable::update_rectangle() -> void
 {
-    m_rectangle.setFillColor(sf::Color::Blue);
-    m_rectangle.setPosition({300.0f, 250.0f});
+    if (dynamic_cast<yasf::CompositeNode*>(m_node) != nullptr) {
+        m_rectangle.setFillColor(sf::Color::Red);
+    } else if (dynamic_cast<yasf::DecoratorNode*>(m_node) != nullptr) {
+        m_rectangle.setFillColor(sf::Color::Green);
+    } else if (dynamic_cast<yasf::LeafNode*>(m_node) != nullptr) {
+        m_rectangle.setFillColor(sf::Color::Blue);
+    } else {
+        m_rectangle.setFillColor(sf::Color::Black);
+    }
 }
 
 auto NodeDrawable::update_text() -> void
 {
-    m_text.setString("hello world :)");
-    m_text.setCharacterSize(24);
-    m_text.setFillColor(sf::Color::White);
+    if (m_node != nullptr) {
+        m_text.setString(std::string{m_node->node_type()});
+    }
 }
 
 auto NodeDrawable::center_text_in_rectangle() -> void

@@ -14,6 +14,9 @@ public:
 
     auto draw() -> void override;
 
+    auto set_position(sf::Vector2f position) -> void;
+    auto set_character_size(unsigned int size) -> void;
+
 private:
     auto update_rectangle() -> void;
     auto update_text() -> void;
