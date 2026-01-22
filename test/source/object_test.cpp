@@ -143,6 +143,18 @@ TEST_CASE("object: remove_child", "[library]")
     }
 }
 
+TEST_CASE("object: num_children", "[library]")
+{
+    auto obj = yasf::Object{};
+    CHECK(obj.num_children() == std::size_t{0});
+
+    REQUIRE(obj.add_child<yasf::Object>());
+    CHECK(obj.num_children() == std::size_t{1});
+
+    REQUIRE(obj.remove_child("object"));
+    CHECK(obj.num_children() == std::size_t{0});
+}
+
 TEST_CASE("object: add_component", "[library]")
 {
     auto obj = yasf::Object{};
