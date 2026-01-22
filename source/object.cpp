@@ -61,7 +61,7 @@ auto Object::get_child(const yasf::Uuid& uid) const -> Object*
 
 auto Object::get_child(const std::size_t index) const -> Object*
 {
-    if (index > m_children.size()) {
+    if (index >= m_children.size()) {
         return {};
     }
 
