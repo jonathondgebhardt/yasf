@@ -155,6 +155,44 @@ TEST_CASE("object: num_children", "[library]")
     CHECK(obj.num_children() == std::size_t{0});
 }
 
+// NOLINTBEGIN(readability-function-cognitive-complexity)
+TEST_CASE("object: child iterator", "[library]")
+{
+    auto root = yasf::Object{};
+
+    const auto iterate_and_count_children =
+        [](const yasf::Object& obj) -> std::size_t
+    {
+        auto count = std::size_t{};
+
+        for (auto it = obj.children_begin(); it != obj.children_end(); ++it) {
+            ++count;
+        }
+
+        return count;
+    };
+
+    CHECK(iterate_and_count_children(root) == std::size_t{0});
+
+    REQUIRE(root.add_child<yasf::Object>());
+    CHECK(iterate_and_count_children(root) == std::size_t{1});
+
+    SECTION("nested")
+    {
+        auto* const child = root.get_child(std::size_t{0});
+        REQUIRE(child != nullptr);
+        REQUIRE(child->add_child<yasf::Object>());
+
+        CHECK(iterate_and_count_children(root) == std::size_t{1});
+        CHECK(iterate_and_count_children(*child) == std::size_t{1});
+    }
+
+    root.remove_child("object");
+    CHECK(iterate_and_count_children(root) == std::size_t{0});
+}
+
+// NOLINTEND(readability-function-cognitive-complexity)
+
 TEST_CASE("object: add_component", "[library]")
 {
     auto obj = yasf::Object{};
