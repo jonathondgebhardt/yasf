@@ -1,5 +1,8 @@
 #pragma once
 
+#include <memory>
+#include <vector>
+
 #include "yasf/behavior_tree.hpp"
 #include "yasf/yasf_export.hpp"
 
@@ -19,9 +22,15 @@ public:
 
     auto evaluate() -> BehaviorTree::NodeStatus override;
 
+    auto add_node(std::unique_ptr<BehaviorTree::Node> node) -> void;
+
+    auto num_nodes() const -> std::size_t { return m_nodes.size(); }
+
+    auto get_node(std::size_t index) -> Node*;
+
 private:
     YASF_SUPPRESS_C4251
-    std::vector<BehaviorTree::Node> m_nodes;
+    std::vector<std::unique_ptr<BehaviorTree::Node>> m_nodes;
 };
 
 }  // namespace yasf

@@ -32,6 +32,15 @@ auto CompositeNode::add_node(std::unique_ptr<BehaviorTree::Node> node) -> void
     m_nodes.push_back(std::move(node));
 }
 
+auto CompositeNode::get_node(std::size_t index) -> Node*
+{
+    if (index >= m_nodes.size()) {
+        return {};
+    }
+
+    return m_nodes[index].get();
+}
+
 auto CompositeNode::evaluate_sequence() -> BehaviorTree::NodeStatus
 {
     if (m_nodes.empty()) {

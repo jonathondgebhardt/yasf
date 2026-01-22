@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -47,9 +48,20 @@ public:
 
     BehaviorTree();
 
+    auto add_node(std::unique_ptr<Node> node)
+    {
+        m_nodes.push_back(std::move(node));
+    }
+
+    auto num_nodes() const -> std::size_t { return m_nodes.size(); }
+
+    auto get_node(std::size_t index) -> Node*;
+
+    auto evaluate() -> void;
+
 private:
     YASF_SUPPRESS_C4251
-    std::vector<Node> m_nodes;
+    std::vector<std::unique_ptr<Node>> m_nodes;
 };
 
 }  // namespace yasf

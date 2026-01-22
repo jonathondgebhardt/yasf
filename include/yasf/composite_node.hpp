@@ -53,6 +53,10 @@ public:
 
     auto add_node(std::unique_ptr<BehaviorTree::Node> node) -> void;
 
+    auto num_nodes() const -> std::size_t { return m_nodes.size(); }
+
+    auto get_node(std::size_t index) -> Node*;
+
 private:
     /*
      * \brief Requires that all nodes return SUCCESS.
