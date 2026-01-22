@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <memory>
 #include <string>
 
@@ -42,20 +43,66 @@ TEST_CASE("object: add_child", "[library]")
 TEST_CASE("object: get_child", "[library]")
 {
     auto obj = yasf::Object{};
-    REQUIRE(obj.add_child(std::make_unique<yasf::Object>()));
 
-    SECTION("name")
+    SECTION("no children")
     {
-        auto* const child = obj.get_child("object");
-        REQUIRE(child != nullptr);
-        REQUIRE(child->parent() != nullptr);
+        SECTION("valid name")
+        {
+            CHECK(obj.get_child("object") == nullptr);
+        }
+
+        SECTION("invalid name")
+        {
+            CHECK(obj.get_child("foo") == nullptr);
+        }
+
+        SECTION("templated")
+        {
+            CHECK(obj.get_child<yasf::Object>() == nullptr);
+        }
+
+        SECTION("invalid index")
+        {
+            CHECK(obj.get_child(std::size_t{0}) == nullptr);
+        }
     }
 
-    SECTION("templated")
+    REQUIRE(obj.add_child(std::make_unique<yasf::Object>()));
+
+    SECTION("one child")
     {
-        auto* const child = obj.get_child<yasf::Object>();
-        REQUIRE(child != nullptr);
-        REQUIRE(child->parent() != nullptr);
+        SECTION("valid name")
+        {
+            auto* const child = obj.get_child("object");
+            REQUIRE(child != nullptr);
+            CHECK(child->parent() != nullptr);
+        }
+
+        SECTION("wrong name")
+        {
+            CHECK(obj.get_child("foo") == nullptr);
+        }
+
+        SECTION("valid templated")
+        {
+            auto* const child = obj.get_child<yasf::Object>();
+            REQUIRE(child != nullptr);
+            CHECK(child->parent() != nullptr);
+        }
+
+        // todo: wrong type
+
+        SECTION("valid index")
+        {
+            auto* const child = obj.get_child(std::size_t{0});
+            REQUIRE(child != nullptr);
+            CHECK(child->parent() != nullptr);
+        }
+
+        SECTION("invalid index")
+        {
+            CHECK(obj.get_child(std::size_t{1}) == nullptr);
+        }
     }
 }
 
