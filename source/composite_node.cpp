@@ -49,7 +49,8 @@ auto CompositeNode::evaluate_sequence() -> BehaviorTree::NodeStatus
     }
 
     return std::ranges::all_of(m_nodes,
-                               [](auto&& node) {
+                               [](const auto& node)
+                               {
                                    return node->evaluate()
                                        == BehaviorTree::NodeStatus::SUCCESS;
                                })
@@ -64,7 +65,8 @@ auto CompositeNode::evaluate_selector() -> BehaviorTree::NodeStatus
     }
 
     return std::ranges::any_of(m_nodes,
-                               [](auto&& node) {
+                               [](const auto& node)
+                               {
                                    return node->evaluate()
                                        == BehaviorTree::NodeStatus::SUCCESS;
                                })

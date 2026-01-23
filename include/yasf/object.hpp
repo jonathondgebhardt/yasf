@@ -79,7 +79,7 @@ public:
         const auto& container = m_children;
         const auto found = std::ranges::find_if(
             container,
-            [](auto&& child)
+            [](const auto& child)
             { return dynamic_cast<T*>(child.get()) != nullptr; });
 
         return found != container.end() ? dynamic_cast<T*>(found->get())
@@ -112,7 +112,7 @@ public:
         auto& container = m_children;
         const auto found =
             std::erase_if(container,
-                          [](auto&& child)
+                          [](const auto& child)
                           { return dynamic_cast<T*>(child.get()) != nullptr; });
         return found != std::size_t{0};
     }
@@ -143,7 +143,7 @@ public:
         const auto& container = m_components;
         const auto found = std::ranges::find_if(
             container,
-            [](auto&& child)
+            [](const auto& child)
             { return dynamic_cast<T*>(child.get()) != nullptr; });
 
         return found != container.end() ? dynamic_cast<T*>(found->get())
@@ -159,7 +159,7 @@ public:
         auto& container = m_components;
         const auto found =
             std::erase_if(container,
-                          [](auto&& child)
+                          [](const auto& child)
                           { return dynamic_cast<T*>(child.get()) != nullptr; });
         return found != std::size_t{0};
     }
