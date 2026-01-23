@@ -7,6 +7,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "yasf/component.hpp"
+#include "yasf/uuid.hpp"
 
 TEST_CASE("object: name", "[library]")
 {
@@ -130,16 +131,53 @@ TEST_CASE("object: parent", "[library]")
 TEST_CASE("object: remove_child", "[library]")
 {
     auto obj = yasf::Object{};
-    REQUIRE(obj.add_child<yasf::Object>());
 
-    SECTION("name")
+    SECTION("no children")
     {
-        REQUIRE(obj.remove_child("object"));
+        SECTION("name")
+        {
+            CHECK_FALSE(obj.remove_child("object"));
+        }
+
+        SECTION("templated")
+        {
+            CHECK_FALSE(obj.remove_child<yasf::Object>());
+        }
+
+        SECTION("uuid")
+        {
+            CHECK_FALSE(obj.remove_child(yasf::Uuid{}));
+        }
     }
 
-    SECTION("templated")
+    REQUIRE(obj.add_child<yasf::Object>());
+
+    SECTION("one child")
     {
-        REQUIRE(obj.remove_child<yasf::Object>());
+        SECTION("valid name")
+        {
+            REQUIRE(obj.remove_child("object"));
+        }
+
+        SECTION("invalid name")
+        {
+            REQUIRE(!obj.remove_child("foo"));
+        }
+
+        SECTION("templated")
+        {
+            REQUIRE(obj.remove_child<yasf::Object>());
+        }
+
+        SECTION("valid uuid")
+        {
+            CHECK(obj.remove_child(obj.get_child(std::size_t{0})->uuid()));
+        }
+
+        SECTION("invalid uuid")
+        {
+            CHECK_FALSE(obj.remove_child(yasf::Uuid{}));
+        }
     }
 }
 
