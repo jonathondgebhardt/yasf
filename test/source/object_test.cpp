@@ -254,32 +254,76 @@ TEST_CASE("object: add_component", "[library]")
 TEST_CASE("object: get_component", "[library]")
 {
     auto obj = yasf::Object{};
-    REQUIRE(obj.add_component(std::make_unique<yasf::Component>()));
 
-    SECTION("name")
+    SECTION("no components")
     {
-        REQUIRE(obj.get_component("component") != nullptr);
+        SECTION("name")
+        {
+            CHECK(obj.get_component("component") == nullptr);
+        }
+
+        SECTION("templated")
+        {
+            CHECK(obj.get_component<yasf::Component>() == nullptr);
+        }
     }
 
-    SECTION("valid component")
+    REQUIRE(obj.add_component(std::make_unique<yasf::Component>()));
+
+    SECTION("one component")
     {
-        REQUIRE(obj.get_component<yasf::Component>() != nullptr);
+        SECTION("valid name")
+        {
+            CHECK(obj.get_component("component") != nullptr);
+        }
+
+        SECTION("invalid name")
+        {
+            CHECK(obj.get_component("foo") == nullptr);
+        }
+
+        SECTION("templated")
+        {
+            CHECK(obj.get_component<yasf::Component>() != nullptr);
+        }
     }
 }
 
 TEST_CASE("object: remove_component", "[library]")
 {
     auto obj = yasf::Object{};
-    REQUIRE(obj.add_component<yasf::Component>());
 
-    SECTION("name")
+    SECTION("no components")
     {
-        REQUIRE(obj.remove_component("component"));
+        SECTION("name")
+        {
+            CHECK_FALSE(obj.remove_component("component"));
+        }
+
+        SECTION("templated")
+        {
+            CHECK_FALSE(obj.remove_component<yasf::Component>());
+        }
     }
 
-    SECTION("templated")
+    REQUIRE(obj.add_component<yasf::Component>());
+
+    SECTION("one component")
     {
-        REQUIRE(obj.remove_component<yasf::Component>());
+        SECTION("valid name")
+        {
+            CHECK(obj.remove_component("component"));
+        }
+
+        SECTION("invalid name")
+        {
+            CHECK_FALSE(obj.remove_component("foo"));
+        }
+
+        SECTION("templated")
+        {
+            CHECK(obj.remove_component<yasf::Component>());
+        }
     }
 }
 
