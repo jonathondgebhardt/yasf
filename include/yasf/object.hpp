@@ -103,6 +103,8 @@ public:
 
     auto remove_child(std::string_view name) -> bool;
 
+    auto remove_child(const yasf::Uuid& uuid) -> bool;
+
     template<typename T>
     auto remove_child() -> bool
         requires std::is_base_of_v<Object, T>

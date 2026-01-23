@@ -73,6 +73,13 @@ auto Object::remove_child(std::string_view name) -> bool
     auto& container = m_children;
     const auto found = std::erase_if(
         container, [&](auto&& child) { return child->name() == name; });
+}
+
+auto Object::remove_child(const yasf::Uuid& uuid) -> bool
+{
+    auto& container = m_children;
+    const auto found = std::erase_if(
+        container, [&](const auto& child) { return child->uuid() == uuid; });
     return found != std::size_t{0};
 }
 
