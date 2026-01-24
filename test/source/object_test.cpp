@@ -66,6 +66,11 @@ TEST_CASE("object: get_child", "[library]")
         {
             CHECK(obj.get_child(std::size_t{0}) == nullptr);
         }
+
+        SECTION("uuid")
+        {
+            CHECK(obj.get_child(yasf::Uuid{}) == nullptr);
+        }
     }
 
     REQUIRE(obj.add_child(std::make_unique<yasf::Object>()));
@@ -103,6 +108,18 @@ TEST_CASE("object: get_child", "[library]")
         SECTION("invalid index")
         {
             CHECK(obj.get_child(std::size_t{1}) == nullptr);
+        }
+
+        SECTION("valid uuid")
+        {
+            auto* const child = obj.get_child(std::size_t{0});
+            REQUIRE(child != nullptr);
+            CHECK(obj.get_child(child->uuid()) != nullptr);
+        }
+
+        SECTION("invalid uuid")
+        {
+            CHECK(obj.get_child(yasf::Uuid{}) == nullptr);
         }
     }
 }
