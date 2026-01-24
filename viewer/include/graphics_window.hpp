@@ -4,13 +4,15 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "yasf/viewer/yasf_viewer_export.hpp"
+
 namespace yasf::viewer
 {
 
 /**
  * @brief
  */
-class GraphicsWindow
+class YASF_VIEWER_EXPORT GraphicsWindow
 {
 public:
     struct Config

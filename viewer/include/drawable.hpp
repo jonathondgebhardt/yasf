@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 
 #include "graphics_window.hpp"
+#include "yasf/viewer/yasf_viewer_export.hpp"
 
 namespace yasf::viewer
 {
@@ -10,7 +11,7 @@ namespace yasf::viewer
 /**
  * @brief The drawable item.
  */
-class Drawable
+class YASF_VIEWER_EXPORT Drawable
 {
 public:
     /**

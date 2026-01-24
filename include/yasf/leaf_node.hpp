@@ -5,7 +5,7 @@
 namespace yasf
 {
 
-class LeafNode : public BehaviorTree::Node
+class YASF_EXPORT LeafNode : public BehaviorTree::Node
 {
 public:
     auto node_type() const -> std::string_view override { return "leaf_node"; }

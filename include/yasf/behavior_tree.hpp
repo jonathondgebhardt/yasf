@@ -24,7 +24,7 @@ public:
         RUNNING
     };
 
-    class Node
+    class YASF_EXPORT Node
     {
     public:
         Node() = default;
@@ -43,6 +43,7 @@ public:
         auto name() const -> std::string_view { return m_name; }
 
     private:
+        YASF_SUPPRESS_C4251
         std::string m_name;
     };
 

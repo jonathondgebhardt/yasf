@@ -12,7 +12,7 @@ namespace yasf
 // transform the result they receive from their child node's status, to
 // terminate the child, or repeat processing of the child, depending on the type
 // of decorator node
-class DecoratorNode : public BehaviorTree::Node
+class YASF_EXPORT DecoratorNode : public BehaviorTree::Node
 {
 public:
     auto node_type() const -> std::string_view override

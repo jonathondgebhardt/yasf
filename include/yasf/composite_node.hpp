@@ -9,7 +9,7 @@
 namespace yasf
 {
 
-class CompositeNode : public BehaviorTree::Node
+class YASF_EXPORT CompositeNode : public BehaviorTree::Node
 {
 public:
     enum class CompositeNodeType : std::uint8_t
