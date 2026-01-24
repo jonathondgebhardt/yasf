@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <memory>
 
 #include "yasf/composite_node.hpp"
@@ -31,6 +32,32 @@ struct FailingLeafNode : yasf::LeafNode
         return yasf::BehaviorTree::NodeStatus::FAILURE;
     }
 };
+
+TEST_CASE("composite node: add_node", "[library][behavior_tree]")
+{
+    auto node =
+        yasf::CompositeNode{yasf::CompositeNode::CompositeNodeType::SELECTOR};
+
+    SECTION("no nodes")
+    {
+        CHECK(node.get_node(std::size_t{0}) == nullptr);
+    }
+
+    node.add_node(std::make_unique<FailingLeafNode>());
+
+    SECTION("one node")
+    {
+        SECTION("valid index")
+        {
+            CHECK(node.get_node(std::size_t{0}) != nullptr);
+        }
+
+        SECTION("invalid index")
+        {
+            CHECK(node.get_node(std::size_t{1}) == nullptr);
+        }
+    }
+}
 
 TEST_CASE("composite node: evaluate SEQUENCE", "[library][behavior_tree]")
 {
