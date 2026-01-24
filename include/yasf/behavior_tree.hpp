@@ -49,6 +49,12 @@ public:
 
     BehaviorTree();
 
+    BehaviorTree(const BehaviorTree&) = delete;
+    BehaviorTree(BehaviorTree&&) noexcept = default;
+    ~BehaviorTree() override = default;
+    auto operator=(const BehaviorTree&) -> BehaviorTree& = delete;
+    auto operator=(BehaviorTree&&) noexcept -> BehaviorTree& = default;
+
     auto add_node(std::unique_ptr<Node> node)
     {
         m_nodes.push_back(std::move(node));
