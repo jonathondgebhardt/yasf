@@ -55,7 +55,7 @@ public:
 
     auto num_nodes() const -> std::size_t { return m_nodes.size(); }
 
-    auto get_node(std::size_t index) -> Node*;
+    auto get_node(std::size_t index) const -> Node*;
 
     auto evaluate() -> void;
 

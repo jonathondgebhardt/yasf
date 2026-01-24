@@ -13,7 +13,7 @@ BehaviorTree::BehaviorTree()
 {
 }
 
-auto BehaviorTree::get_node(std::size_t index) -> Node*
+auto BehaviorTree::get_node(std::size_t index) const -> Node*
 {
     if (index >= m_nodes.size()) {
         return {};

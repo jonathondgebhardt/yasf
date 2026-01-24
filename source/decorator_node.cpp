@@ -20,7 +20,7 @@ auto DecoratorNode::add_node(std::unique_ptr<BehaviorTree::Node> node) -> void
     m_nodes.push_back(std::move(node));
 }
 
-auto DecoratorNode::get_node(std::size_t index) -> Node*
+auto DecoratorNode::get_node(std::size_t index) const -> Node*
 {
     if (index >= m_nodes.size()) {
         return {};

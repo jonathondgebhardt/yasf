@@ -33,7 +33,7 @@ auto CompositeNode::add_node(std::unique_ptr<BehaviorTree::Node> node) -> void
     m_nodes.push_back(std::move(node));
 }
 
-auto CompositeNode::get_node(std::size_t index) -> Node*
+auto CompositeNode::get_node(std::size_t index) const -> Node*
 {
     if (index >= m_nodes.size()) {
         return {};
