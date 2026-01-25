@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>yasf::CompositeNode class | yasf</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">yasf</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="about.html">About</a></li>
+              </ol>
+            </li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>CompositeNode <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="composite__node_8hpp.html">&lt;yasf/composite_node.hpp&gt;</a></div>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#base-classes">Base classes</a></li>
+                <li><a href="#pub-types">Public types</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a href="classyasf_1_1BehaviorTree_1_1Node.html" class="m-doc">yasf::BehaviorTree::Node</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-types">
+          <h2><a href="#pub-types">Public types</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">enum class <a href="#a16e74196c9db2eceb7597058d699c77f" class="m-doc">CompositeNodeType</a>: std::uint8_t { </span><span class="m-doc-wrap"><a href="#a16e74196c9db2eceb7597058d699c77fa696b031073e74bf2cb98e5ef201d4aa3" class="m-doc">UNKNOWN</a>,
+              <a href="#a16e74196c9db2eceb7597058d699c77fa2cb198a10d0a4c217ff4c15e98a97215" class="m-doc">SEQUENCE</a>,
+              <a href="#a16e74196c9db2eceb7597058d699c77fa0306d365caace98e8f301b031565521b" class="m-doc">SELECTOR</a> }</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="aaed2bcde5b4fc0fc1a517af131f3286f">
+              <span class="m-doc-wrap-bumper"><a href="#aaed2bcde5b4fc0fc1a517af131f3286f" class="m-doc-self">CompositeNode</a>(</span><span class="m-doc-wrap"><a href="#a16e74196c9db2eceb7597058d699c77f" class="m-doc">CompositeNodeType</a> type) <span class="m-label m-flat m-info">explicit</span> </span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7c6338509f582f1e52d7bc6cd90c2325">
+              <span class="m-doc-wrap-bumper"><a href="#a7c6338509f582f1e52d7bc6cd90c2325" class="m-doc-self">CompositeNode</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-danger">deleted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a43e62c56abdfaa01704c0f247f8b69d0">
+              <span class="m-doc-wrap-bumper"><a href="#a43e62c56abdfaa01704c0f247f8b69d0" class="m-doc-self">CompositeNode</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1CompositeNode.html" class="m-doc">CompositeNode</a>&amp;) <span class="m-label m-flat m-danger">deleted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a723644590e42ce7f03e39581e9f939b0">
+              <span class="m-doc-wrap-bumper"><a href="#a723644590e42ce7f03e39581e9f939b0" class="m-doc-self">CompositeNode</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1CompositeNode.html" class="m-doc">CompositeNode</a>&amp;&amp;) <span class="m-label m-flat m-danger">deleted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a171f0227beb5bbcd8c160f67f4845395">
+              <span class="m-doc-wrap-bumper"><a href="#a171f0227beb5bbcd8c160f67f4845395" class="m-doc-self">~CompositeNode</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="afa756a32927ab90e9dc4e3f995633f41">
+              <span class="m-doc-wrap-bumper">auto <a href="#afa756a32927ab90e9dc4e3f995633f41" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1CompositeNode.html" class="m-doc">CompositeNode</a>&amp;) -&gt; CompositeNode &amp; -&gt; auto <span class="m-label m-flat m-danger">deleted</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5fc5818450ef2e420289ef2049eb5597">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5fc5818450ef2e420289ef2049eb5597" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1CompositeNode.html" class="m-doc">CompositeNode</a>&amp;&amp;) noexcept -&gt; CompositeNode &amp; -&gt; auto <span class="m-label m-flat m-danger">deleted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a903ae3a6ccf052a2542c90cac78ebbde">
+              <span class="m-doc-wrap-bumper">auto <a href="#a903ae3a6ccf052a2542c90cac78ebbde" class="m-doc-self">node_type</a>(</span><span class="m-doc-wrap">) const -&gt; std::string_view -&gt; auto <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a427c61f2449c0998a6a02bfa42b46359">
+              <span class="m-doc-wrap-bumper">auto <a href="#a427c61f2449c0998a6a02bfa42b46359" class="m-doc-self">evaluate</a>(</span><span class="m-doc-wrap">) -&gt; BehaviorTree::NodeStatus -&gt; auto <span class="m-label m-flat m-warning">override</span></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a29e9e1149389a5a642849a7e79fd9f6d">
+              <span class="m-doc-wrap-bumper">auto <a href="#a29e9e1149389a5a642849a7e79fd9f6d" class="m-doc-self">add_node</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1BehaviorTree_1_1Node.html" class="m-doc">BehaviorTree::<wbr />Node</a>&gt; node) -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a913a9bd2adf5bc117601052bdadf3728">
+              <span class="m-doc-wrap-bumper">auto <a href="#a913a9bd2adf5bc117601052bdadf3728" class="m-doc-self">num_nodes</a>(</span><span class="m-doc-wrap">) const -&gt; std::size_t -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8b803be7c9fdb57ba643d080f571ec8c">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8b803be7c9fdb57ba643d080f571ec8c" class="m-doc-self">get_node</a>(</span><span class="m-doc-wrap">std::size_t index) const -&gt; Node * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Enum documentation</h2>
+          <section class="m-doc-details" id="a16e74196c9db2eceb7597058d699c77f"><div>
+            <h3>
+              enum class yasf::<wbr />CompositeNode::<wbr /><a href="#a16e74196c9db2eceb7597058d699c77f" class="m-doc-self">CompositeNodeType</a>: std::uint8_t
+            </h3>
+            <p><span></span></p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#a16e74196c9db2eceb7597058d699c77fa696b031073e74bf2cb98e5ef201d4aa3" class="m-doc-self" id="a16e74196c9db2eceb7597058d699c77fa696b031073e74bf2cb98e5ef201d4aa3">UNKNOWN</a></td>
+                  <td>
+                  <p><span></span></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a16e74196c9db2eceb7597058d699c77fa2cb198a10d0a4c217ff4c15e98a97215" class="m-doc-self" id="a16e74196c9db2eceb7597058d699c77fa2cb198a10d0a4c217ff4c15e98a97215">SEQUENCE</a></td>
+                  <td>
+                  <p>AND.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a16e74196c9db2eceb7597058d699c77fa0306d365caace98e8f301b031565521b" class="m-doc-self" id="a16e74196c9db2eceb7597058d699c77fa0306d365caace98e8f301b031565521b">SELECTOR</a></td>
+                  <td>
+                  <p>OR.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>yasf. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.8 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

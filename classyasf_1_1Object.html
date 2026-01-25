@@ -169,7 +169,7 @@
             <dt>
               <span class="m-doc-wrap-bumper">auto <a href="#a77b9c193bf9b547acbc82e06a900be00" class="m-doc">add_child</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Object.html" class="m-doc">Object</a>&gt; child) -&gt; bool -&gt; auto</span>
             </dt>
-            <dd>Adds the child to this object. If child is null, this function returns false. If the child already has a parent, this function returns null.</dd>
+            <dd>Adds the child to this object. If child is null, this function returns false. If the child already has a parent, this function returns false.</dd>
             <dt id="ab6b6d04b3d74413dcedf5a246a045741">
               <div class="m-doc-template">template&lt;typename T, typename... Args&gt;</div>
               <span class="m-doc-wrap-bumper">auto <a href="#ab6b6d04b3d74413dcedf5a246a045741" class="m-doc-self">add_child</a>(</span><span class="m-doc-wrap">Args &amp;&amp; ... args) -&gt; bool -&gt; auto</span>
@@ -212,6 +212,10 @@
               <span class="m-doc-wrap-bumper">auto <a href="#a5161ae7b299b9429fe3886feede4d19f" class="m-doc-self">remove_child</a>(</span><span class="m-doc-wrap">std::string_view name) -&gt; bool -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
+            <dt id="a178b5f7961fe769a9f873909029677e0">
+              <span class="m-doc-wrap-bumper">auto <a href="#a178b5f7961fe769a9f873909029677e0" class="m-doc-self">remove_child</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1Uuid.html" class="m-doc">yasf::<wbr />Uuid</a>&amp; uuid) -&gt; bool -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
             <dt id="ab0c48b7d8500e52cb757b4471eb21884">
               <div class="m-doc-template">template&lt;typename T&gt;</div>
               <span class="m-doc-wrap-bumper">auto <a href="#ab0c48b7d8500e52cb757b4471eb21884" class="m-doc-self">remove_child</a>(</span><span class="m-doc-wrap">) -&gt; bool -&gt; auto</span>
@@ -248,8 +252,12 @@
               <span class="m-doc-wrap-bumper">auto <a href="#a71b07ce55c343cbdd0998c0046551c64" class="m-doc-self">accept</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp; visitor) -&gt; void -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a6ba82979d655ad158b3bcddfa06baa48">
-              <span class="m-doc-wrap-bumper">auto <a href="#a6ba82979d655ad158b3bcddfa06baa48" class="m-doc-self">accept</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ComponentVisitor.html" class="m-doc">ComponentVisitor</a>&amp; visitor) -&gt; void -&gt; auto</span>
+            <dt id="acbb14757fedd1512fbb73c5ecbbf35e3">
+              <span class="m-doc-wrap-bumper">auto <a href="#acbb14757fedd1512fbb73c5ecbbf35e3" class="m-doc-self">traverse</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp; visitor) const -&gt; void -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7deb6a522959a50480d31f87616b7551">
+              <span class="m-doc-wrap-bumper">auto <a href="#a7deb6a522959a50480d31f87616b7551" class="m-doc-self">ascend</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp; visitor) const -&gt; void -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
             <dt id="a9eec41024a27833fbac81acd10c20229">
@@ -270,7 +278,7 @@
             <h3>
               <span class="m-doc-wrap-bumper">auto yasf::<wbr />Object::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a77b9c193bf9b547acbc82e06a900be00" class="m-doc-self">add_child</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1Object.html" class="m-doc">Object</a>&gt; child) -&gt; bool</span></span>
             </h3>
-            <p>Adds the child to this object. If child is null, this function returns false. If the child already has a parent, this function returns null.</p>
+            <p>Adds the child to this object. If child is null, this function returns false. If the child already has a parent, this function returns false.</p>
             <table class="m-table m-fullwidth m-flat">
               <thead>
                 <tr><th colspan="2">Parameters</th></tr>

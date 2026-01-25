@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>yasf::ObjectVisitor class | yasf</title>
+  <title>yasf::BehaviorTree class | yasf</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -49,8 +49,8 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>ObjectVisitor <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="visitor_8hpp.html">&lt;yasf/visitor.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespaceyasf.html">yasf</a>::<wbr/></span>BehaviorTree <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="behavior__tree_8hpp.html">&lt;yasf/behavior_tree.hpp&gt;</a></div>
         </h1>
         <p><span></span></p>
         <nav class="m-block m-default">
@@ -59,6 +59,7 @@
             <li>
               Reference
               <ul>
+                <li><a href="#base-classes">Base classes</a></li>
                 <li><a href="#pub-types">Public types</a></li>
                 <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
                 <li><a href="#pub-methods">Public functions</a></li>
@@ -66,13 +67,27 @@
             </li>
           </ul>
         </nav>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a href="classyasf_1_1Component.html" class="m-doc">Component</a>
+            </dt>
+            <dd>Provides behaviors or capabilities to objects.</dd>
+          </dl>
+        </section>
         <section id="pub-types">
           <h2><a href="#pub-types">Public types</a></h2>
           <dl class="m-doc">
-            <dt id="ae647d7f175d43cffd660ce97a698a683">
-              <span class="m-doc-wrap-bumper">enum class <a href="#ae647d7f175d43cffd660ce97a698a683" class="m-doc-self">TraversalMode</a>: std::uint8_t { </span><span class="m-doc-wrap"><a href="#ae647d7f175d43cffd660ce97a698a683ab50339a10e1de285ac99d4c3990b8693" class="m-doc">NONE</a>,
-              <a href="#ae647d7f175d43cffd660ce97a698a683aee7d6c5c02b3c9932a2815ce48efd072" class="m-doc">PARENTS</a>,
-              <a href="#ae647d7f175d43cffd660ce97a698a683aa51d10e358bcd086d814edd75685c396" class="m-doc">CHILDREN</a> }</span>
+            <dt>
+              class <a href="classyasf_1_1BehaviorTree_1_1Node.html" class="m-doc">Node</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2c91350e02967906a23123d4750467e1">
+              <span class="m-doc-wrap-bumper">enum class <a href="#a2c91350e02967906a23123d4750467e1" class="m-doc-self">NodeStatus</a>: std::uint8_t { </span><span class="m-doc-wrap"><a href="#a2c91350e02967906a23123d4750467e1a696b031073e74bf2cb98e5ef201d4aa3" class="m-doc">UNKNOWN</a>,
+              <a href="#a2c91350e02967906a23123d4750467e1ad0749aaba8b833466dfcbb0428e4f89c" class="m-doc">SUCCESS</a>,
+              <a href="#a2c91350e02967906a23123d4750467e1a36fc6065a3e970bc3e6b2e59da52bf2a" class="m-doc">FAILURE</a>,
+              <a href="#a2c91350e02967906a23123d4750467e1a43491564ebcfd38568918efbd6e840fd" class="m-doc">RUNNING</a> }</span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -80,24 +95,20 @@
         <section id="typeless-methods">
           <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
           <dl class="m-doc">
-            <dt id="a003614466b4ab0cb7e0f6e1aa75e3e86">
-              <span class="m-doc-wrap-bumper"><a href="#a003614466b4ab0cb7e0f6e1aa75e3e86" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            <dt id="ae3ecd9f43472cad0c0107f4f615df2ec">
+              <span class="m-doc-wrap-bumper"><a href="#ae3ecd9f43472cad0c0107f4f615df2ec" class="m-doc-self">BehaviorTree</a>(</span><span class="m-doc-wrap">)</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a0b8ff0866c5c2f3c57ff32761b146d45">
-              <span class="m-doc-wrap-bumper"><a href="#a0b8ff0866c5c2f3c57ff32761b146d45" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap"><a href="#ae647d7f175d43cffd660ce97a698a683" class="m-doc">TraversalMode</a> traversal_mode) <span class="m-label m-flat m-info">explicit</span> </span>
+            <dt id="a02184122bab1b1c9d74c5358acac65de">
+              <span class="m-doc-wrap-bumper"><a href="#a02184122bab1b1c9d74c5358acac65de" class="m-doc-self">BehaviorTree</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1BehaviorTree.html" class="m-doc">BehaviorTree</a>&amp;) <span class="m-label m-flat m-danger">deleted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="aed4fea839e00e3e5df98f3dcae0fa9a9">
-              <span class="m-doc-wrap-bumper"><a href="#aed4fea839e00e3e5df98f3dcae0fa9a9" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;) <span class="m-label m-flat m-info">defaulted</span></span>
+            <dt id="ad8225460bce8f83529c6f9ecae69eda2">
+              <span class="m-doc-wrap-bumper"><a href="#ad8225460bce8f83529c6f9ecae69eda2" class="m-doc-self">BehaviorTree</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1BehaviorTree.html" class="m-doc">BehaviorTree</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a9652177a02dd544c1b9c966bec939143">
-              <span class="m-doc-wrap-bumper"><a href="#a9652177a02dd544c1b9c966bec939143" class="m-doc-self">ObjectVisitor</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;&amp;) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
-            </dt>
-            <dd><span></span></dd>
-            <dt id="adc8fbd0704e3def31007be618c726cde">
-              <span class="m-doc-wrap-bumper"><a href="#adc8fbd0704e3def31007be618c726cde" class="m-doc-self">~ObjectVisitor</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">virtual</span></span>
+            <dt id="afd84e16f487aaf222c0272fec270d265">
+              <span class="m-doc-wrap-bumper"><a href="#afd84e16f487aaf222c0272fec270d265" class="m-doc-self">~BehaviorTree</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-warning">override</span></span>
             </dt>
             <dd><span></span></dd>
           </dl>
@@ -105,20 +116,28 @@
         <section id="pub-methods">
           <h2><a href="#pub-methods">Public functions</a></h2>
           <dl class="m-doc">
-            <dt id="a5f481443070ccc04fe888b939113eeeb">
-              <span class="m-doc-wrap-bumper">auto <a href="#a5f481443070ccc04fe888b939113eeeb" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;) -&gt; ObjectVisitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span></span>
+            <dt id="a8454d82c6e46e9c082b9ba7c5e29a5ad">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8454d82c6e46e9c082b9ba7c5e29a5ad" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap">const <a href="classyasf_1_1BehaviorTree.html" class="m-doc">BehaviorTree</a>&amp;) -&gt; BehaviorTree &amp; -&gt; auto <span class="m-label m-flat m-danger">deleted</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a7b3fa487abb006aed3f04a41d355ffe9">
-              <span class="m-doc-wrap-bumper">auto <a href="#a7b3fa487abb006aed3f04a41d355ffe9" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1ObjectVisitor.html" class="m-doc">ObjectVisitor</a>&amp;&amp;) noexcept -&gt; ObjectVisitor &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
+            <dt id="adec119d819d695f966d303146b6e0ad5">
+              <span class="m-doc-wrap-bumper">auto <a href="#adec119d819d695f966d303146b6e0ad5" class="m-doc-self">operator=</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1BehaviorTree.html" class="m-doc">BehaviorTree</a>&amp;&amp;) noexcept -&gt; BehaviorTree &amp; -&gt; auto <span class="m-label m-flat m-info">defaulted</span> <span class="m-label m-flat m-success">noexcept</span></span>
             </dt>
             <dd><span></span></dd>
-            <dt id="a364487a2f4fedc0f8011345dff4f1782">
-              <span class="m-doc-wrap-bumper">auto <a href="#a364487a2f4fedc0f8011345dff4f1782" class="m-doc-self">traverse</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Object.html" class="m-doc">Object</a>&amp; obj) -&gt; void -&gt; auto</span>
+            <dt id="a17e6be35de1ded9e8715d3efdd9724b2">
+              <span class="m-doc-wrap-bumper">auto <a href="#a17e6be35de1ded9e8715d3efdd9724b2" class="m-doc-self">add_node</a>(</span><span class="m-doc-wrap">std::unique_ptr&lt;<a href="classyasf_1_1BehaviorTree_1_1Node.html" class="m-doc">Node</a>&gt; node) -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
-            <dt id="ab1fa82fc1745b6641f8c559c5c326ce7">
-              <span class="m-doc-wrap-bumper">auto <a href="#ab1fa82fc1745b6641f8c559c5c326ce7" class="m-doc-self">apply</a>(</span><span class="m-doc-wrap"><a href="classyasf_1_1Object.html" class="m-doc">Object</a>&amp; obj) -&gt; void -&gt; auto <span class="m-label m-flat m-warning">virtual</span></span>
+            <dt id="aea1a7d7bfdb66404077cce9bd3ec699d">
+              <span class="m-doc-wrap-bumper">auto <a href="#aea1a7d7bfdb66404077cce9bd3ec699d" class="m-doc-self">num_nodes</a>(</span><span class="m-doc-wrap">) const -&gt; std::size_t -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a40d2e2ddb8ff228e157fd497de10b5f3">
+              <span class="m-doc-wrap-bumper">auto <a href="#a40d2e2ddb8ff228e157fd497de10b5f3" class="m-doc-self">get_node</a>(</span><span class="m-doc-wrap">std::size_t index) const -&gt; Node * -&gt; auto</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8bd655d0c61d5a2afe446e789afe73e5">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8bd655d0c61d5a2afe446e789afe73e5" class="m-doc-self">evaluate</a>(</span><span class="m-doc-wrap">) -&gt; void -&gt; auto</span>
             </dt>
             <dd><span></span></dd>
           </dl>
