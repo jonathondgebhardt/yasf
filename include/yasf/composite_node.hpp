@@ -24,6 +24,13 @@ public:
     {
     }
 
+    CompositeNode() = delete;
+    CompositeNode(const CompositeNode&) = delete;
+    CompositeNode(CompositeNode&&) noexcept = delete;
+    ~CompositeNode() override = default;
+    auto operator=(const CompositeNode&) -> CompositeNode& = delete;
+    auto operator=(CompositeNode&&) noexcept -> CompositeNode& = delete;
+
     auto node_type() const -> std::string_view override
     {
         switch (m_type) {
