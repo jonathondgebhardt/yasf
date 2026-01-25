@@ -15,6 +15,13 @@ namespace yasf
 class YASF_EXPORT DecoratorNode : public BehaviorTree::Node
 {
 public:
+    DecoratorNode() = default;
+    DecoratorNode(const DecoratorNode&) = delete;
+    DecoratorNode(DecoratorNode&&) noexcept = delete;
+    ~DecoratorNode() override = default;
+    auto operator=(const DecoratorNode&) -> DecoratorNode& = delete;
+    auto operator=(DecoratorNode&&) noexcept -> DecoratorNode& = delete;
+
     auto node_type() const -> std::string_view override
     {
         return "decorator_node";
