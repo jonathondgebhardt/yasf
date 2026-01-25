@@ -11,7 +11,7 @@
 namespace yasf
 {
 
-class YASF_EXPORT Vec2d
+class Vec2d
 {
 public:
     using VecType = std::array<double, 2>;
@@ -192,7 +192,8 @@ public:
     }
 
 private:
-    YASF_SUPPRESS_C4251 VecType m_data{};
+    YASF_SUPPRESS_C4251
+    VecType m_data{};
 };
 
 }  // namespace yasf

@@ -11,7 +11,7 @@
 namespace yasf
 {
 
-class YASF_EXPORT Vec3d
+class Vec3d
 {
 public:
     using VecType = std::array<double, 3>;
