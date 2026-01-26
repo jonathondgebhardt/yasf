@@ -31,7 +31,7 @@ auto Simulation::update() -> void
     } else {
         // Not sure if running a simulation without any processors makes sense,
         // but i'll allow it.
-        yasf::log::warn("updating simulation without a processor service");
+        log::warn("updating simulation without a processor service");
     }
 
     m_clock->tick();
