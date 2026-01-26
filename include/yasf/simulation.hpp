@@ -22,9 +22,17 @@ public:
 
     auto get_clock() const -> Clock* { return m_clock.get(); }
 
+    auto random_seed() const -> std::size_t { return m_random_seed; }
+
+    auto set_random_seed(const std::size_t seed) -> void
+    {
+        m_random_seed = seed;
+    }
+
 private:
     YASF_SUPPRESS_C4251
     std::unique_ptr<Clock> m_clock;
+    std::size_t m_random_seed{};
 };
 
 }  // namespace yasf

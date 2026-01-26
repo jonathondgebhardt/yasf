@@ -1,4 +1,5 @@
 #include <memory>
+#include <random>
 #include <utility>
 
 #include "yasf/simulation.hpp"
@@ -15,6 +16,7 @@ namespace yasf
 Simulation::Simulation(std::unique_ptr<Clock> clock)
     : Object("simulation")
     , m_clock(std::move(clock))
+    , m_random_seed(std::random_device()())
 {
 }
 
