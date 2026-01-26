@@ -15,6 +15,7 @@ endif()
 
 add_executable(
   behavior_tree
+  source/behavior_tree_drawable.cpp
   source/main.cpp
   source/node_drawable.cpp
 )
