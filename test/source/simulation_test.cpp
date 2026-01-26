@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <memory>
 
 #include "yasf/simulation.hpp"
@@ -24,13 +25,13 @@ struct TimeCacheProcessor : public yasf::Processor
     yasf::time::Microseconds m_update_time{};
 };
 
-TEST_CASE("simulation: name is simulation", "[simulation]")
+TEST_CASE("simulation: name is simulation", "[library][simulation]")
 {
     auto const sim = yasf::Simulation{std::make_unique<yasf::Clock>()};
     CHECK(sim.name() == "simulation");
 }
 
-TEST_CASE("simulation: zero frame", "[simulation]")
+TEST_CASE("simulation: zero frame", "[library][simulation]")
 {
     constexpr auto delta_time = yasf::time::Seconds{1.0};
     auto sim =
@@ -49,7 +50,7 @@ TEST_CASE("simulation: zero frame", "[simulation]")
     CHECK(proc->m_update_time == yasf::time::Microseconds{0});
 }
 
-TEST_CASE("simulation: update advances sim time", "[simulation]")
+TEST_CASE("simulation: update advances sim time", "[library][simulation]")
 {
     constexpr auto delta_time = yasf::time::Seconds{1.0};
     auto sim =
@@ -68,7 +69,7 @@ TEST_CASE("simulation: update advances sim time", "[simulation]")
 
 // NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("simulation: update advances sim time with processors",
-          "[simulation]")
+          "[library][simulation]")
 {
     struct ConcreteProcessor : public yasf::Processor
     {
@@ -97,3 +98,24 @@ TEST_CASE("simulation: update advances sim time with processors",
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)
+
+TEST_CASE("simulation: random seed", "[library][simulation]")
+{
+    constexpr auto delta_time = yasf::time::Seconds{1.0};
+    auto sim =
+        yasf::Simulation{yasf::ClockFactory::build_fixed_update(delta_time)};
+
+    SECTION("uniqueness")
+    {
+        auto other_sim = yasf::Simulation{
+            yasf::ClockFactory::build_fixed_update(delta_time)};
+        CHECK(sim.random_seed() != other_sim.random_seed());
+    }
+
+    SECTION("setter")
+    {
+        constexpr auto seed = std::size_t{12345};
+        sim.set_random_seed(seed);
+        CHECK(sim.random_seed() == seed);
+    }
+}
