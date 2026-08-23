@@ -1,4 +1,4 @@
-#include "yasf/decorator_node.hpp"
+#include "yasf/behavior_tree/decorator_node.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 

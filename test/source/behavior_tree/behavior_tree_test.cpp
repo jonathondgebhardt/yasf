@@ -1,7 +1,7 @@
 #include <cstddef>
 #include <memory>
 
-#include "yasf/behavior_tree.hpp"
+#include "yasf/behavior_tree/behavior_tree.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 

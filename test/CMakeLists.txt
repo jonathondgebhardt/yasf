@@ -8,8 +8,8 @@ include(../cmake/folders.cmake)
 # ---- Dependencies ----
 
 if(PROJECT_IS_TOP_LEVEL)
-  find_package(yasf REQUIRED)
-  enable_testing()
+	find_package(yasf REQUIRED)
+	enable_testing()
 endif()
 
 find_package(Catch2 REQUIRED)
@@ -19,13 +19,10 @@ include(Catch)
 
 add_executable(
 	yasf_test
-	source/behavior_tree_test.cpp
 	source/clock_factory_test.cpp
 	source/clock_test.cpp
 	source/component_test.cpp
-	source/composite_node_test.cpp
 	source/convert_test.cpp
-	source/decorator_node_test.cpp
 	source/ensure_test.cpp
 	source/entity_factory_test.cpp
 	source/entity_service_test.cpp
@@ -37,7 +34,6 @@ add_executable(
 	source/event_test.cpp
 	source/external_time_updater_test.cpp
 	source/fixed_time_updater_test.cpp
-	source/leaf_node_test.cpp
 	source/mover_test.cpp
 	source/object_factory_test.cpp
 	source/object_test.cpp
@@ -52,14 +48,25 @@ add_executable(
 	source/visitor_test.cpp
 )
 target_link_libraries(
-    yasf_test PRIVATE
-    yasf::yasf
-    Catch2::Catch2WithMain
-    spdlog::spdlog
+				yasf_test PRIVATE
+				yasf::yasf
+				Catch2::Catch2WithMain
+				spdlog::spdlog
 )
 target_compile_features(yasf_test PRIVATE cxx_std_23)
 
 catch_discover_tests(yasf_test)
+
+yasf_add_test(behavior_tree
+	SOURCES
+	source/behavior_tree/behavior_tree_test.cpp
+	source/behavior_tree/composite_node_test.cpp
+	source/behavior_tree/decorator_node_test.cpp
+	source/behavior_tree/leaf_node_test.cpp
+	LINKS
+	yasf::yasf
+	yasf::behavior_tree
+)
 
 # ---- End-of-file commands ----
 
