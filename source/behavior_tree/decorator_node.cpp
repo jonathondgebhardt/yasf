@@ -3,9 +3,9 @@
 #include <utility>
 #include <vector>
 
-#include "yasf/decorator_node.hpp"
+#include "yasf/behavior_tree/decorator_node.hpp"
 
-#include "yasf/behavior_tree.hpp"
+#include "yasf/behavior_tree/behavior_tree.hpp"
 
 namespace yasf
 {

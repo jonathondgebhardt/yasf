@@ -1,10 +1,11 @@
 #pragma once
 
 #include <memory>
+#include <string_view>
 #include <vector>
 
-#include "yasf/behavior_tree.hpp"
-#include "yasf/yasf_export.hpp"
+#include "yasf/behavior_tree/behavior_tree.hpp"
+#include "yasf/behavior_tree/yasf_behavior_tree_export.hpp"
 
 namespace yasf
 {
@@ -12,7 +13,7 @@ namespace yasf
 // transform the result they receive from their child node's status, to
 // terminate the child, or repeat processing of the child, depending on the type
 // of decorator node
-class YASF_EXPORT DecoratorNode : public BehaviorTree::Node
+class YASF_BEHAVIOR_TREE_EXPORT DecoratorNode : public BehaviorTree::Node
 {
 public:
     DecoratorNode() = default;

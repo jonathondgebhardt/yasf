@@ -3,9 +3,9 @@
 #include <memory>
 #include <utility>
 
-#include "yasf/composite_node.hpp"
+#include "yasf/behavior_tree/composite_node.hpp"
 
-#include "yasf/behavior_tree.hpp"
+#include "yasf/behavior_tree/behavior_tree.hpp"
 #include "yasf/logger.hpp"
 
 namespace yasf

@@ -6,14 +6,14 @@
 #include <utility>
 #include <vector>
 
+#include "yasf/behavior_tree/yasf_behavior_tree_export.hpp"
 #include "yasf/component.hpp"
-#include "yasf/yasf_export.hpp"
 
 namespace yasf
 {
 
 // https://www.gamedeveloper.com/programming/behavior-trees-for-ai-how-they-work
-class YASF_EXPORT BehaviorTree : public Component
+class YASF_BEHAVIOR_TREE_EXPORT BehaviorTree : public Component
 {
 public:
     enum class NodeStatus : std::uint8_t

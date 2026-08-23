@@ -3,13 +3,13 @@
 #include <memory>
 #include <vector>
 
-#include "yasf/behavior_tree.hpp"
-#include "yasf/yasf_export.hpp"
+#include "yasf/behavior_tree/behavior_tree.hpp"
+#include "yasf/behavior_tree/yasf_behavior_tree_export.hpp"
 
 namespace yasf
 {
 
-class YASF_EXPORT CompositeNode : public BehaviorTree::Node
+class YASF_BEHAVIOR_TREE_EXPORT CompositeNode : public BehaviorTree::Node
 {
 public:
     enum class CompositeNodeType : std::uint8_t

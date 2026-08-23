@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cstddef>
 
-#include "yasf/behavior_tree.hpp"
+#include "yasf/behavior_tree/behavior_tree.hpp"
 
 #include "yasf/component.hpp"
 
