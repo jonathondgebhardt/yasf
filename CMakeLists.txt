@@ -71,51 +71,6 @@ target_include_directories(
 
 target_compile_features(yasf_yasf PUBLIC cxx_std_23)
 
-# add_library(
-# 	yasf_behavior_tree
-# 	source/behavior_tree/behavior_tree.cpp
-# 	source/behavior_tree/composite_node.cpp
-# 	source/behavior_tree/decorator_node.cpp
-# 	source/behavior_tree/leaf_node.cpp
-# )
-# add_library(yasf::behavior_tree ALIAS yasf_behavior_tree)
-#
-# include(GenerateExportHeader)
-# generate_export_header(
-# 	yasf_behavior_tree
-# 	BASE_NAME yasf_behavior_tree
-# 	EXPORT_FILE_NAME export/yasf/behavior_tree/yasf_behavior_tree_export.hpp
-# 	CUSTOM_CONTENT_FROM_VARIABLE pragma_suppress_c4251
-# )
-#
-# if(NOT BUILD_SHARED_LIBS)
-# 	target_compile_definitions(yasf_behavior_tree PUBLIC YASF_STATIC_DEFINE)
-# endif()
-#
-# set_target_properties(
-# 	yasf_behavior_tree PROPERTIES
-# 	CXX_VISIBILITY_PRESET hidden
-# 	VISIBILITY_INLINES_HIDDEN YES
-# 	VERSION "${PROJECT_VERSION}"
-# 	SOVERSION "${PROJECT_VERSION_MAJOR}"
-# 	EXPORT_NAME yasf
-# 	OUTPUT_NAME yasf
-# )
-#
-# target_include_directories(
-# 	yasf_behavior_tree ${warning_guard}
-# 	PUBLIC
-# 	"\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
-# )
-#
-# target_include_directories(
-# 	yasf_behavior_tree SYSTEM
-# 	PUBLIC
-# 	"\$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/export>"
-# )
-#
-# target_compile_features(yasf_behavior_tree PUBLIC cxx_std_23)
-
 find_package(Boost REQUIRED CONFIG COMPONENTS uuid)
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(yasf_yasf PRIVATE Boost::uuid spdlog::spdlog)
@@ -130,8 +85,6 @@ yasf_add_library(behavior_tree
 	LINKS
 	yasf_yasf Boost::uuid
 )
-
-# target_link_libraries(yasf_behavior_tree PRIVATE yasf_yasf Boost::uuid)
 
 # ---- Install rules ----
 
