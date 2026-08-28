@@ -8,8 +8,8 @@ function(yasf_add_library LIB_NAME)
 	include(GenerateExportHeader)
 	generate_export_header(
 		yasf_${LIB_NAME}
-		BASE_NAME ${LIB_NAME}
-		EXPORT_FILE_NAME export/yasf/${LIB_NAME}/${LIB_NAME}_export.hpp
+		BASE_NAME yasf_${LIB_NAME}
+		EXPORT_FILE_NAME export/yasf/${LIB_NAME}/yasf_${LIB_NAME}_export.hpp
 		CUSTOM_CONTENT_FROM_VARIABLE pragma_suppress_c4251
 	)
 
